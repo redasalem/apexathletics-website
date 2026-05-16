@@ -7,8 +7,20 @@ interface ExtendedAxiosError<T = unknown> extends AxiosError<T> {
 
 const normalizeApiUrl = (url: string) => url.replace(/\/+$/, '');
 
+const baseURL = process.env.NEXT_PUBLIC_API_URL || '/api';
+const pendingControllers = new Map<symbol, AbortController>();
+
+const cancelPendingRequests = () => {
+  pendingControllers.forEach((controller) => {
+    if (!controller.signal.aborted) {
+      controller.abort();
+    }
+  });
+  pendingControllers.clear();
+};
+
 const api = axios.create({
-  baseURL: normalizeApiUrl(process.env.NEXT_PUBLIC_API_URL || 'https://apexathletics-apis.vercel.app/api'),
+  baseURL: normalizeApiUrl(baseURL),
   headers: {
     'Content-Type': 'application/json',
   },
@@ -17,9 +29,29 @@ const api = axios.create({
   timeout: 30000,
 });
 
+api.interceptors.request.use((config) => {
+  const controller = new AbortController();
+  const requestId = Symbol();
+  (config as any).requestId = requestId;
+  config.signal = controller.signal;
+  pendingControllers.set(requestId, controller);
+  return config;
+});
+
+const removePendingRequest = (config?: any) => {
+  const requestId: symbol | undefined = config?.requestId;
+  if (requestId) {
+    pendingControllers.delete(requestId);
+  }
+};
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    removePendingRequest(response.config as any);
+    return response;
+  },
   async (error: AxiosError<{ message?: string }>) => {
+    removePendingRequest(error.config as any);
+
     // Preserve original message, but expose a user-friendly message separately
     const extendedError = error as ExtendedAxiosError<{ message?: string }>;
     const originalMessage = extendedError.message;
@@ -31,11 +63,13 @@ api.interceptors.response.use(
       (extendedError.code === 'ECONNABORTED' ? 'The request timed out. Please check your connection and try again.' : undefined) ||
       undefined;
 
-    // Broadcast unauthorized events to allow listeners (e.g., auth layer) to react
     if (typeof window !== 'undefined' && extendedError.response?.status === 401) {
+      // TODO: [SECURITY] For better UX, implement refresh-token rotation with HTTP-only cookies and Redis blacklisting in the future.
+      cancelPendingRequests();
       try { window.dispatchEvent(new CustomEvent('auth:unauthorized')); } catch {
         /* ignore */
       }
+      window.location.href = '/login';
     }
 
     // Keep original error intact for logging and debugging
