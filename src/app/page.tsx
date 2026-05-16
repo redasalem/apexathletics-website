@@ -49,21 +49,21 @@ export default async function Home() {
             <Star className="w-3.5 h-3.5" />
             New Season Gear Has Arrived
           </div>
-          <h1 className="text-6xl md:text-8xl font-black mb-6 leading-[0.9] tracking-tighter uppercase italic">
-            Gear Up. <br />
-            <span className="text-primary-500">Perform Better.</span>
-          </h1>
+<h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-4 sm:mb-6 leading-[0.9] tracking-tighter uppercase italic">
+             Gear Up. <br />
+             <span className="text-primary-500">Perform Better.</span>
+           </h1>
           <p className="max-w-xl mx-auto text-textMuted text-lg md:text-xl mb-10">
             Shop thousands of products from verified vendors — athletic shoes, pro equipment, and performance apparel all in one place.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-             <Link href="/shop" className="w-full sm:w-auto bg-primary-500 hover:bg-primary-600 px-10 py-4 rounded-xl font-black uppercase italic tracking-widest transition-all shadow-xl shadow-primary-500/30 hover:shadow-primary-500/50">
-                Shop Now
-             </Link>
-             <Link href="/register" className="w-full sm:w-auto border border-white/15 hover:bg-white/5 hover:border-white/30 px-10 py-4 rounded-xl font-black uppercase italic tracking-widest transition-all backdrop-blur-sm">
-                Create Account
-             </Link>
-          </div>
+<div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+               <Link href="/shop" className="w-full sm:w-auto bg-primary-500 hover:bg-primary-600 px-8 sm:px-10 py-4 sm:py-[1.125rem] rounded-xl font-black uppercase italic tracking-widest transition-all shadow-xl shadow-primary-500/30 hover:shadow-primary-500/50 min-h-[44px]">
+                 Shop Now
+              </Link>
+              <Link href="/register" className="w-full sm:w-auto border border-white/15 hover:bg-white/5 hover:border-white/30 px-8 sm:px-10 py-4 sm:py-[1.125rem] rounded-xl font-black uppercase italic tracking-widest transition-all backdrop-blur-sm min-h-[44px]">
+                 Create Account
+              </Link>
+           </div>
           <p className="mt-6 text-xs text-textMuted/60 uppercase tracking-widest">Trusted by 10,000+ athletes worldwide</p>
         </div>
         
