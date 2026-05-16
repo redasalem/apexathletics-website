@@ -38,5 +38,6 @@ jobs:
       - name: Production build verification
         run: pnpm build
         env:
-          NEXT_PUBLIC_API_URL: https://api.yourdomain.com/api
+          NEXT_PUBLIC_API_URL: https://apexathletics-apis.vercel.app/api
+          NEXT_PUBLIC_SITE_URL: https://apexathletics.vercel.app
           NEXT_PUBLIC_STRIPE_PUBLIC_KEY: pk_test_mock
