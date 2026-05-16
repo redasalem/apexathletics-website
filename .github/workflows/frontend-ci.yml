@@ -1,0 +1,42 @@
+name: Frontend CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  frontend-checks:
+    name: TypeScript, Lint & Build Verification
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: TypeScript strict check
+        run: pnpm exec tsc --noEmit
+
+      - name: Lint check
+        run: pnpm lint
+
+      - name: Production build verification
+        run: pnpm build
+        env:
+          NEXT_PUBLIC_API_URL: https://api.yourdomain.com/api
+          NEXT_PUBLIC_STRIPE_PUBLIC_KEY: pk_test_mock
