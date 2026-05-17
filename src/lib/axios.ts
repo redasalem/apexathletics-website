@@ -1,8 +1,12 @@
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 interface ExtendedAxiosError<T = unknown> extends AxiosError<T> {
   friendlyMessage?: string;
   originalMessage?: string;
+}
+
+interface RequestConfigWithId extends InternalAxiosRequestConfig {
+  requestId?: symbol;
 }
 
 const normalizeApiUrl = (url: string) => url.replace(/\/+$/, '');
@@ -25,32 +29,31 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
   withCredentials: true,
-  // Increased default request timeout to reduce unexpected aborts on slower networks
   timeout: 30000,
 });
 
-api.interceptors.request.use((config) => {
+api.interceptors.request.use((config: RequestConfigWithId) => {
   const controller = new AbortController();
   const requestId = Symbol();
-  (config as any).requestId = requestId;
+  config.requestId = requestId;
   config.signal = controller.signal;
   pendingControllers.set(requestId, controller);
   return config;
 });
 
-const removePendingRequest = (config?: any) => {
-  const requestId: symbol | undefined = config?.requestId;
+const removePendingRequest = (config?: RequestConfigWithId) => {
+  const requestId = config?.requestId;
   if (requestId) {
     pendingControllers.delete(requestId);
   }
 };
 api.interceptors.response.use(
   (response) => {
-    removePendingRequest(response.config as any);
+    removePendingRequest(response.config as RequestConfigWithId);
     return response;
   },
   async (error: AxiosError<{ message?: string }>) => {
-    removePendingRequest(error.config as any);
+    removePendingRequest(error.config as RequestConfigWithId | undefined);
 
     // Preserve original message, but expose a user-friendly message separately
     const extendedError = error as ExtendedAxiosError<{ message?: string }>;
