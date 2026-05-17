@@ -145,7 +145,7 @@ export default function CartPage() {
               
               <div className="mt-6 flex space-x-2">
                 <input type="text" placeholder="Promo code" className="input-field flex-1" />
-                <button className="btn-secondary whitespace-nowrap">Apply</button>
+                <button type="button" onClick={() => toast('Promo codes can be applied at checkout!', { icon: '💡' })} className="btn-secondary whitespace-nowrap">Apply</button>
               </div>
 
               <div className="mt-6">
