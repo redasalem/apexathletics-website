@@ -105,7 +105,7 @@ export default function VendorSettings() {
             <button
             type="submit"
             disabled={updateProfile.isPending}
-            className="flex items-center gap-2 bg-primary-500 text-white px-6 py-3 rounded-xl font-bold hover:bg-primary-600 disabled:opacity-50 transition-all active:scale-95"
+            className="btn-primary px-6 py-3 gap-2"
           >
             {updateProfile.isPending ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
             {updateProfile.isPending ? 'Saving...' : 'Save Settings'}

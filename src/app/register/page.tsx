@@ -113,7 +113,7 @@ export default function RegisterPage() {
                 <input
                   {...register('name')}
                   type="text"
-                  className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                   placeholder="John Doe"
                 />
                 {errors.name && <p className="mt-1 text-sm text-error">{errors.name.message}</p>}
@@ -126,7 +126,7 @@ export default function RegisterPage() {
                 <input
                   {...register('email')}
                   type="email"
-                  className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                   placeholder="you@example.com"
                 />
                 {errors.email && <p className="mt-1 text-sm text-error">{errors.email.message}</p>}
@@ -139,7 +139,7 @@ export default function RegisterPage() {
                 <input
                   {...register('password')}
                   type="password"
-                  className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                   placeholder="••••••••"
                 />
                 {errors.password && <p className="mt-1 text-sm text-error">{errors.password.message}</p>}
@@ -154,7 +154,7 @@ export default function RegisterPage() {
                     <input
                       {...register('storeName')}
                       type="text"
-                      className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                      className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                       placeholder="My Awesome Store"
                     />
                     {errors.storeName && <p className="mt-1 text-sm text-error">{errors.storeName.message}</p>}
@@ -166,7 +166,7 @@ export default function RegisterPage() {
                   <div className="mt-2">
                     <textarea
                       {...register('storeDescription')}
-                      className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                      className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                       placeholder="Tell us about your products..."
                       rows={3}
                     />

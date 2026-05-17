@@ -89,15 +89,15 @@ export default function CartPage() {
                         <button 
                           onClick={() => handleUpdateQuantity(item._id, item.quantity, -1)}
                           disabled={updateCartItem.isPending || item.quantity <= 1}
-                          className="p-2 text-textMuted hover:text-white disabled:opacity-50"
+                          className="p-2 sm:p-3 text-textMuted hover:text-white disabled:opacity-50 min-h-[44px] min-w-[44px] flex items-center justify-center"
                         >
                           <Minus className="w-4 h-4" />
                         </button>
-                        <span className="px-4 text-white">{item.quantity}</span>
+                        <span className="px-4 text-white min-w-[2rem] text-center">{item.quantity}</span>
                         <button 
                           onClick={() => handleUpdateQuantity(item._id, item.quantity, 1)}
                           disabled={updateCartItem.isPending}
-                          className="p-2 text-textMuted hover:text-white disabled:opacity-50"
+                          className="p-2 sm:p-3 text-textMuted hover:text-white disabled:opacity-50 min-h-[44px] min-w-[44px] flex items-center justify-center"
                         >
                           <Plus className="w-4 h-4" />
                         </button>

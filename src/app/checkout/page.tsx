@@ -157,7 +157,7 @@ export default function CheckoutPage() {
               {form.formState.errors.shippingAddress?.street && <p className="text-error text-xs mt-1">{form.formState.errors.shippingAddress.street.message}</p>}
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label className="label">City</label>
                 <input {...form.register('shippingAddress.city')} className="input-field" placeholder="New York" />

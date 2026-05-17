@@ -90,7 +90,7 @@ function LoginContent() {
                 <input
                   {...register('email')}
                   type="email"
-                  className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                   placeholder="you@example.com"
                 />
                 {errors.email && <p className="mt-1 text-sm text-error">{errors.email.message}</p>}
@@ -103,7 +103,7 @@ function LoginContent() {
                 <input
                   {...register('password')}
                   type="password"
-                  className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                   placeholder="••••••••"
                 />
                 {errors.password && <p className="mt-1 text-sm text-error">{errors.password.message}</p>}

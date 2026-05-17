@@ -91,7 +91,7 @@ function ResetPasswordContent() {
                 <input
                   {...register('password')}
                   type="password"
-                  className="mt-2 w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  className="mt-2 w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                   placeholder="Enter a strong password"
                 />
                 {errors.password && <p className="mt-1 text-sm text-error">{errors.password.message}</p>}
@@ -102,7 +102,7 @@ function ResetPasswordContent() {
                 <input
                   {...register('confirmPassword')}
                   type="password"
-                  className="mt-2 w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  className="mt-2 w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                   placeholder="Repeat your password"
                 />
                 {errors.confirmPassword && <p className="mt-1 text-sm text-error">{errors.confirmPassword.message}</p>}
