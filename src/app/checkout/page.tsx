@@ -73,11 +73,11 @@ export default function CheckoutPage() {
   }
 
   const subtotal = items.reduce((acc, item) => acc + (item.priceSnapshot * item.quantity), 0);
-  const discountAmount = appliedPromo ? subtotal * (appliedPromo.discountPercentage / 100) : 0;
+  const discountAmount = appliedPromo ? Math.round(subtotal * (appliedPromo.discountPercentage / 100) * 100) / 100 : 0;
   const discountedSubtotal = subtotal - discountAmount;
-  const tax = discountedSubtotal * 0.08;
+  const tax = Math.round(discountedSubtotal * 0.08 * 100) / 100;
   const shippingCost = 15.00;
-  const totalAmount = discountedSubtotal + tax + shippingCost;
+  const totalAmount = Math.round((discountedSubtotal + tax + shippingCost) * 100) / 100;
 
   const onSubmit = async (data: CheckoutFormData) => {
     try {
@@ -297,10 +297,10 @@ export default function CheckoutPage() {
 
             <button 
               type="submit" 
-              disabled={form.formState.isSubmitting || createOrder.isPending}
+              disabled={form.formState.isSubmitting || createOrder.isPending || checkoutSession.isPending}
               className="btn-primary w-full mt-6 py-4 text-lg shadow-[0_0_15px_rgba(214,0,0,0.3)] hover:shadow-[0_0_25px_rgba(214,0,0,0.5)] transition-shadow"
             >
-              {createOrder.isPending ? <Loader2 className="w-6 h-6 animate-spin mx-auto" /> : `Pay $${totalAmount.toFixed(2)}`}
+              {(createOrder.isPending || checkoutSession.isPending) ? <Loader2 className="w-6 h-6 animate-spin mx-auto" /> : `Pay $${totalAmount.toFixed(2)}`}
             </button>
             <p className="text-xs text-center text-textMuted mt-4">
               By placing your order, you agree to our Terms of Sale and Privacy Policy.

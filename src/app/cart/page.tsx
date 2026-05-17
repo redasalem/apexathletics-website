@@ -42,8 +42,8 @@ export default function CartPage() {
 
   const items = cart?.items || [];
   const subtotal = items.reduce((acc, item) => acc + (item.priceSnapshot * item.quantity), 0);
-  const tax = subtotal * 0.08; // 8% placeholder tax
-  const total = subtotal + tax;
+  const tax = Math.round(subtotal * 0.08 * 100) / 100; // 8% placeholder tax
+  const total = Math.round((subtotal + tax) * 100) / 100;
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
