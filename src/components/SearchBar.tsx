@@ -18,7 +18,7 @@ export default function SearchBar() {
   return (
     <form 
       onSubmit={handleSubmit}
-      className="relative hidden md:flex items-center w-full max-w-sm group"
+      className="relative flex items-center w-full max-w-sm group"
     >
       <div className="absolute left-3 text-textMuted group-focus-within:text-primary-500 transition-colors">
         <Search className="w-4 h-4" />
@@ -34,7 +34,8 @@ export default function SearchBar() {
         <button 
           type="button"
           onClick={() => setQuery('')}
-          className="absolute right-3 text-textMuted hover:text-white"
+          className="absolute right-3 text-textMuted hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center"
+          aria-label="Clear search"
         >
           <X className="w-3 h-3" />
         </button>

@@ -125,7 +125,7 @@ export default function CheckoutPage() {
           <div className="bg-surface p-8 border border-border rounded-xl space-y-6">
             <h2 className="text-xl font-semibold text-white">Shipping Information</h2>
             
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="label">First Name</label>
                 <input {...form.register('firstName')} className="input-field" placeholder="John" />
@@ -138,7 +138,7 @@ export default function CheckoutPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="label">Email Address</label>
                 <input type="email" {...form.register('email')} className="input-field" placeholder="john@example.com" />

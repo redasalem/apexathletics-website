@@ -62,42 +62,42 @@ export default function AccountProfilePage() {
         <form onSubmit={handleSubmit} className="bg-background border border-border p-6 rounded-xl space-y-6">
           <div className="space-y-4 max-w-lg">
             <div>
-              <label className="block text-xs font-bold text-textMuted uppercase tracking-wider mb-2">Avatar URL (Optional)</label>
+              <label className="label">Avatar URL (Optional)</label>
               <input
                 type="text"
                 value={formData.avatar}
                 onChange={(e) => setFormData({ ...formData, avatar: e.target.value })}
-                className="w-full bg-surface border border-border rounded-lg px-4 py-3 text-white focus:border-primary-500 focus:outline-none"
+                className="input-field"
                 placeholder="https://example.com/avatar.jpg"
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-textMuted uppercase tracking-wider mb-2">Full Name</label>
+              <label className="label">Full Name</label>
               <input
                 type="text"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full bg-surface border border-border rounded-lg px-4 py-3 text-white focus:border-primary-500 focus:outline-none"
+                className="input-field"
                 required
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-textMuted uppercase tracking-wider mb-2">Email Address</label>
+              <label className="label">Email Address</label>
               <input
                 type="email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full bg-surface border border-border rounded-lg px-4 py-3 text-white focus:border-primary-500 focus:outline-none"
+                className="input-field"
                 required
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-textMuted uppercase tracking-wider mb-2">New Password (Optional)</label>
+              <label className="label">New Password (Optional)</label>
               <input
                 type="password"
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                className="w-full bg-surface border border-border rounded-lg px-4 py-3 text-white focus:border-primary-500 focus:outline-none"
+                className="input-field"
                 placeholder="Leave blank to keep unchanged"
               />
             </div>

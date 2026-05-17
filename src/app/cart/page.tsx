@@ -107,9 +107,10 @@ export default function CartPage() {
                         type="button" 
                         onClick={() => handleRemoveItem(item._id)}
                         disabled={removeCartItem.isPending}
-                        className="font-medium text-error hover:text-error/80 flex items-center"
+                        aria-label={`Remove ${item.productId?.title || 'item'} from cart`}
+                        className="font-medium text-error hover:text-error/80 flex items-center min-h-[44px] min-w-[44px] px-2"
                       >
-                        <Trash2 className="w-4 h-4 mr-1" /> Remove
+                        <Trash2 className="w-4 h-4 mr-1" /> <span className="sm:inline">Remove</span>
                       </button>
                     </div>
                   </div>
