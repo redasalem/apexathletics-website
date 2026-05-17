@@ -161,12 +161,12 @@ export default async function Home() {
               <p className="text-sm text-textMuted max-w-xs">The #1 multi-vendor marketplace for sports equipment, fitness tools, and outdoor gear.</p>
             </div>
             <div className="grid grid-cols-2 gap-x-16 gap-y-3 text-sm">
-              <a href="#" className="text-textMuted hover:text-primary-500 transition-colors">Privacy Policy</a>
-              <a href="#" className="text-textMuted hover:text-primary-500 transition-colors">Vendor Support</a>
-              <a href="#" className="text-textMuted hover:text-primary-500 transition-colors">Terms of Service</a>
-              <a href="#" className="text-textMuted hover:text-primary-500 transition-colors">Help Center</a>
-              <a href="/register" className="text-textMuted hover:text-primary-500 transition-colors">Start Selling</a>
-              <a href="/register" className="text-textMuted hover:text-primary-500 transition-colors">Create Account</a>
+              <Link href="/" title="Coming Soon" className="text-textMuted hover:text-primary-500 transition-colors">Privacy Policy</Link>
+              <Link href="/" title="Coming Soon" className="text-textMuted hover:text-primary-500 transition-colors">Vendor Support</Link>
+              <Link href="/" title="Coming Soon" className="text-textMuted hover:text-primary-500 transition-colors">Terms of Service</Link>
+              <Link href="/" title="Coming Soon" className="text-textMuted hover:text-primary-500 transition-colors">Help Center</Link>
+              <Link href="/register" className="text-textMuted hover:text-primary-500 transition-colors">Start Selling</Link>
+              <Link href="/register" className="text-textMuted hover:text-primary-500 transition-colors">Create Account</Link>
             </div>
           </div>
           <div className="border-t border-white/5 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">

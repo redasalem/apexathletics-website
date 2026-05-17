@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { AlertTriangle } from 'lucide-react';
 
 export default function GlobalError({
@@ -22,9 +23,9 @@ export default function GlobalError({
           >
             Try Again
           </button>
-          <a href="/" className="text-textMuted hover:text-white transition-colors uppercase tracking-widest font-bold">
+          <Link href="/" className="text-textMuted hover:text-white transition-colors uppercase tracking-widest font-bold">
             Go Home
-          </a>
+          </Link>
         </div>
       </body>
     </html>
