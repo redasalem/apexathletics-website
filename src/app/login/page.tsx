@@ -82,28 +82,32 @@ function LoginContent() {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-surface border border-border py-8 px-4 shadow rounded-2xl sm:px-10">
+        <div className="bg-surface border border-border py-8 px-4 shadow sm:rounded-2xl sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <div>
-              <label className="label">Email address</label>
-              <input
-                {...register('email')}
-                type="email"
-                className="input-field"
-                placeholder="you@example.com"
-              />
-              {errors.email && <p className="text-error text-xs mt-1">{errors.email.message}</p>}
+              <label className="block text-sm font-medium text-white">Email address</label>
+              <div className="mt-2">
+                <input
+                  {...register('email')}
+                  type="email"
+                  className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  placeholder="you@example.com"
+                />
+                {errors.email && <p className="mt-1 text-sm text-error">{errors.email.message}</p>}
+              </div>
             </div>
 
             <div>
-              <label className="label">Password</label>
-              <input
-                {...register('password')}
-                type="password"
-                className="input-field"
-                placeholder="••••••••"
-              />
-              {errors.password && <p className="text-error text-xs mt-1">{errors.password.message}</p>}
+              <label className="block text-sm font-medium text-white">Password</label>
+              <div className="mt-2">
+                <input
+                  {...register('password')}
+                  type="password"
+                  className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  placeholder="••••••••"
+                />
+                {errors.password && <p className="mt-1 text-sm text-error">{errors.password.message}</p>}
+              </div>
             </div>
 
             <div className="flex items-center justify-end">
@@ -117,7 +121,7 @@ function LoginContent() {
             <button
               type="submit"
               disabled={loginMutation.isPending}
-              className="btn-primary w-full flex justify-center items-center py-3 text-sm"
+              className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-primary-500 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all disabled:opacity-50"
             >
               {loginMutation.isPending ? (
                 <Loader2 className="w-5 h-5 animate-spin" />

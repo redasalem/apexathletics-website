@@ -203,7 +203,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Card details are collected securely by Stripe Checkout after order creation. */}
-            <div className="border-t border-border pt-6 mt-6 grid grid-cols-2 gap-4 opacity-50 pointer-events-none">
+            <div className="border-t border-border pt-6 mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 opacity-50 pointer-events-none">
               <div className="col-span-2">
                 <label className="label">Card Number</label>
                 <input disabled className="input-field" placeholder="**** **** **** ****" />

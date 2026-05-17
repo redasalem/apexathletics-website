@@ -91,10 +91,10 @@ export default function RegisterPage() {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-surface border border-border py-8 px-4 shadow rounded-2xl sm:px-10">
+        <div className="bg-surface border border-border py-8 px-4 shadow sm:rounded-2xl sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <div>
-              <label className="label mb-2">Account Type</label>
+              <label className="block text-sm font-medium text-white mb-2">Account Type</label>
               <div className="grid grid-cols-2 gap-4">
                 <label className="cursor-pointer">
                   <input type="radio" value="customer" {...register('role')} className="peer sr-only" />
@@ -108,60 +108,70 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label className="label">Full Name</label>
-              <input
-                {...register('name')}
-                type="text"
-                className="input-field"
-                placeholder="John Doe"
-              />
-              {errors.name && <p className="text-error text-xs mt-1">{errors.name.message}</p>}
+              <label className="block text-sm font-medium text-white">Full Name</label>
+              <div className="mt-2">
+                <input
+                  {...register('name')}
+                  type="text"
+                  className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  placeholder="John Doe"
+                />
+                {errors.name && <p className="mt-1 text-sm text-error">{errors.name.message}</p>}
+              </div>
             </div>
 
             <div>
-              <label className="label">Email address</label>
-              <input
-                {...register('email')}
-                type="email"
-                className="input-field"
-                placeholder="you@example.com"
-              />
-              {errors.email && <p className="text-error text-xs mt-1">{errors.email.message}</p>}
+              <label className="block text-sm font-medium text-white">Email address</label>
+              <div className="mt-2">
+                <input
+                  {...register('email')}
+                  type="email"
+                  className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  placeholder="you@example.com"
+                />
+                {errors.email && <p className="mt-1 text-sm text-error">{errors.email.message}</p>}
+              </div>
             </div>
 
             <div>
-              <label className="label">Password</label>
-              <input
-                {...register('password')}
-                type="password"
-                className="input-field"
-                placeholder="••••••••"
-              />
-              {errors.password && <p className="text-error text-xs mt-1">{errors.password.message}</p>}
+              <label className="block text-sm font-medium text-white">Password</label>
+              <div className="mt-2">
+                <input
+                  {...register('password')}
+                  type="password"
+                  className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  placeholder="••••••••"
+                />
+                {errors.password && <p className="mt-1 text-sm text-error">{errors.password.message}</p>}
+              </div>
             </div>
 
             {selectedRole === 'vendor' && (
               <>
                 <div>
-                  <label className="label">Store Name</label>
-                  <input
-                    {...register('storeName')}
-                    type="text"
-                    className="input-field"
-                    placeholder="My Awesome Store"
-                  />
-                  {errors.storeName && <p className="text-error text-xs mt-1">{errors.storeName.message}</p>}
+                  <label className="block text-sm font-medium text-white">Store Name</label>
+                  <div className="mt-2">
+                    <input
+                      {...register('storeName')}
+                      type="text"
+                      className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                      placeholder="My Awesome Store"
+                    />
+                    {errors.storeName && <p className="mt-1 text-sm text-error">{errors.storeName.message}</p>}
+                  </div>
                 </div>
 
                 <div>
-                  <label className="label">Store Description</label>
-                  <textarea
-                    {...register('storeDescription')}
-                    className="input-field"
-                    placeholder="Tell us about your products..."
-                    rows={3}
-                  />
-                  {errors.storeDescription && <p className="text-error text-xs mt-1">{errors.storeDescription.message}</p>}
+                  <label className="block text-sm font-medium text-white">Store Description</label>
+                  <div className="mt-2">
+                    <textarea
+                      {...register('storeDescription')}
+                      className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                      placeholder="Tell us about your products..."
+                      rows={3}
+                    />
+                    {errors.storeDescription && <p className="mt-1 text-sm text-error">{errors.storeDescription.message}</p>}
+                  </div>
                 </div>
               </>
             )}
@@ -169,7 +179,7 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={registerMutation.isPending}
-              className="btn-primary w-full flex justify-center items-center py-3 text-sm"
+              className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-primary-500 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all disabled:opacity-50"
             >
               {registerMutation.isPending ? (
                 <Loader2 className="w-5 h-5 animate-spin" />

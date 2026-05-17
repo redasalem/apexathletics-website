@@ -115,7 +115,7 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
               if (onAddToCart) onAddToCart();
               else router.push(`/product/${product._id}`);
             }}
-            className="btn-primary px-4 py-2 text-sm w-full sm:w-auto"
+            className="flex items-center gap-2 bg-primary-500 text-white px-4 py-2 rounded-lg font-bold text-sm hover:bg-primary-600 active:scale-95 transition-all w-full sm:w-auto justify-center"
           >
             <ShoppingCart className="w-4 h-4" />
             Add

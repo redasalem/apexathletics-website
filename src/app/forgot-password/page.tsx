@@ -43,7 +43,7 @@ export default function ForgotPasswordPage() {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-surface border border-border py-8 px-4 shadow rounded-2xl sm:px-10">
+        <div className="bg-surface border border-border py-8 px-4 shadow sm:rounded-2xl sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label className="block text-sm font-medium text-white">Email address</label>
@@ -51,7 +51,7 @@ export default function ForgotPasswordPage() {
                 <input
                   {...register('email')}
                   type="email"
-                  className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                   placeholder="you@example.com"
                 />
                 {errors.email && <p className="mt-1 text-sm text-error">{errors.email.message}</p>}

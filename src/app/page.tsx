@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Star, ArrowRight } from 'lucide-react';
+import { ShoppingBag, Star, ArrowRight } from 'lucide-react';
 import { getCategoryImage } from '@/utils/images';
 import ProductCard from '@/components/ProductCard';
 import OptimizedImage from '@/components/OptimizedImage';
@@ -49,21 +49,21 @@ export default async function Home() {
             <Star className="w-3.5 h-3.5" />
             New Season Gear Has Arrived
           </div>
-<h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-4 sm:mb-6 leading-[0.9] tracking-tighter uppercase italic">
-             Gear Up. <br />
-             <span className="text-primary-500">Perform Better.</span>
-           </h1>
+          <h1 className="text-6xl md:text-8xl font-black mb-6 leading-[0.9] tracking-tighter uppercase italic">
+            Gear Up. <br />
+            <span className="text-primary-500">Perform Better.</span>
+          </h1>
           <p className="max-w-xl mx-auto text-textMuted text-lg md:text-xl mb-10">
             Shop thousands of products from verified vendors — athletic shoes, pro equipment, and performance apparel all in one place.
           </p>
-<div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-               <Link href="/shop" className="w-full sm:w-auto bg-primary-500 hover:bg-primary-600 px-8 sm:px-10 py-4 sm:py-[1.125rem] rounded-xl font-black uppercase italic tracking-widest transition-all shadow-xl shadow-primary-500/30 hover:shadow-primary-500/50 min-h-[44px]">
-                 Shop Now
-              </Link>
-              <Link href="/register" className="w-full sm:w-auto border border-white/15 hover:bg-white/5 hover:border-white/30 px-8 sm:px-10 py-4 sm:py-[1.125rem] rounded-xl font-black uppercase italic tracking-widest transition-all backdrop-blur-sm min-h-[44px]">
-                 Create Account
-              </Link>
-           </div>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+             <Link href="/shop" className="w-full sm:w-auto bg-primary-500 hover:bg-primary-600 px-10 py-4 rounded-xl font-black uppercase italic tracking-widest transition-all shadow-xl shadow-primary-500/30 hover:shadow-primary-500/50">
+                Shop Now
+             </Link>
+             <Link href="/register" className="w-full sm:w-auto border border-white/15 hover:bg-white/5 hover:border-white/30 px-10 py-4 rounded-xl font-black uppercase italic tracking-widest transition-all backdrop-blur-sm">
+                Create Account
+             </Link>
+          </div>
           <p className="mt-6 text-xs text-textMuted/60 uppercase tracking-widest">Trusted by 10,000+ athletes worldwide</p>
         </div>
         
@@ -147,7 +147,34 @@ export default async function Home() {
         </div>
       </section>
 
-
+      {/* Footer */}
+      <footer className="py-12 border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-start gap-10 mb-10">
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <div className="p-2 bg-primary-500/20 rounded-lg">
+                   <ShoppingBag className="w-5 h-5 text-primary-500" />
+                </div>
+                <span className="text-lg font-bold tracking-tighter uppercase italic text-white">Apex Sports</span>
+              </div>
+              <p className="text-sm text-textMuted max-w-xs">The #1 multi-vendor marketplace for sports equipment, fitness tools, and outdoor gear.</p>
+            </div>
+            <div className="grid grid-cols-2 gap-x-16 gap-y-3 text-sm">
+              <a href="#" className="text-textMuted hover:text-primary-500 transition-colors">Privacy Policy</a>
+              <a href="#" className="text-textMuted hover:text-primary-500 transition-colors">Vendor Support</a>
+              <a href="#" className="text-textMuted hover:text-primary-500 transition-colors">Terms of Service</a>
+              <a href="#" className="text-textMuted hover:text-primary-500 transition-colors">Help Center</a>
+              <a href="/register" className="text-textMuted hover:text-primary-500 transition-colors">Start Selling</a>
+              <a href="/register" className="text-textMuted hover:text-primary-500 transition-colors">Create Account</a>
+            </div>
+          </div>
+          <div className="border-t border-white/5 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
+            <p className="text-xs text-textMuted">&copy; {new Date().getFullYear()} Apex Marketplace Inc. All Rights Reserved.</p>
+            <p className="text-xs text-textMuted">🔒 Secure Payments &nbsp;·&nbsp; ✅ 30-Day Returns &nbsp;·&nbsp; 🚚 Fast Shipping</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

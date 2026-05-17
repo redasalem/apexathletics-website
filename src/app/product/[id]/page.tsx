@@ -197,7 +197,7 @@ export default async function ProductDetailsPage({ params }: { params: { id: str
           <AddToCartForm product={product} />
 
           {/* Social Proof & Guarantees */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-white/5 pt-8">
+          <div className="grid grid-cols-2 gap-4 border-t border-white/5 pt-8">
              <div className="flex items-start gap-3">
                 <Truck className="w-5 h-5 text-textMuted mt-0.5" />
                 <div>

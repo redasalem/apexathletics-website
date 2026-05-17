@@ -25,6 +25,7 @@ export default function SearchBar() {
       </div>
       <input 
         type="text"
+        aria-label="Search products, gear, athletes..."
         placeholder="Search products, gear, athletes..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}

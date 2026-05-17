@@ -1,6 +1,5 @@
 node_modules/
 .pnp
-package-lock.json
 .pnp.js
 coverage/
 .next/

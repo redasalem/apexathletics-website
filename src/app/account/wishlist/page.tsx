@@ -32,7 +32,7 @@ export default function WishlistPage() {
           </div>
           <h3 className="text-xl font-bold text-white mb-2">Your wishlist is empty</h3>
           <p className="text-textMuted max-w-sm mb-6">You haven&apos;t saved any items yet. Browse our shop to find gear you love.</p>
-          <Link href="/shop" className="btn-primary px-6 py-3 gap-2">
+          <Link href="/shop" className="flex items-center gap-2 bg-primary-500 text-white px-6 py-3 rounded-xl font-bold hover:bg-primary-600 transition-colors">
             <Search className="w-5 h-5" />
             Explore Gear
           </Link>

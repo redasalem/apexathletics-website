@@ -89,15 +89,15 @@ export default function CartPage() {
                         <button 
                           onClick={() => handleUpdateQuantity(item._id, item.quantity, -1)}
                           disabled={updateCartItem.isPending || item.quantity <= 1}
-                          className="p-2 sm:p-3 text-textMuted hover:text-white disabled:opacity-50 min-h-[44px] min-w-[44px] flex items-center justify-center"
+                          className="p-2 text-textMuted hover:text-white disabled:opacity-50"
                         >
                           <Minus className="w-4 h-4" />
                         </button>
-                        <span className="px-4 text-white min-w-[2rem] text-center">{item.quantity}</span>
+                        <span className="px-4 text-white">{item.quantity}</span>
                         <button 
                           onClick={() => handleUpdateQuantity(item._id, item.quantity, 1)}
                           disabled={updateCartItem.isPending}
-                          className="p-2 sm:p-3 text-textMuted hover:text-white disabled:opacity-50 min-h-[44px] min-w-[44px] flex items-center justify-center"
+                          className="p-2 text-textMuted hover:text-white disabled:opacity-50"
                         >
                           <Plus className="w-4 h-4" />
                         </button>
@@ -107,10 +107,9 @@ export default function CartPage() {
                         type="button" 
                         onClick={() => handleRemoveItem(item._id)}
                         disabled={removeCartItem.isPending}
-                        aria-label={`Remove ${item.productId?.title || 'item'} from cart`}
-                        className="font-medium text-error hover:text-error/80 flex items-center min-h-[44px] min-w-[44px] px-2"
+                        className="font-medium text-error hover:text-error/80 flex items-center"
                       >
-                        <Trash2 className="w-4 h-4 mr-1" /> <span className="sm:inline">Remove</span>
+                        <Trash2 className="w-4 h-4 mr-1" /> Remove
                       </button>
                     </div>
                   </div>

@@ -4,7 +4,7 @@ const requiredPublicEnv = [
   'NEXT_PUBLIC_SITE_URL',
 ];
 
-if (process.env.NODE_ENV === 'production' && process.env.npm_lifecycle_event !== 'lint') {
+if (process.env.NODE_ENV === 'production') {
   const missing = requiredPublicEnv.filter((k) => !process.env[k] || process.env[k].trim() === '');
   if (missing.length > 0) {
     throw new Error(

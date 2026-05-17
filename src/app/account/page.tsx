@@ -51,7 +51,7 @@ export default function AccountProfilePage() {
         {!isEditing && (
           <button 
             onClick={() => setIsEditing(true)}
-            className="btn-primary px-6 py-2 text-sm tracking-widest uppercase"
+            className="bg-primary-500 hover:bg-primary-600 text-white px-6 py-2 rounded-lg font-bold text-sm tracking-widest uppercase transition-colors"
           >
             Edit Profile
           </button>
@@ -62,42 +62,42 @@ export default function AccountProfilePage() {
         <form onSubmit={handleSubmit} className="bg-background border border-border p-6 rounded-xl space-y-6">
           <div className="space-y-4 max-w-lg">
             <div>
-              <label className="label">Avatar URL (Optional)</label>
+              <label className="block text-xs font-bold text-textMuted uppercase tracking-wider mb-2">Avatar URL (Optional)</label>
               <input
                 type="text"
                 value={formData.avatar}
                 onChange={(e) => setFormData({ ...formData, avatar: e.target.value })}
-                className="input-field"
+                className="w-full bg-surface border border-border rounded-lg px-4 py-3 text-white focus:border-primary-500 focus:outline-none"
                 placeholder="https://example.com/avatar.jpg"
               />
             </div>
             <div>
-              <label className="label">Full Name</label>
+              <label className="block text-xs font-bold text-textMuted uppercase tracking-wider mb-2">Full Name</label>
               <input
                 type="text"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="input-field"
+                className="w-full bg-surface border border-border rounded-lg px-4 py-3 text-white focus:border-primary-500 focus:outline-none"
                 required
               />
             </div>
             <div>
-              <label className="label">Email Address</label>
+              <label className="block text-xs font-bold text-textMuted uppercase tracking-wider mb-2">Email Address</label>
               <input
                 type="email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="input-field"
+                className="w-full bg-surface border border-border rounded-lg px-4 py-3 text-white focus:border-primary-500 focus:outline-none"
                 required
               />
             </div>
             <div>
-              <label className="label">New Password (Optional)</label>
+              <label className="block text-xs font-bold text-textMuted uppercase tracking-wider mb-2">New Password (Optional)</label>
               <input
                 type="password"
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                className="input-field"
+                className="w-full bg-surface border border-border rounded-lg px-4 py-3 text-white focus:border-primary-500 focus:outline-none"
                 placeholder="Leave blank to keep unchanged"
               />
             </div>
@@ -107,14 +107,14 @@ export default function AccountProfilePage() {
             <button 
               type="button" 
               onClick={() => setIsEditing(false)}
-              className="px-6 py-2 rounded-xl font-bold text-sm text-textMuted hover:text-white transition-colors"
+              className="px-6 py-2 rounded-lg font-bold text-sm text-textMuted hover:text-white transition-colors"
             >
               Cancel
             </button>
             <button 
               type="submit" 
               disabled={updateProfile.isPending}
-              className="btn-primary px-8 py-2 text-sm min-w-[120px]"
+              className="bg-primary-500 hover:bg-primary-600 text-white px-8 py-2 rounded-lg font-bold text-sm transition-colors flex items-center justify-center min-w-[120px]"
             >
               {updateProfile.isPending ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Save Changes'}
             </button>
