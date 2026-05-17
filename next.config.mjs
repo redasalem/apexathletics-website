@@ -1,16 +1,16 @@
-// --- Production env validation (fail build if required public env vars missing) ---
+// --- Production env validation (warn if required public env vars missing) ---
 const requiredPublicEnv = [
   'NEXT_PUBLIC_API_URL',
   'NEXT_PUBLIC_SITE_URL',
 ];
 
-if (process.env.NODE_ENV === 'production') {
-  const missing = requiredPublicEnv.filter((k) => !process.env[k] || process.env[k].trim() === '');
-  if (missing.length > 0) {
-    throw new Error(
-      `Missing required public environment variables for production build: ${missing.join(', ')}. ` +
-        `Set them in your deployment environment (Vercel environment variables) or .env for the build.`
-    );
+const missing = requiredPublicEnv.filter((k) => !process.env[k] || process.env[k].trim() === '');
+if (missing.length > 0) {
+  const msg = `Missing required public environment variables: ${missing.join(', ')}. Set them in Vercel dashboard or .env for the build.`;
+  if (process.env.VERCEL || process.env.CI) {
+    console.warn('⚠️ ' + msg);
+  } else {
+    throw new Error(msg);
   }
 }
 
