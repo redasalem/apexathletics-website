@@ -82,7 +82,7 @@ function LoginContent() {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-surface border border-border py-8 px-4 shadow sm:rounded-2xl sm:px-10">
+        <div className="bg-surface border border-border py-8 px-4 shadow rounded-2xl sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label className="block text-sm font-medium text-white">Email address</label>

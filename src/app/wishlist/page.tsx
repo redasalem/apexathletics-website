@@ -30,7 +30,7 @@ export default function WishlistPage() {
           <HeartCrack className="w-16 h-16 text-border mx-auto mb-4" />
           <h2 className="text-xl font-bold text-white mb-2">Your wishlist is empty</h2>
           <p className="text-textMuted mb-6">Discover our latest gear and save your favorites.</p>
-          <Link href="/shop" className="bg-primary-500 hover:bg-primary-600 text-white px-8 py-3 rounded-lg font-bold transition-colors">
+          <Link href="/shop" className="btn-primary px-8 py-3">
             Explore Products
           </Link>
         </div>

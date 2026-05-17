@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ShoppingBag, Star, ArrowRight } from 'lucide-react';
+import { Star, ArrowRight } from 'lucide-react';
 import { getCategoryImage } from '@/utils/images';
 import ProductCard from '@/components/ProductCard';
 import OptimizedImage from '@/components/OptimizedImage';
@@ -147,34 +147,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-12 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-start gap-10 mb-10">
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <div className="p-2 bg-primary-500/20 rounded-lg">
-                   <ShoppingBag className="w-5 h-5 text-primary-500" />
-                </div>
-                <span className="text-lg font-bold tracking-tighter uppercase italic text-white">Apex Sports</span>
-              </div>
-              <p className="text-sm text-textMuted max-w-xs">The #1 multi-vendor marketplace for sports equipment, fitness tools, and outdoor gear.</p>
-            </div>
-            <div className="grid grid-cols-2 gap-x-16 gap-y-3 text-sm">
-              <a href="#" className="text-textMuted hover:text-primary-500 transition-colors">Privacy Policy</a>
-              <a href="#" className="text-textMuted hover:text-primary-500 transition-colors">Vendor Support</a>
-              <a href="#" className="text-textMuted hover:text-primary-500 transition-colors">Terms of Service</a>
-              <a href="#" className="text-textMuted hover:text-primary-500 transition-colors">Help Center</a>
-              <a href="/register" className="text-textMuted hover:text-primary-500 transition-colors">Start Selling</a>
-              <a href="/register" className="text-textMuted hover:text-primary-500 transition-colors">Create Account</a>
-            </div>
-          </div>
-          <div className="border-t border-white/5 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
-            <p className="text-xs text-textMuted">&copy; {new Date().getFullYear()} Apex Marketplace Inc. All Rights Reserved.</p>
-            <p className="text-xs text-textMuted">🔒 Secure Payments &nbsp;·&nbsp; ✅ 30-Day Returns &nbsp;·&nbsp; 🚚 Fast Shipping</p>
-          </div>
-        </div>
-      </footer>
+
     </div>
   );
 }

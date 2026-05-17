@@ -271,7 +271,7 @@ export default function CheckoutPage() {
                   value={promoCodeInput}
                   onChange={(e) => setPromoCodeInput(e.target.value)}
                   placeholder="Enter code"
-                  className="flex-1 bg-surfaceHighlight border border-border rounded-lg px-4 py-2 text-white focus:border-primary-500 focus:outline-none uppercase"
+                  className="flex-1 input-field py-2 uppercase"
                   disabled={!!appliedPromo}
                 />
                 {!appliedPromo ? (
@@ -279,7 +279,7 @@ export default function CheckoutPage() {
                     type="button"
                     onClick={handleApplyPromo}
                     disabled={validateCoupon.isPending || !promoCodeInput}
-                    className="bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 rounded-lg font-bold text-sm transition-colors"
+                    className="btn-primary px-4 py-2 text-sm"
                   >
                     {validateCoupon.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Apply'}
                   </button>
@@ -287,7 +287,7 @@ export default function CheckoutPage() {
                   <button
                     type="button"
                     onClick={() => { setAppliedPromo(null); setPromoCodeInput(''); }}
-                    className="bg-error/20 hover:bg-error/30 text-error px-4 py-2 rounded-lg font-bold text-sm transition-colors"
+                    className="bg-error/20 hover:bg-error/30 text-error px-4 py-2 rounded-xl font-bold text-sm transition-colors"
                   >
                     Remove
                   </button>

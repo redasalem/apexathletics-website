@@ -18,7 +18,7 @@ export default function GlobalError({
         <div className="flex items-center gap-4">
           <button
             onClick={() => reset()}
-            className="bg-primary-500 hover:bg-primary-600 text-white font-bold py-3 px-6 rounded-lg uppercase tracking-widest transition-colors"
+            className="btn-primary py-3 px-6 uppercase tracking-widest"
           >
             Try Again
           </button>

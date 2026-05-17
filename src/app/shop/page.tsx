@@ -160,7 +160,7 @@ function ShopContent() {
             <div className="py-20 text-center border border-white/5 rounded-3xl bg-surface/30">
                <h3 className="text-2xl font-black italic uppercase text-white mb-2">No Products Found</h3>
                <p className="text-textMuted max-w-sm mx-auto">Try adjusting your filters or category selection to see more gear.</p>
-               <button onClick={clearFilters} className="mt-6 bg-primary-500 hover:bg-primary-600 px-6 py-2 rounded-lg font-bold text-white uppercase tracking-widest text-sm transition-colors">
+               <button onClick={clearFilters} className="mt-6 btn-primary px-6 py-2 uppercase tracking-widest text-sm">
                   Clear Filters
                </button>
             </div>

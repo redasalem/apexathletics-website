@@ -20,7 +20,7 @@ export default function OrderSuccessPage() {
         <h1 className="text-3xl font-extrabold text-white tracking-tight">You&apos;re All Set!</h1>
         <p className="text-lg text-textMuted mt-2">Your order is confirmed. Time to get ready to perform.</p>
         
-        <div className="bg-surfaceHighlight inline-block px-6 py-3 rounded-md mt-6 border border-border mb-12">
+        <div className="bg-surfaceHighlight inline-block px-6 py-3 rounded-xl mt-6 border border-border mb-12">
           <p className="text-sm text-textMuted font-medium uppercase tracking-wider mb-1">Order Confirmation Number</p>
           <p className="text-xl font-mono text-primary-500 font-bold">{order._id}</p>
         </div>

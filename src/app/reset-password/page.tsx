@@ -76,7 +76,7 @@ function ResetPasswordContent() {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-surface border border-border py-8 px-4 shadow sm:rounded-2xl sm:px-10">
+        <div className="bg-surface border border-border py-8 px-4 shadow rounded-2xl sm:px-10">
           {!token ? (
             <div className="text-center space-y-4">
               <p className="text-error">Reset token is missing or invalid.</p>

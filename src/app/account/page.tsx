@@ -51,7 +51,7 @@ export default function AccountProfilePage() {
         {!isEditing && (
           <button 
             onClick={() => setIsEditing(true)}
-            className="bg-primary-500 hover:bg-primary-600 text-white px-6 py-2 rounded-lg font-bold text-sm tracking-widest uppercase transition-colors"
+            className="btn-primary px-6 py-2 text-sm tracking-widest uppercase"
           >
             Edit Profile
           </button>
@@ -107,14 +107,14 @@ export default function AccountProfilePage() {
             <button 
               type="button" 
               onClick={() => setIsEditing(false)}
-              className="px-6 py-2 rounded-lg font-bold text-sm text-textMuted hover:text-white transition-colors"
+              className="px-6 py-2 rounded-xl font-bold text-sm text-textMuted hover:text-white transition-colors"
             >
               Cancel
             </button>
             <button 
               type="submit" 
               disabled={updateProfile.isPending}
-              className="bg-primary-500 hover:bg-primary-600 text-white px-8 py-2 rounded-lg font-bold text-sm transition-colors flex items-center justify-center min-w-[120px]"
+              className="btn-primary px-8 py-2 text-sm min-w-[120px]"
             >
               {updateProfile.isPending ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Save Changes'}
             </button>
