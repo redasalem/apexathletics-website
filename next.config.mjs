@@ -4,13 +4,15 @@ const requiredPublicEnv = [
   'NEXT_PUBLIC_SITE_URL',
 ];
 
-const missing = requiredPublicEnv.filter((k) => !process.env[k] || process.env[k].trim() === '');
-if (missing.length > 0) {
-  const msg = `Missing required public environment variables: ${missing.join(', ')}. Set them in Vercel dashboard or .env for the build.`;
-  if (process.env.VERCEL || process.env.CI) {
-    console.warn('⚠️ ' + msg);
-  } else {
-    throw new Error(msg);
+if (process.env.NODE_ENV === 'production') {
+  const missing = requiredPublicEnv.filter((k) => !process.env[k] || process.env[k].trim() === '');
+  if (missing.length > 0) {
+    const msg = `Missing required public environment variables: ${missing.join(', ')}. Set them in Vercel dashboard or .env for the build.`;
+    if (process.env.VERCEL || process.env.CI) {
+      console.warn('⚠️ ' + msg);
+    } else {
+      throw new Error(msg);
+    }
   }
 }
 
