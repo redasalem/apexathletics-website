@@ -1,61 +1,92 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Status-Production_Ready-00C853?style=for-the-badge&logo=vercel" alt="Status"/>
   <img src="https://img.shields.io/badge/Next.js-14-000000?style=for-the-badge&logo=next.js" alt="Next.js"/>
+  <img src="https://img.shields.io/badge/Express-5-000000?style=for-the-badge&logo=express" alt="Express"/>
+  <img src="https://img.shields.io/badge/MongoDB-Atlas-47A248?style=for-the-badge&logo=mongodb" alt="MongoDB"/>
   <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript" alt="TypeScript"/>
-  <img src="https://img.shields.io/badge/TailwindCSS-3-06B6D4?style=for-the-badge&logo=tailwindcss" alt="TailwindCSS"/>
-  <img src="https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel" alt="Vercel"/>
+  <img src="https://img.shields.io/badge/Stripe-Connect-008CDD?style=for-the-badge&logo=stripe" alt="Stripe"/>
+  <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License"/>
 </p>
 
-<h1 align="center">🏆 Apex Athletics — Frontend</h1>
+<h1 align="center">🏆 Apex Athletics</h1>
 <p align="center">
-  <em>Premium multi-vendor sports marketplace built with Next.js 14 App Router.<br/>
-  Server-side rendered · Edge-deployed · Mobile-first responsive design.</em>
+  <em>A premium, multi-vendor sports e-commerce platform connecting athletes with independent sports brands worldwide.</em>
 </p>
 
 <p align="center">
-  <a href="#features">Features</a> •
+  <a href="#overview">Overview</a> •
+  <a href="#architecture">Architecture</a> •
   <a href="#tech-stack">Tech Stack</a> •
   <a href="#getting-started">Getting Started</a> •
   <a href="#deployment">Deployment</a> •
-  <a href="#environment-variables">Environment Variables</a>
+  <a href="#repositories">Repositories</a>
 </p>
 
 ---
 
-## ✨ Features
+## 📋 Overview
+
+Apex Athletics is a full-stack, multi-vendor marketplace purpose-built for the sports and athletic equipment industry. The platform enables independent vendors to create storefronts, manage inventory, and process payments, while providing athletes with a curated, high-performance shopping experience.
+
+**Live Demo:** [apexathletics.vercel.app](https://apexathletics.vercel.app)  
+**API Base:** [apexathletics-apis.vercel.app/api](https://apexathletics-apis.vercel.app/api)
+
+### Core Capabilities
 
 | Capability | Description |
 |---|---|
-| **Multi-Vendor Storefronts** | Browse products from independent sports brands and vendors |
-| **Server-Side Rendering** | SEO-optimized product pages with SSR and ISR |
-| **Stripe Checkout Integration** | Secure client-side payment flow with Stripe Elements |
-| **Real-Time Cart Sync** | Persistent cart across devices with optimistic updates |
-| **Advanced Search & Filtering** | Full-text search, category filters, price range, size/color |
-| **Responsive Design** | Mobile-first with dark mode throughout |
-| **React Query Caching** | Automatic data fetching, caching, and background refetching |
-| **Type-Safe Forms** | react-hook-form + Zod validation from frontend to backend |
-| **Auth & Role Guarding** | Protected routes with Clerk integration |
-| **Vendor Dashboards** | Analytics, product management, order fulfillment |
-| **Admin Panel** | User management, order oversight, category and coupon administration |
-| **Wishlist & Favorites** | Persisted wishlist across sessions |
+| **Multi-Vendor Marketplace** | Independent vendor storefronts, dashboards, and product management |
+| **Secure Payments** | Stripe Connect with split payouts, webhook verification, and idempotency |
+| **Role-Based Access** | Admin, Vendor, and Customer roles with JWT-gated authorization |
+| **Serverless Architecture** | Optimized for Vercel with global connection caching and cold-start mitigation |
+| **Enterprise Security** | Helmet, CORS, rate limiting, NoSQL injection prevention, Zod validation |
+| **Responsive Design** | Mobile-first, dark-themed UI with accessible components |
+
+---
+
+## 🏗 Architecture
+
+```
+                    ┌─────────────────────────────────────┐
+                    │        Vercel Edge CDN               │
+                    │      Next.js 14 App Router           │
+                    └────────────────┬────────────────────┘
+                                     │ HTTPS
+                    ┌────────────────▼────────────────────┐
+                    │       Express.js Backend API          │
+                    │   (Vercel Serverless Functions)       │
+                    └───┬────────────┬────────────┬────────┘
+                        │            │            │
+              ┌─────────▼──┐  ┌──────▼─────┐  ┌──▼──────────┐
+              │ MongoDB    │  │ Redis Cloud │  │  Cloudinary  │
+              │   Atlas    │  │  / Upstash  │  │  (Media CDN) │
+              └────────────┘  └─────────────┘  └─────────────┘
+                                    │
+                              ┌─────▼─────┐
+                              │   Resend   │
+                              │   (Email)  │
+                              └───────────┘
+```
+
+**Data Flow:** Client → Helmet/CORS → Rate Limiter → JWT Auth → Zod Validation → Controller → Service → MongoDB → Response
 
 ---
 
 ## 🛠 Tech Stack
 
-| Layer | Technology | Purpose |
+| Layer | Frontend | Backend |
 |---|---|---|
-| **Framework** | [Next.js 14](https://nextjs.org/) (App Router) | React meta-framework with SSR, ISR, and Edge |
-| **Language** | [TypeScript 5](https://www.typescriptlang.org/) | Strict type safety across the entire codebase |
-| **Styling** | [TailwindCSS 3](https://tailwindcss.com/) | Utility-first CSS with custom design system |
-| **State & Data** | [@tanstack/react-query](https://tanstack.com/query) | Server state management, caching, optimistic updates |
-| **Forms** | [react-hook-form](https://react-hook-form.com/) + [Zod](https://zod.dev/) | Performant forms with schema validation |
-| **HTTP Client** | [Axios](https://axios-http.com/) | Typed API client with interceptors and auth flow |
-| **Payments** | [Stripe Elements](https://stripe.com/elements) | Secure client-side card tokenization |
-| **Icons** | [Lucide React](https://lucide.dev/) | Lightweight, consistent icon set |
-| **Notifications** | [react-hot-toast](https://react-hot-toast.com/) | Toast notifications with dark mode |
-| **Auth** | [JWT](https://jwt.io/) (httpOnly cookies) | Stateless authentication with role-based guards |
-| **Deployment** | [Vercel](https://vercel.com/) | Edge CDN, automatic previews, zero-config HTTPS |
+| **Framework** | Next.js 14 (App Router) | Express.js 5 |
+| **Language** | TypeScript 5 | TypeScript 5 |
+| **Database** | — | MongoDB Atlas (Mongoose ODM) |
+| **Cache** | — | Redis Cloud / Upstash |
+| **Auth** | JWT (httpOnly cookies) | JWT + bcryptjs |
+| **Payments** | Stripe Elements | Stripe Connect + Webhooks |
+| **Email** | — | Resend API |
+| **Media** | Cloudinary (CDN) | Cloudinary (Upload API) |
+| **Validation** | Zod + react-hook-form | Zod schemas |
+| **Styling** | TailwindCSS 3 | — |
+| **Deployment** | Vercel (Edge) | Vercel (Serverless) |
 
 ---
 
@@ -63,139 +94,109 @@
 
 ### Prerequisites
 
-- **Node.js** 20.x or later
-- **pnpm** 8.x or later
-- Backend API running locally or deployed
+- Node.js 20+
+- pnpm 8+
+- MongoDB Atlas account
+- Redis Cloud / Upstash account (optional)
+- Stripe account
+- Resend account (for transactional emails)
 
-### Installation
+### Quick Start
 
 ```bash
-# Clone the repository
+# Clone both repositories
 git clone https://github.com/redasalem/apex-athletics-frontend.git
-cd apex-athletics-frontend
+git clone https://github.com/redasalem/apexathletics-apis.git
 
-# Install dependencies
+# Backend setup
+cd apexathletics-apis
+cp .env.example .env
 pnpm install
+pnpm dev          # Starts at http://localhost:5000
 
-# Configure environment variables
+# Frontend setup (in a new terminal)
+cd apex-athletics-frontend
 cp .env.example .env.local
-# Edit .env.local with your API URL and keys
+pnpm install
+pnpm dev          # Starts at http://localhost:3000
 ```
 
-### Local Development
+### Configuration
 
-```bash
-pnpm dev
-```
+Both services require environment variables. See the individual README files for complete configuration:
 
-Open [http://localhost:3000](http://localhost:3000). The app hot-reloads on file changes.
-
-### Production Build
-
-```bash
-pnpm build      # Compile and optimize for production
-pnpm start      # Run production server locally
-```
+- [Backend Environment Variables](./backend/README.md#-environment-variables)
+- [Frontend Environment Variables](./frontend/README.md#-environment-variables)
 
 ---
 
-## ☁️ Deployment
+## 📦 Deployment
 
-### Vercel (Recommended)
+### Backend (Vercel Serverless)
 
-1. Import this repository in the [Vercel dashboard](https://vercel.com/new).
-2. Configure the following environment variables:
+1. Push the backend repository to GitHub.
+2. Import into Vercel — the `vercel.json` handles routing automatically.
+3. Set all environment variables in the Vercel dashboard (see `.env.vercel.example`).
+4. Deploy — the API is available at `https://your-project.vercel.app/api`.
 
-| Variable | Description |
+### Frontend (Vercel Edge)
+
+1. Push the frontend repository to GitHub.
+2. Import into Vercel.
+3. Set `NEXT_PUBLIC_API_URL` and `NEXT_PUBLIC_SITE_URL` in the Vercel dashboard.
+4. Deploy — the app is served from the global edge network.
+
+**CI/CD:** Both repos have GitHub Actions pipelines that run lint, typecheck, and build on every push. Successful builds auto-deploy to Vercel.
+
+---
+
+## 📂 Repositories
+
+| Component | Repository | Deployed URL |
+|---|---|---|
+| **Frontend** | [apex-athletics-frontend](https://github.com/redasalem/apex-athletics-frontend) | [apexathletics.vercel.app](https://apexathletics.vercel.app) |
+| **Backend API** | [apexathletics-apis](https://github.com/redasalem/apexathletics-apis) | [apexathletics-apis.vercel.app](https://apexathletics-apis.vercel.app) |
+
+---
+
+## 🔒 Security
+
+| Layer | Implementation |
 |---|---|
-| `NEXT_PUBLIC_API_URL` | Production backend API URL (e.g., `https://apexathletics-apis.vercel.app/api`) |
-| `NEXT_PUBLIC_SITE_URL` | Your frontend deployment URL (e.g., `https://apexathletics.vercel.app`) |
-
-3. Deploy — Vercel handles builds, CDN, SSL, and automatic preview deployments for every PR.
-
-### Manual / VPS
-
-```bash
-pnpm build
-# Standalone output is in .next/standalone/
-node .next/standalone/server.js
-```
+| **HTTP Headers** | Helmet.js (CSP, HSTS, X-Frame-Options) |
+| **Input Validation** | Zod schemas on every endpoint |
+| **NoSQL Injection** | Custom sanitization middleware |
+| **Rate Limiting** | express-rate-limit (global + auth-specific) |
+| **Auth** | JWT in httpOnly cookies + bcrypt password hashing |
+| **Webhooks** | Stripe signature verification with raw body |
+| **CORS** | Strict origin whitelist via environment variable |
+| **Dependencies** | Regular `pnpm audit` and automated Dependabot alerts |
 
 ---
 
-## 🔐 Environment Variables
+## 📚 Documentation
 
-| Variable | Required | Default | Description |
-|---|---|---|---|
-| `NEXT_PUBLIC_API_URL` | **Yes** | `http://localhost:5000/api` | Backend API base URL |
-| `NEXT_PUBLIC_SITE_URL` | **Yes** | — | Canonical site URL for SEO |
-| `NEXT_PUBLIC_STRIPE_PUBLIC_KEY` | Yes | — | Stripe publishable key for Elements |
-
-> **Required for CI/CD:** These variables must be set in the Vercel dashboard or GitHub Actions secrets. The production build will fail without them.
-
----
-
-## 🏗️ Architecture & Key Decisions
-
-### Data Fetching Pattern
-
-All API communication flows through `axios` with `withCredentials: true` for cookie-based auth. The `@tanstack/react-query` library manages caching, background refetches, and optimistic updates:
-
-```
-Component → useQuery/useMutation → axios → Backend API
-                ↓
-        React Query Cache
-                ↓
-        Automatic Re-render
-```
-
-### Route Protection
-
-The `middleware.ts` handles redirect logic. Protected routes check for a valid JWT cookie before rendering:
-
-| Route | Access |
+| Document | Description |
 |---|---|
-| `/account/*` | Authenticated users |
-| `/admin/*` | Admin role only |
-| `/vendor-dashboard/*` | Vendor role only |
-| `/cart` | All users (local + synced cart) |
-
-### Styling Architecture
-
-Dark-first design system built on custom Tailwind tokens:
-
-- `bg-background` (#0a0a0a) — main background
-- `bg-surface` (#171717) — elevated cards and panels
-- Primary red (#d80000) — accent color for CTAs
-- Custom component classes (`btn-primary`, `input-field`, `label`) defined in `globals.css`
-
----
-
-## 🧪 QA & Testing
-
-A production test runbook is available at [`qa/PRODUCTION_TEST_RUNBOOK.md`](./qa/PRODUCTION_TEST_RUNBOOK.md) covering:
-
-- Auth flow (register, login, logout, password reset)
-- Product browsing (list, search, filter, detail)
-- Cart operations (add, remove, quantity, persistence)
-- Checkout (Stripe session creation, webhook flow)
-- Vendor dashboard (product CRUD, order management)
-- Admin panel (user/order/category/coupon management)
+| [Backend README](./backend/README.md) | Complete backend API documentation |
+| [Frontend README](./frontend/README.md) | Frontend setup and architecture |
+| [PRD](./backend/PRD.md) | Product Requirements Document |
+| [API Reference](./backend/docs/API.md) | Full API endpoint reference |
+| [Architecture](./backend/docs/SYSTEM_ARCHITECTURE.md) | System design and request lifecycle |
+| [Security](./backend/docs/SECURITY.md) | Security posture and hardening |
+| [Deployment](./backend/docs/DEPLOYMENT_FLOW.md) | CI/CD and deployment guide |
+| [Environment](./backend/docs/ENVIRONMENT.md) | Environment variable reference |
+| [Test Runbook](./frontend/qa/PRODUCTION_TEST_RUNBOOK.md) | Production QA test cases |
 
 ---
 
 ## 🤝 Contributing
 
-1. Fork the repository.
+1. Fork the relevant repository.
 2. Create a feature branch: `git checkout -b feat/your-feature`
-3. Commit changes: `git commit -m "feat: your feature description"`
-4. Push to the branch: `git push origin feat/your-feature`
-5. Open a pull request.
-
-**Conventions:**
-- Use `feat:`, `fix:`, `chore:`, `docs:` commit prefixes
-- Run `pnpm build` and `pnpm exec tsc --noEmit` before submitting
-- Follow existing component patterns and naming conventions
+3. Commit using conventional commits: `feat:`, `fix:`, `docs:`, `chore:`
+4. Push and open a pull request.
+5. Ensure CI passes (lint, typecheck, build).
 
 ---
 
@@ -206,5 +207,5 @@ This project is licensed under the **MIT License**.
 ---
 
 <p align="center">
-  <sub>Built with ❤️ for the Apex Athletics marketplace platform.</sub>
+  <sub>Built with ❤️ for the global sports community.</sub>
 </p>
