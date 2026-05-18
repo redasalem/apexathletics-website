@@ -7,10 +7,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useLogin } from '@/hooks/useAuth';
 import { getSafeRedirect } from '@/utils/navigation';
 import Link from 'next/link';
-import { Loader2, ArrowRight } from 'lucide-react';
+import { Loader2, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { getErrorMessage } from '@/utils/errors';
-import { useEffect, Suspense } from 'react';
+import { useEffect, Suspense, useState } from 'react';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -36,6 +36,7 @@ function LoginContent() {
   const searchParams = useSearchParams();
   const redirect = getSafeRedirect(searchParams.get('redirect'), '');
   const loginMutation = useLogin();
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (!loginMutation.isSuccess) return;
@@ -97,13 +98,22 @@ function LoginContent() {
 
             <div>
               <label className="label">Password</label>
+              <div className="relative">
                 <input
                   {...register('password')}
-                  type="password"
-                  className="input-field"
+                  type={showPassword ? 'text' : 'password'}
+                  className="input-field pr-12"
                   placeholder="••••••••"
                 />
-                {errors.password && <p className="mt-1 text-sm text-error">{errors.password.message}</p>}
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 flex items-center pr-4 text-textMuted hover:text-white transition-colors"
+                >
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
+              </div>
+              {errors.password && <p className="mt-1 text-sm text-error">{errors.password.message}</p>}
             </div>
 
             <div className="flex items-center justify-end">

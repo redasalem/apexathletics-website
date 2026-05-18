@@ -6,10 +6,10 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRegister } from '@/hooks/useAuth';
 import Link from 'next/link';
-import { Loader2, ArrowRight } from 'lucide-react';
+import { Loader2, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { getErrorMessage } from '@/utils/errors';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const registerSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -47,6 +47,7 @@ type RegisterForm = z.infer<typeof registerSchema>;
 export default function RegisterPage() {
   const router = useRouter();
   const registerMutation = useRegister();
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (!registerMutation.isSuccess) return;
@@ -131,13 +132,22 @@ export default function RegisterPage() {
 
             <div>
               <label className="label">Password</label>
+              <div className="relative">
                 <input
                   {...register('password')}
-                  type="password"
-                  className="input-field"
+                  type={showPassword ? 'text' : 'password'}
+                  className="input-field pr-12"
                   placeholder="••••••••"
                 />
-                {errors.password && <p className="mt-1 text-sm text-error">{errors.password.message}</p>}
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 flex items-center pr-4 text-textMuted hover:text-white transition-colors"
+                >
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
+              </div>
+              {errors.password && <p className="mt-1 text-sm text-error">{errors.password.message}</p>}
             </div>
 
             {selectedRole === 'vendor' && (

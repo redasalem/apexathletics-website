@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useAuth, useUpdateProfile } from '@/hooks/useAuth';
-import { User, Shield, Calendar, Loader2 } from 'lucide-react';
+import { User, Shield, Calendar, Loader2, Eye, EyeOff } from 'lucide-react';
 import Image from 'next/image';
 
 export default function AccountProfilePage() {
@@ -17,6 +17,7 @@ export default function AccountProfilePage() {
   });
 
   const [isEditing, setIsEditing] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -93,13 +94,22 @@ export default function AccountProfilePage() {
             </div>
             <div>
               <label className="label">New Password (Optional)</label>
-              <input
-                type="password"
-                value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                className="input-field"
-                placeholder="Leave blank to keep unchanged"
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  value={formData.password}
+                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  className="input-field pr-12"
+                  placeholder="Leave blank to keep unchanged"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 flex items-center pr-4 text-textMuted hover:text-white transition-colors"
+                >
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
+              </div>
             </div>
           </div>
           

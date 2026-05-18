@@ -1,12 +1,12 @@
 'use client';
 
-import { Suspense, useEffect } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
-import { ArrowRight, KeyRound, Loader2 } from 'lucide-react';
+import { ArrowRight, KeyRound, Loader2, Eye, EyeOff } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useResetPassword } from '@/hooks/useAuth';
 import { getErrorMessage } from '@/utils/errors';
@@ -40,6 +40,8 @@ function ResetPasswordContent() {
   const searchParams = useSearchParams();
   const token = searchParams.get('token') || '';
   const resetPassword = useResetPassword();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<ResetPasswordForm>({
     resolver: zodResolver(resetPasswordSchema),
@@ -88,23 +90,41 @@ function ResetPasswordContent() {
             <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
               <div>
                 <label className="block text-sm font-medium text-white">New password</label>
-                <input
-                  {...register('password')}
-                  type="password"
-                  className="mt-2 w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                  placeholder="Enter a strong password"
-                />
+                <div className="relative mt-2">
+                  <input
+                    {...register('password')}
+                    type={showPassword ? 'text' : 'password'}
+                    className="w-full p-3 pr-12 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                    placeholder="Enter a strong password"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 flex items-center pr-4 text-textMuted hover:text-white transition-colors"
+                  >
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </button>
+                </div>
                 {errors.password && <p className="mt-1 text-sm text-error">{errors.password.message}</p>}
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-white">Confirm password</label>
-                <input
-                  {...register('confirmPassword')}
-                  type="password"
-                  className="mt-2 w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                  placeholder="Repeat your password"
-                />
+                <div className="relative mt-2">
+                  <input
+                    {...register('confirmPassword')}
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    className="w-full p-3 pr-12 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                    placeholder="Repeat your password"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute inset-y-0 right-0 flex items-center pr-4 text-textMuted hover:text-white transition-colors"
+                  >
+                    {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </button>
+                </div>
                 {errors.confirmPassword && <p className="mt-1 text-sm text-error">{errors.confirmPassword.message}</p>}
               </div>
 

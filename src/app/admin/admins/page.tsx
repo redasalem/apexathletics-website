@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useAdminUsers } from '@/hooks/useAdmin';
 import { useAuth } from '@/hooks/useAuth';
-import { Loader2, Plus, ShieldCheck, Search, Trash2, X, Check } from 'lucide-react';
+import { Loader2, Plus, ShieldCheck, Search, Trash2, X, Check, Eye, EyeOff } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import backendApi from '@/lib/axios';
 import { getErrorMessage } from '@/utils/errors';
@@ -14,6 +14,7 @@ export default function AdminManagementPage() {
   const [isInviting, setIsInviting] = useState(false);
   const [inviteData, setInviteData] = useState({ name: '', email: '', password: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleInvite = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -89,14 +90,23 @@ export default function AdminManagementPage() {
              </div>
              <div className="space-y-2 md:col-span-2">
                 <label className="text-xs font-black text-textMuted uppercase tracking-widest">Initial Password</label>
-                <input 
-                  required
-                  type="password"
-                  value={inviteData.password}
-                  onChange={e => setInviteData({ ...inviteData, password: e.target.value })}
-                  placeholder="••••••••"
-                  className="w-full bg-background border border-border rounded-xl px-5 py-4 text-white focus:border-primary-500 outline-none transition-all placeholder:text-textMuted/30"
-                />
+                <div className="relative">
+                  <input 
+                    required
+                    type={showPassword ? 'text' : 'password'}
+                    value={inviteData.password}
+                    onChange={e => setInviteData({ ...inviteData, password: e.target.value })}
+                    placeholder="••••••••"
+                    className="w-full bg-background border border-border rounded-xl pl-5 pr-12 py-4 text-white focus:border-primary-500 outline-none transition-all placeholder:text-textMuted/30"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 flex items-center pr-4 text-textMuted hover:text-white transition-colors"
+                  >
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </button>
+                </div>
              </div>
              <div className="md:col-span-2 flex justify-end gap-4 mt-4 border-t border-border pt-8">
                 <button type="button" onClick={() => setIsInviting(false)} className="px-8 py-3 rounded-xl font-bold text-sm text-textMuted hover:text-white transition-colors">Cancel</button>
