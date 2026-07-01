@@ -34,8 +34,8 @@ export default function CartPage() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-[60vh]">
-        <Loader2 className="w-10 h-10 text-primary-500 animate-spin" />
+      <div className="flex justify-center items-center min-h-[60vh] bg-lacquer-black">
+        <Loader2 className="w-10 h-10 text-kinpaku-gold animate-spin" />
       </div>
     );
   }
@@ -46,118 +46,126 @@ export default function CartPage() {
   const total = Math.round((subtotal + tax) * 100) / 100;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold tracking-tight text-white mb-8">Shopping Cart</h1>
+    <div className="bg-lacquer-black min-h-screen">
+      <div className="max-w-[1320px] mx-auto px-6 py-12 md:py-16">
+        <h1 className="font-display text-5xl md:text-7xl uppercase tracking-wider text-champagne mb-12 border-b border-gold-hairline pb-6 leading-none">
+          Shopping <span className="text-kinpaku-gold">Cart</span>
+        </h1>
 
-      {items.length === 0 ? (
-        <div className="bg-surface border border-border rounded-xl p-16 text-center">
-          <ShoppingBag className="w-16 h-16 text-textMuted mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-white mb-2">Your cart is empty</h2>
-          <p className="text-textMuted mb-8 max-w-xs mx-auto">Looks like you haven&apos;t added any gear yet. Find your next favourite piece.</p>
-          <Link href="/" className="btn-primary px-8 py-3 text-base">Browse Collection <ArrowRight className="ml-2 w-4 h-4" /></Link>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-8 space-y-6">
-            <ul className="divide-y divide-border border-y border-border">
-              {items.map((item) => (
-                <li key={item._id} className="flex py-6">
-                  <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-border bg-surfaceHighlight">
-                    <OptimizedImage
-                      src={item.productId?.images?.[0] || ''}
-                      alt={item.productId?.title || 'Product item'}
-                      fallback={getCategoryImage(item.productId?.category || '')}
-                      type="product"
-                      className="object-cover object-center"
-                    />
-                  </div>
-
-                  <div className="ml-4 flex flex-1 flex-col">
-                    <div>
-                      <div className="flex justify-between text-base font-medium text-white">
-                        <h3><Link href={`/product/${item.productId?._id}`}>{item.productId?.title || 'Unknown Product'}</Link></h3>
-                        <p className="ml-4">${(item.priceSnapshot * item.quantity).toFixed(2)}</p>
-                      </div>
-                      <p className="mt-1 text-sm text-textMuted">
-                        {item.selectedSize && `Size: ${item.selectedSize}`} 
-                        {item.selectedSize && item.selectedColor && ' | '}
-                        {item.selectedColor && `Color: ${item.selectedColor}`}
-                      </p>
-                    </div>
-                    <div className="flex flex-1 items-end justify-between text-sm">
-                      <div className="flex items-center border border-border rounded-md bg-surfaceHighlight">
-                        <button 
-                          onClick={() => handleUpdateQuantity(item._id, item.quantity, -1)}
-                          disabled={updateCartItem.isPending || item.quantity <= 1}
-                          className="p-2 text-textMuted hover:text-white disabled:opacity-50"
-                        >
-                          <Minus className="w-4 h-4" />
-                        </button>
-                        <span className="px-4 text-white">{item.quantity}</span>
-                        <button 
-                          onClick={() => handleUpdateQuantity(item._id, item.quantity, 1)}
-                          disabled={updateCartItem.isPending}
-                          className="p-2 text-textMuted hover:text-white disabled:opacity-50"
-                        >
-                          <Plus className="w-4 h-4" />
-                        </button>
-                      </div>
-
-                      <button 
-                        type="button" 
-                        onClick={() => handleRemoveItem(item._id)}
-                        disabled={removeCartItem.isPending}
-                        aria-label={`Remove ${item.productId?.title || 'item'} from cart`}
-                        className="font-medium text-error hover:text-error/80 flex items-center min-h-[44px] min-w-[44px]"
-                      >
-                        <Trash2 className="w-4 h-4 mr-1" /> Remove
-                      </button>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
+        {items.length === 0 ? (
+          <div className="empty-state mt-10">
+            <div className="empty-state-icon">
+              <ShoppingBag className="w-8 h-8" />
+            </div>
+            <h2 className="empty-state-title">Your cart is empty</h2>
+            <p className="empty-state-desc mb-8 max-w-sm mx-auto">Looks like you haven&apos;t added any gear yet. Find your next piece.</p>
+            <Link href="/shop" className="ks-button ks-button-primary inline-flex items-center gap-3">
+              Browse Collection <ArrowRight className="w-5 h-5" />
+            </Link>
           </div>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <div className="lg:col-span-8 space-y-6">
+              <ul className="divide-y divide-gold-hairline border-y border-gold-hairline">
+                {items.map((item) => (
+                  <li key={item._id} className="flex py-8">
+                    <div className="relative h-32 w-32 flex-shrink-0 overflow-hidden rounded-[2px] border border-gold-hairline bg-lacquer-deep">
+                      <OptimizedImage
+                        src={item.productId?.images?.[0] || ''}
+                        alt={item.productId?.title || 'Product item'}
+                        fallback={getCategoryImage(item.productId?.category || '')}
+                        type="product"
+                        className="object-cover object-center"
+                      />
+                    </div>
 
-          <div className="lg:col-span-4">
-            <div className="bg-surface border border-border rounded-xl p-6 sticky top-8">
-              <h2 className="text-lg font-medium text-white mb-4">Order Summary</h2>
-              <div className="flow-root">
-                <dl className="space-y-4 text-sm text-textMuted">
-                  <div className="flex justify-between">
-                    <dt>Subtotal</dt>
-                    <dd className="text-white">${subtotal.toFixed(2)}</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt>Tax (8% Est.)</dt>
-                    <dd className="text-white">${tax.toFixed(2)}</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt>Shipping</dt>
-                    <dd className="text-success font-medium">Calculated at checkout</dd>
-                  </div>
-                  <div className="flex justify-between border-t border-border pt-4 text-base font-medium text-white">
-                    <dt>Total</dt>
-                    <dd className="text-primary-500">${total.toFixed(2)}</dd>
-                  </div>
-                </dl>
-              </div>
-              
-              <div className="mt-6 flex space-x-2">
-                <input type="text" placeholder="Promo code" className="input-field flex-1" />
-                <button type="button" onClick={() => toast('Promo codes can be applied at checkout!', { icon: '💡' })} className="btn-secondary whitespace-nowrap">Apply</button>
-              </div>
+                    <div className="ml-6 flex flex-1 flex-col">
+                      <div>
+                        <div className="flex justify-between text-xl font-display uppercase tracking-wider text-champagne">
+                          <h3><Link href={`/product/${item.productId?._id}`} className="hover:text-kinpaku-gold transition-colors">{item.productId?.title || 'Unknown Product'}</Link></h3>
+                          <p className="ml-4 text-kinpaku-gold font-mono">${(item.priceSnapshot * item.quantity).toFixed(2)}</p>
+                        </div>
+                        <p className="mt-2 text-[0.8rem] font-mono text-text-muted uppercase tracking-[0.1em]">
+                          {item.selectedSize && `Size: ${item.selectedSize}`} 
+                          {item.selectedSize && item.selectedColor && ' | '}
+                          {item.selectedColor && `Color: ${item.selectedColor}`}
+                        </p>
+                      </div>
+                      <div className="flex flex-1 items-end justify-between text-sm mt-4">
+                        <div className="flex items-center gap-1 bg-lacquer-deep border border-gold-hairline w-fit rounded-[2px] overflow-hidden">
+                          <button 
+                            onClick={() => handleUpdateQuantity(item._id, item.quantity, -1)}
+                            disabled={updateCartItem.isPending || item.quantity <= 1}
+                            className="px-3 py-1.5 text-text-muted hover:text-champagne transition-colors disabled:opacity-50"
+                          >
+                            <Minus className="w-4 h-4" />
+                          </button>
+                          <span className="font-mono font-medium text-champagne w-6 text-center">{item.quantity}</span>
+                          <button 
+                            onClick={() => handleUpdateQuantity(item._id, item.quantity, 1)}
+                            disabled={updateCartItem.isPending}
+                            className="px-3 py-1.5 text-text-muted hover:text-champagne transition-colors disabled:opacity-50"
+                          >
+                            <Plus className="w-4 h-4" />
+                          </button>
+                        </div>
 
-              <div className="mt-6">
-                <Link href="/checkout" className="btn-primary w-full text-lg py-3.5">
-                  Proceed to Checkout
-                </Link>
-                <p className="text-xs text-center text-textMuted mt-3">🔒 Secure checkout &nbsp;·&nbsp; 30-day returns</p>
+                        <button 
+                          type="button" 
+                          onClick={() => handleRemoveItem(item._id)}
+                          disabled={removeCartItem.isPending}
+                          aria-label={`Remove ${item.productId?.title || 'item'} from cart`}
+                          className="font-mono text-[0.8rem] uppercase tracking-[0.1em] text-red-500 hover:text-red-400 transition-colors flex items-center min-h-[44px] min-w-[44px]"
+                        >
+                          <Trash2 className="w-4 h-4 mr-1.5" /> Remove
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="lg:col-span-4">
+              <div className="bg-raised-lacquer border border-gold-hairline sm:rounded-[4px] p-8 shadow-panel sticky top-8">
+                <h2 className="font-display text-3xl uppercase tracking-wider text-champagne mb-8 pb-4 border-b border-gold-hairline">Order <span className="text-kinpaku-gold">Summary</span></h2>
+                <div className="flow-root">
+                  <dl className="space-y-4 text-[0.95rem] text-text-muted">
+                    <div className="flex justify-between">
+                      <dt>Subtotal</dt>
+                      <dd className="text-champagne font-mono">${subtotal.toFixed(2)}</dd>
+                    </div>
+                    <div className="flex justify-between">
+                      <dt>Tax (8% Est.)</dt>
+                      <dd className="text-champagne font-mono">${tax.toFixed(2)}</dd>
+                    </div>
+                    <div className="flex justify-between">
+                      <dt>Shipping</dt>
+                      <dd className="text-kinpaku-gold font-medium">Calculated at checkout</dd>
+                    </div>
+                    <div className="flex justify-between border-t border-gold-hairline pt-6 text-[1.25rem] font-medium text-champagne mt-6">
+                      <dt className="uppercase tracking-widest font-display text-2xl">Total</dt>
+                      <dd className="text-kinpaku-gold font-mono">${total.toFixed(2)}</dd>
+                    </div>
+                  </dl>
+                </div>
+                
+                <div className="mt-8 flex gap-3">
+                  <input type="text" placeholder="Promo code" className="input-field flex-1 !mt-0" />
+                  <button type="button" onClick={() => toast('Promo codes can be applied at checkout!', { icon: '💡' })} className="ks-button ks-button-secondary whitespace-nowrap">Apply</button>
+                </div>
+
+                <div className="mt-8">
+                  <Link href="/checkout" className="ks-button ks-button-primary w-full text-[1.18rem] justify-center">
+                    Proceed to Checkout
+                  </Link>
+                  <p className="text-[0.75rem] font-mono text-center text-text-muted mt-4 uppercase tracking-[0.1em]">🔒 Secure checkout &nbsp;·&nbsp; 30-day returns</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

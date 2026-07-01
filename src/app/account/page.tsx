@@ -30,7 +30,7 @@ export default function AccountProfilePage() {
     }
   }, [user]);
 
-  if (isLoading) return <div className="animate-pulse bg-white/5 h-64 rounded-xl" />;
+  if (isLoading) return <div className="animate-pulse bg-lacquer-deep h-64 rounded-[2px]" />;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,15 +44,15 @@ export default function AccountProfilePage() {
 
   return (
     <div className="space-y-8">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-end pb-4 border-b border-gold-hairline">
         <div>
-          <h2 className="text-2xl font-black italic uppercase tracking-tight text-white mb-2">Profile Overview</h2>
-          <p className="text-textMuted">Manage your personal information and account settings.</p>
+          <h2 className="font-display text-4xl text-champagne tracking-wider uppercase leading-none mb-2">Profile <span className="text-kinpaku-gold">Overview</span></h2>
+          <p className="text-text-muted text-[0.95rem]">Manage your personal information and account settings.</p>
         </div>
         {!isEditing && (
           <button 
             onClick={() => setIsEditing(true)}
-            className="btn-primary"
+            className="ks-button ks-button-secondary text-[0.85rem] px-6 py-2"
           >
             Edit Profile
           </button>
@@ -60,8 +60,8 @@ export default function AccountProfilePage() {
       </div>
 
       {isEditing ? (
-        <form onSubmit={handleSubmit} className="bg-background border border-border p-6 rounded-xl space-y-6">
-          <div className="space-y-4 max-w-lg">
+        <form onSubmit={handleSubmit} className="bg-raised-lacquer border border-gold-hairline p-8 sm:rounded-[4px] space-y-6 shadow-panel">
+          <div className="space-y-6 max-w-lg">
             <div>
               <label className="label">Avatar URL (Optional)</label>
               <input
@@ -105,7 +105,7 @@ export default function AccountProfilePage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 flex items-center pr-4 text-textMuted hover:text-white transition-colors"
+                  className="absolute inset-y-0 right-0 flex items-center pr-4 text-text-muted hover:text-champagne transition-colors"
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
@@ -113,58 +113,58 @@ export default function AccountProfilePage() {
             </div>
           </div>
           
-          <div className="flex gap-4 pt-4 border-t border-border">
+          <div className="flex gap-4 pt-6 border-t border-gold-hairline">
             <button 
               type="button" 
               onClick={() => setIsEditing(false)}
-              className="px-6 py-2 rounded-lg font-bold text-sm text-textMuted hover:text-white transition-colors"
+              className="px-6 py-2 rounded-[2px] font-mono text-[0.85rem] uppercase tracking-wider text-text-muted hover:text-champagne transition-colors"
             >
               Cancel
             </button>
             <button 
               type="submit" 
               disabled={updateProfile.isPending}
-              className="bg-primary-500 hover:bg-primary-600 text-white px-8 py-2 rounded-lg font-bold text-sm transition-colors flex items-center justify-center min-w-[120px]"
+              className="ks-button ks-button-primary min-w-[140px] text-[0.85rem] px-8 py-2"
             >
-              {updateProfile.isPending ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Save Changes'}
+              {updateProfile.isPending ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : 'Save Changes'}
             </button>
           </div>
         </form>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-background border border-border p-6 rounded-xl flex items-start gap-4 md:col-span-2">
+          <div className="bg-raised-lacquer border border-gold-hairline p-8 sm:rounded-[4px] flex items-start gap-6 md:col-span-2 shadow-panel">
             {user?.avatar ? (
-              <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-primary-500 flex-shrink-0">
-                <Image src={user.avatar} alt={user.name} width={64} height={64} className="object-cover w-full h-full" />
+              <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-kinpaku-gold flex-shrink-0">
+                <Image src={user.avatar} alt={user.name} width={80} height={80} className="object-cover w-full h-full" />
               </div>
             ) : (
-              <div className="p-4 bg-primary-500/10 rounded-full flex-shrink-0">
-                <User className="w-8 h-8 text-primary-500" />
+              <div className="p-5 bg-lacquer-deep border border-gold-hairline rounded-full flex-shrink-0">
+                <User className="w-10 h-10 text-kinpaku-gold" />
               </div>
             )}
             <div className="pt-2">
-              <p className="text-xl font-bold text-white">{user?.name}</p>
-              <p className="text-textMuted text-sm">{user?.email}</p>
+              <p className="font-display text-3xl text-champagne uppercase tracking-wider mb-1">{user?.name}</p>
+              <p className="text-text-muted font-mono text-[0.9rem]">{user?.email}</p>
             </div>
           </div>
 
-          <div className="bg-background border border-border p-6 rounded-xl flex items-start gap-4">
-            <div className="p-3 bg-primary-500/10 rounded-lg">
-              <Shield className="w-6 h-6 text-primary-500" />
+          <div className="bg-raised-lacquer border border-gold-hairline p-8 sm:rounded-[4px] flex items-start gap-5 shadow-panel">
+            <div className="p-3 bg-lacquer-deep border border-gold-hairline rounded-full">
+              <Shield className="w-6 h-6 text-kinpaku-gold" />
             </div>
             <div>
-              <p className="text-xs font-bold text-textMuted uppercase tracking-wider mb-1">Account Type</p>
-              <p className="text-lg font-bold text-white capitalize">{user?.role}</p>
+              <p className="text-[0.7rem] font-mono font-medium text-text-muted uppercase tracking-[0.2em] mb-1">Account Type</p>
+              <p className="font-display text-2xl text-champagne capitalize tracking-wider">{user?.role}</p>
             </div>
           </div>
 
-          <div className="bg-background border border-border p-6 rounded-xl flex items-start gap-4">
-            <div className="p-3 bg-primary-500/10 rounded-lg">
-              <Calendar className="w-6 h-6 text-primary-500" />
+          <div className="bg-raised-lacquer border border-gold-hairline p-8 sm:rounded-[4px] flex items-start gap-5 shadow-panel">
+            <div className="p-3 bg-lacquer-deep border border-gold-hairline rounded-full">
+              <Calendar className="w-6 h-6 text-kinpaku-gold" />
             </div>
             <div>
-              <p className="text-xs font-bold text-textMuted uppercase tracking-wider mb-1">Member Since</p>
-              <p className="text-lg font-bold text-white">2026</p>
+              <p className="text-[0.7rem] font-mono font-medium text-text-muted uppercase tracking-[0.2em] mb-1">Member Since</p>
+              <p className="font-display text-2xl text-champagne tracking-wider">2026</p>
             </div>
           </div>
         </div>

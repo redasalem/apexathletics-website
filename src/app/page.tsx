@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ShoppingBag, Star, ArrowRight, Shield, Truck, RotateCcw } from 'lucide-react';
+import { Star, ArrowRight, Shield, Truck, RotateCcw } from 'lucide-react';
 import { getCategoryImage } from '@/utils/images';
 import ProductCard from '@/components/ProductCard';
 import OptimizedImage from '@/components/OptimizedImage';

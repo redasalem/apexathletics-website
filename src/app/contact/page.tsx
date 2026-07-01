@@ -5,55 +5,55 @@ import { Mail, Phone, MapPin, Send } from 'lucide-react';
 export default function ContactPage() {
   return (
     <div className="max-w-7xl mx-auto px-6 py-16 min-h-[70vh]">
-      <h1 className="text-4xl md:text-5xl font-black italic uppercase text-white mb-12 text-center">Contact Us</h1>
+      <h1 className="font-display text-5xl md:text-6xl text-champagne uppercase tracking-wider mb-12 text-center">Contact <span className="text-kinpaku-gold">Us</span></h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         {/* Contact Info */}
         <div className="space-y-8">
-          <h2 className="text-2xl font-bold text-white mb-6">Get in Touch</h2>
-          <p className="text-textMuted mb-8">
+          <h2 className="font-display text-3xl text-champagne uppercase tracking-wider mb-6 border-b border-gold-hairline pb-4">Get in <span className="text-kinpaku-gold">Touch</span></h2>
+          <p className="text-[0.95rem] text-text-muted mb-8 leading-relaxed">
             Have questions about an order, our platform, or interested in becoming a vendor? Our support team is here to help you.
           </p>
           
           <div className="space-y-6">
-            <div className="flex items-start gap-4">
-              <div className="bg-primary-500/10 p-3 rounded-lg">
-                <Mail className="w-6 h-6 text-primary-500" />
+            <div className="flex items-start gap-5">
+              <div className="bg-lacquer-deep border border-gold-hairline p-3 rounded-full">
+                <Mail className="w-6 h-6 text-kinpaku-gold" />
               </div>
               <div>
-                <h3 className="font-bold text-white">Email Support</h3>
-                <p className="text-textMuted">support@apexathletics.com</p>
-                <p className="text-xs text-textMuted mt-1">We aim to respond within 24 hours.</p>
+                <h3 className="font-mono text-[0.85rem] uppercase tracking-[0.1em] text-champagne mb-1">Email Support</h3>
+                <p className="text-text-muted">support@apexathletics.com</p>
+                <p className="text-[0.7rem] uppercase tracking-wider text-text-muted mt-1">We aim to respond within 24 hours.</p>
               </div>
             </div>
             
-            <div className="flex items-start gap-4">
-              <div className="bg-primary-500/10 p-3 rounded-lg">
-                <Phone className="w-6 h-6 text-primary-500" />
+            <div className="flex items-start gap-5">
+              <div className="bg-lacquer-deep border border-gold-hairline p-3 rounded-full">
+                <Phone className="w-6 h-6 text-kinpaku-gold" />
               </div>
               <div>
-                <h3 className="font-bold text-white">Phone Support</h3>
-                <p className="text-textMuted">+1 (800) 123-4567</p>
-                <p className="text-xs text-textMuted mt-1">Mon-Fri, 9am - 6pm EST</p>
+                <h3 className="font-mono text-[0.85rem] uppercase tracking-[0.1em] text-champagne mb-1">Phone Support</h3>
+                <p className="text-text-muted">+1 (800) 123-4567</p>
+                <p className="text-[0.7rem] uppercase tracking-wider text-text-muted mt-1">Mon-Fri, 9am - 6pm EST</p>
               </div>
             </div>
             
-            <div className="flex items-start gap-4">
-              <div className="bg-primary-500/10 p-3 rounded-lg">
-                <MapPin className="w-6 h-6 text-primary-500" />
+            <div className="flex items-start gap-5">
+              <div className="bg-lacquer-deep border border-gold-hairline p-3 rounded-full">
+                <MapPin className="w-6 h-6 text-kinpaku-gold" />
               </div>
               <div>
-                <h3 className="font-bold text-white">Headquarters</h3>
-                <p className="text-textMuted">123 Sports Ave, Suite 100<br/>New York, NY 10001<br/>United States</p>
+                <h3 className="font-mono text-[0.85rem] uppercase tracking-[0.1em] text-champagne mb-1">Headquarters</h3>
+                <p className="text-[0.95rem] text-text-muted leading-relaxed">123 Sports Ave, Suite 100<br/>New York, NY 10001<br/>United States</p>
               </div>
             </div>
           </div>
         </div>
         
         {/* Contact Form */}
-        <div className="bg-surface border border-border p-8 rounded-2xl shadow-xl">
-          <h2 className="text-2xl font-bold text-white mb-6">Send a Message</h2>
-          <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); alert('Thank you! Your message has been sent successfully.'); }}>
+        <div className="bg-raised-lacquer border border-gold-hairline p-8 sm:rounded-[4px] shadow-panel">
+          <h2 className="font-display text-3xl text-champagne uppercase tracking-wider mb-6">Send a Message</h2>
+          <form className="space-y-5" onSubmit={(e) => { e.preventDefault(); alert('Thank you! Your message has been sent successfully.'); }}>
             <div>
               <label className="label">Name</label>
               <input type="text" required className="input-field" placeholder="John Doe" />
@@ -75,7 +75,7 @@ export default function ContactPage() {
               <label className="label">Message</label>
               <textarea required className="input-field" rows={4} placeholder="How can we help you?"></textarea>
             </div>
-            <button type="submit" className="btn-primary w-full flex items-center justify-center gap-2 mt-6">
+            <button type="submit" className="ks-button ks-button-primary w-full flex items-center justify-center gap-2 mt-8">
               <Send className="w-4 h-4" /> Send Message
             </button>
           </form>

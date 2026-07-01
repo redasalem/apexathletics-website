@@ -80,30 +80,30 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-[80vh] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-[80vh] flex flex-col justify-center py-12 px-6 lg:px-8 bg-lacquer-black">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-        <h2 className="text-3xl font-extrabold text-white tracking-tight">Join Apex Sports</h2>
-        <p className="mt-2 text-sm text-textMuted">
+        <h2 className="font-display text-5xl md:text-6xl text-champagne tracking-wider uppercase">Join <span className="text-kinpaku-gold">Impeccable</span></h2>
+        <p className="mt-4 text-[1.02rem] text-text-muted">
           Already have an account?{' '}
-          <Link href="/login" className="font-semibold text-primary-500 hover:text-white transition-colors">
+          <Link href="/login" className="font-medium text-kinpaku-gold hover:text-champagne transition-colors underline underline-offset-4">
             Sign in instead
           </Link>
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-surface border border-border py-8 px-4 shadow sm:rounded-2xl sm:px-10">
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-raised-lacquer border border-gold-hairline py-10 px-6 sm:rounded-[4px] sm:px-10 shadow-panel">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label className="label">Account Type</label>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 mt-2">
                 <label className="cursor-pointer">
                   <input type="radio" value="customer" {...register('role')} className="peer sr-only" />
-                  <div className="text-center py-3 border border-border rounded-xl text-textMuted peer-checked:bg-primary-500/10 peer-checked:border-primary-500 peer-checked:text-primary-500 transition-colors font-medium">Customer</div>
+                  <div className="text-center py-3 border border-gold-hairline rounded-[2px] text-text-muted peer-checked:bg-kinpaku-gold peer-checked:border-kinpaku-gold peer-checked:text-lacquer-deep transition-colors font-medium">Customer</div>
                 </label>
                 <label className="cursor-pointer">
                   <input type="radio" value="vendor" {...register('role')} className="peer sr-only" />
-                  <div className="text-center py-3 border border-border rounded-xl text-textMuted peer-checked:bg-primary-500/10 peer-checked:border-primary-500 peer-checked:text-primary-500 transition-colors font-medium">Vendor</div>
+                  <div className="text-center py-3 border border-gold-hairline rounded-[2px] text-text-muted peer-checked:bg-kinpaku-gold peer-checked:border-kinpaku-gold peer-checked:text-lacquer-deep transition-colors font-medium">Vendor</div>
                 </label>
               </div>
             </div>
@@ -116,7 +116,7 @@ export default function RegisterPage() {
                   className="input-field"
                   placeholder="John Doe"
                 />
-                {errors.name && <p className="mt-1 text-sm text-error">{errors.name.message}</p>}
+                {errors.name && <p className="mt-1.5 text-sm text-red-500 font-medium">{errors.name.message}</p>}
             </div>
 
             <div>
@@ -127,7 +127,7 @@ export default function RegisterPage() {
                   className="input-field"
                   placeholder="you@example.com"
                 />
-                {errors.email && <p className="mt-1 text-sm text-error">{errors.email.message}</p>}
+                {errors.email && <p className="mt-1.5 text-sm text-red-500 font-medium">{errors.email.message}</p>}
             </div>
 
             <div>
@@ -142,12 +142,12 @@ export default function RegisterPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 flex items-center pr-4 text-textMuted hover:text-white transition-colors"
+                  className="absolute inset-y-0 right-0 flex items-center pr-4 text-text-muted hover:text-champagne transition-colors"
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
-              {errors.password && <p className="mt-1 text-sm text-error">{errors.password.message}</p>}
+              {errors.password && <p className="mt-1.5 text-sm text-red-500 font-medium">{errors.password.message}</p>}
             </div>
 
             {selectedRole === 'vendor' && (
@@ -160,18 +160,18 @@ export default function RegisterPage() {
                   className="input-field"
                   placeholder="My Awesome Store"
                 />
-                    {errors.storeName && <p className="mt-1 text-sm text-error">{errors.storeName.message}</p>}
+                    {errors.storeName && <p className="mt-1.5 text-sm text-red-500 font-medium">{errors.storeName.message}</p>}
                 </div>
 
                 <div>
               <label className="label">Store Description</label>
                 <textarea
                   {...register('storeDescription')}
-                  className="input-field"
+                  className="input-field min-h-[100px]"
                   placeholder="Tell us about your products..."
                   rows={3}
                 />
-                    {errors.storeDescription && <p className="mt-1 text-sm text-error">{errors.storeDescription.message}</p>}
+                    {errors.storeDescription && <p className="mt-1.5 text-sm text-red-500 font-medium">{errors.storeDescription.message}</p>}
                 </div>
               </>
             )}
@@ -179,13 +179,13 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={registerMutation.isPending}
-              className="btn-primary w-full"
+              className="ks-button ks-button-primary w-full text-[1.18rem] mt-4"
             >
               {registerMutation.isPending ? (
-                <Loader2 className="w-5 h-5 animate-spin" />
+                <Loader2 className="w-6 h-6 animate-spin text-lacquer-deep" />
               ) : (
                 <>
-                  Create account <ArrowRight className="ml-2 w-4 h-4" />
+                  Create Account <ArrowRight className="ml-2 w-5 h-5" />
                 </>
               )}
             </button>

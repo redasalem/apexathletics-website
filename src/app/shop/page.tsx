@@ -4,7 +4,7 @@ import { Suspense, useState, useCallback, useRef } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { Product, usePublicProducts, useCategories } from '@/hooks/useProducts';
 import ProductCard from '@/components/ProductCard';
-import { Filter, X, Loader2 } from 'lucide-react';
+import { Filter, X, Loader2, SearchX } from 'lucide-react';
 
 function ShopContent() {
   const searchParams = useSearchParams();
@@ -52,18 +52,18 @@ function ShopContent() {
   };
 
   const FiltersBlock = () => (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <div>
-        <h3 className="text-lg font-black uppercase italic tracking-widest mb-4">Category</h3>
+        <span className="ks-section-eyebrow mb-4">Category</span>
         {categoriesLoading ? (
           <div className="animate-pulse flex flex-col gap-3">
-             {[1,2,3].map(i => <div key={i} className="h-4 bg-white/5 rounded w-full"></div>)}
+             {[1,2,3].map(i => <div key={i} className="h-6 bg-raised-lacquer rounded-[2px] w-full border border-gold-hairline"></div>)}
           </div>
         ) : (
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             <button 
               onClick={() => updateFilters('category', '')}
-              className={`block w-full text-left px-2 py-1 rounded transition-colors ${!selectedCategory ? 'text-primary-500 font-bold bg-primary-500/10' : 'text-textMuted hover:text-white'}`}
+              className={`block w-full text-left px-3 py-2 rounded-[2px] transition-colors font-medium text-[0.95rem] ${!selectedCategory ? 'text-lacquer-deep bg-kinpaku-gold border border-kinpaku-gold' : 'text-text-muted hover:text-champagne border border-transparent hover:border-gold-hairline bg-transparent'}`}
             >
               All Categories
             </button>
@@ -71,7 +71,7 @@ function ShopContent() {
                <button 
                 key={c.slug}
                 onClick={() => updateFilters('category', c.name)}
-                className={`block w-full text-left px-2 py-1 rounded transition-colors ${selectedCategory === c.name ? 'text-primary-500 font-bold bg-primary-500/10' : 'text-textMuted hover:text-white'}`}
+                className={`block w-full text-left px-3 py-2 rounded-[2px] transition-colors font-medium text-[0.95rem] ${selectedCategory === c.name ? 'text-lacquer-deep bg-kinpaku-gold border border-kinpaku-gold' : 'text-text-muted hover:text-champagne border border-transparent hover:border-gold-hairline bg-transparent'}`}
               >
                 {c.name}
               </button>
@@ -81,22 +81,22 @@ function ShopContent() {
       </div>
 
       <div>
-        <h3 className="text-lg font-black uppercase italic tracking-widest mb-4">Price Range</h3>
-        <div className="flex items-center gap-2">
+        <span className="ks-section-eyebrow mb-4">Price Range</span>
+        <div className="flex items-center gap-3">
           <input 
              type="number" 
              placeholder="Min" 
              value={minPrice}
              onChange={(e) => updateFilters('minPrice', e.target.value)}
-             className="w-full bg-surface border border-white/10 rounded px-3 py-2 text-sm focus:outline-none focus:border-primary-500 text-white placeholder-textMuted/50"
+             className="input-field"
           />
-          <span className="text-textMuted">-</span>
+          <span className="text-text-muted">-</span>
           <input 
              type="number" 
              placeholder="Max" 
              value={maxPrice}
              onChange={(e) => updateFilters('maxPrice', e.target.value)}
-             className="w-full bg-surface border border-white/10 rounded px-3 py-2 text-sm focus:outline-none focus:border-primary-500 text-white placeholder-textMuted/50"
+             className="input-field"
           />
         </div>
       </div>
@@ -104,7 +104,7 @@ function ShopContent() {
       {(selectedCategory || minPrice || maxPrice) && (
         <button 
           onClick={clearFilters}
-          className="text-xs uppercase tracking-widest text-primary-500 hover:text-primary-400 font-bold"
+          className="text-[0.72rem] font-mono uppercase tracking-[0.22em] text-kinpaku-gold hover:text-champagne font-medium transition-colors"
         >
           Clear All Filters
         </button>
@@ -113,64 +113,69 @@ function ShopContent() {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-12">
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-4xl md:text-5xl font-black italic uppercase tracking-tight">
-          Shop <span className="text-primary-500">Gear</span>
-        </h1>
-        <button 
-          className="md:hidden flex items-center gap-2 bg-surface border border-white/10 px-4 py-2 rounded-xl text-sm font-bold"
-          onClick={() => setIsMobileFiltersOpen(true)}
-        >
-          <Filter className="w-4 h-4" /> Filters
-        </button>
-      </div>
-
-      <div className="flex flex-col md:flex-row gap-10">
-        {/* Desktop Sidebar */}
-        <div className="hidden md:block w-64 flex-shrink-0">
-          <FiltersBlock />
+    <div className="bg-lacquer-black min-h-screen">
+      <div className="max-w-[1320px] mx-auto px-6 py-12 md:py-16">
+        <div className="flex items-end justify-between mb-10 border-b border-gold-hairline pb-6">
+          <h1 className="font-display text-5xl md:text-7xl uppercase tracking-wider text-champagne leading-none">
+            Shop <span className="text-kinpaku-gold">Collection</span>
+          </h1>
+          <button 
+            className="md:hidden flex items-center gap-2 bg-lacquer-deep border border-gold-hairline hover:border-kinpaku-gold px-4 py-2 rounded-[2px] text-[0.8rem] font-medium text-kinpaku-gold transition-colors"
+            onClick={() => setIsMobileFiltersOpen(true)}
+          >
+            <Filter className="w-4 h-4" /> Filters
+          </button>
         </div>
 
-        {/* Mobile Sidebar */}
-        {isMobileFiltersOpen && (
-          <div className="fixed inset-0 z-50 flex md:hidden">
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsMobileFiltersOpen(false)} />
-            <div className="absolute right-0 top-0 bottom-0 w-80 bg-background border-l border-white/5 p-6 overflow-y-auto">
-              <div className="flex justify-between items-center mb-8">
-                <h2 className="text-xl font-black italic uppercase tracking-widest">Filters</h2>
-                <button onClick={() => setIsMobileFiltersOpen(false)} className="p-2 bg-white/5 rounded-full text-white">
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-              <FiltersBlock />
-            </div>
+        <div className="flex flex-col md:flex-row gap-12">
+          {/* Desktop Sidebar */}
+          <div className="hidden md:block w-[260px] flex-shrink-0">
+            <FiltersBlock />
           </div>
-        )}
 
-        {/* Product Grid */}
-        <div className="flex-1">
-          {productsLoading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-               {[1,2,3,4,5,6].map(i => (
-                 <div key={i} className="bg-surface rounded-xl aspect-[3/4] animate-pulse border border-white/5"></div>
-               ))}
-            </div>
-          ) : !products?.data || products.data.length === 0 ? (
-            <div className="py-20 text-center border border-white/5 rounded-3xl bg-surface/30">
-               <h3 className="text-2xl font-black italic uppercase text-white mb-2">No Products Found</h3>
-               <p className="text-textMuted max-w-sm mx-auto">Try adjusting your filters or category selection to see more gear.</p>
-               <button onClick={clearFilters} className="mt-6 bg-primary-500 hover:bg-primary-600 px-6 py-2 rounded-lg font-bold text-white uppercase tracking-widest text-sm transition-colors">
-                  Clear Filters
-               </button>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {products.data.map((product: Product) => (
-                <ProductCard key={product._id} product={product} />
-              ))}
+          {/* Mobile Sidebar */}
+          {isMobileFiltersOpen && (
+            <div className="fixed inset-0 z-50 flex md:hidden animate-in fade-in duration-200">
+              <div className="absolute inset-0 bg-lacquer-black/80 backdrop-blur-sm" onClick={() => setIsMobileFiltersOpen(false)} />
+              <div className="absolute right-0 top-0 bottom-0 w-80 bg-lacquer-deep border-l border-gold-hairline p-6 overflow-y-auto animate-in slide-in-from-right-full duration-300">
+                <div className="flex justify-between items-center mb-8 border-b border-gold-hairline pb-4">
+                  <span className="font-mono text-[0.8rem] uppercase tracking-[0.22em] text-kinpaku-gold">Filters</span>
+                  <button onClick={() => setIsMobileFiltersOpen(false)} className="p-2 border border-transparent hover:border-gold-hairline rounded-[2px] text-text-muted hover:text-champagne transition-colors">
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+                <FiltersBlock />
+              </div>
             </div>
           )}
+
+          {/* Product Grid */}
+          <div className="flex-1">
+            {productsLoading ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                 {[1,2,3,4,5,6].map(i => (
+                   <div key={i} className="bg-raised-lacquer rounded-[4px] aspect-[3/4] animate-pulse border border-gold-hairline"></div>
+                 ))}
+              </div>
+            ) : !products?.data || products.data.length === 0 ? (
+              <div className="empty-state mt-4">
+                 <div className="empty-state-icon">
+                   <SearchX className="w-8 h-8" />
+                 </div>
+                 <h3 className="empty-state-title">No Products Found</h3>
+                 <p className="empty-state-desc mb-6">Try adjusting your filters or category selection to see more gear.</p>
+                 <button onClick={clearFilters} className="ks-button ks-button-secondary">
+                    Clear Filters
+                 </button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {products.data.map((product: Product) => (
+                  <ProductCard key={product._id} product={product} />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -179,7 +184,7 @@ function ShopContent() {
 
 export default function ShopPage() {
   return (
-    <Suspense fallback={<div className="flex justify-center p-20"><Loader2 className="w-10 h-10 animate-spin text-primary-500" /></div>}>
+    <Suspense fallback={<div className="flex justify-center p-20"><Loader2 className="w-10 h-10 animate-spin text-kinpaku-gold" /></div>}>
       <ShopContent />
     </Suspense>
   );

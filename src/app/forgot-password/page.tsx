@@ -31,49 +31,49 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="min-h-[80vh] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-[80vh] flex flex-col justify-center py-12 px-6 lg:px-8 bg-lacquer-black">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-        <div className="bg-surfaceHighlight p-4 rounded-full inline-block mx-auto mb-4">
-          <Mail className="w-10 h-10 text-primary-500" />
+        <div className="border border-gold-hairline p-4 rounded-[2px] inline-block mx-auto mb-6 bg-lacquer-deep">
+          <Mail className="w-8 h-8 text-kinpaku-gold" />
         </div>
-        <h2 className="text-3xl font-extrabold text-white tracking-tight">Reset password</h2>
-        <p className="mt-2 text-sm text-textMuted max-w-sm mx-auto">
+        <h2 className="font-display text-5xl md:text-6xl text-champagne tracking-wider uppercase">Forgot <span className="text-kinpaku-gold">Password</span></h2>
+        <p className="mt-4 text-[1.02rem] text-text-muted max-w-sm mx-auto">
           Enter the email address associated with your account and we&apos;ll send you a link to reset your password.
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-surface border border-border py-8 px-4 shadow sm:rounded-2xl sm:px-10">
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-raised-lacquer border border-gold-hairline py-10 px-6 sm:rounded-[4px] sm:px-10 shadow-panel">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <div>
-              <label className="block text-sm font-medium text-white">Email address</label>
+              <label className="label">Email address</label>
               <div className="mt-2">
                 <input
                   {...register('email')}
                   type="email"
-                  className="w-full p-3 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  className="input-field"
                   placeholder="you@example.com"
                 />
-                {errors.email && <p className="mt-1 text-sm text-error">{errors.email.message}</p>}
+                {errors.email && <p className="mt-1.5 text-sm text-red-500 font-medium">{errors.email.message}</p>}
               </div>
             </div>
 
             <button
               type="submit"
               disabled={isSubmitting || forgotPassword.isPending}
-              className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-primary-500 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all disabled:opacity-50"
+              className="ks-button ks-button-primary w-full text-[1.18rem] mt-4"
             >
               {isSubmitting || forgotPassword.isPending ? (
-                <Loader2 className="w-5 h-5 animate-spin" />
+                <Loader2 className="w-6 h-6 animate-spin text-lacquer-deep" />
               ) : (
                 <>
-                  Send reset link <ArrowRight className="ml-2 w-4 h-4" />
+                  Send reset link <ArrowRight className="ml-2 w-5 h-5" />
                 </>
               )}
             </button>
             
-            <div className="text-center pt-2">
-              <Link href="/login" className="font-medium text-sm text-textMuted hover:text-white transition-colors">
+            <div className="text-center pt-4">
+              <Link href="/login" className="font-medium text-[0.95rem] text-text-muted hover:text-kinpaku-gold transition-colors">
                 Return to sign in
               </Link>
             </div>

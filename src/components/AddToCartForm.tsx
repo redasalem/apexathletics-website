@@ -52,18 +52,18 @@ export default function AddToCartForm({ product }: AddToCartFormProps) {
   };
 
   return (
-    <div className="space-y-6 mb-10">
+    <div className="space-y-8 mb-10">
       {/* Colors */}
       {product.colors && product.colors.length > 0 && (
         <div>
-          <h4 className="text-xs font-black uppercase tracking-widest text-white mb-3">Select Color</h4>
+          <h4 className="ks-section-eyebrow !mb-3">Select Color</h4>
           <div className="flex flex-wrap gap-3">
             {product.colors.map(color => (
               <button 
                 key={color}
                 onClick={() => setSelectedColor(color)}
                 aria-pressed={selectedColor === color}
-                className={`px-4 py-2 border rounded-lg text-sm font-bold uppercase tracking-wider transition-all ${selectedColor === color ? 'bg-white text-black border-white' : 'bg-surface border-white/10 text-textMuted hover:border-white/30 hover:text-white'}`}
+                className={`px-4 py-2 border rounded-[2px] text-[0.8rem] font-mono uppercase tracking-[0.1em] transition-all ${selectedColor === color ? 'bg-kinpaku-gold text-lacquer-deep border-kinpaku-gold font-bold' : 'bg-lacquer-deep border-gold-hairline text-text-muted hover:border-kinpaku-gold hover:text-champagne font-medium'}`}
               >
                 {color}
               </button>
@@ -75,14 +75,14 @@ export default function AddToCartForm({ product }: AddToCartFormProps) {
       {/* Sizes */}
       {product.sizes && product.sizes.length > 0 && (
         <div>
-          <h4 className="text-xs font-black uppercase tracking-widest text-white mb-3">Select Size</h4>
+          <h4 className="ks-section-eyebrow !mb-3">Select Size</h4>
           <div className="flex flex-wrap gap-3">
             {product.sizes.map(size => (
               <button 
                 key={size}
                 onClick={() => setSelectedSize(size)}
                 aria-pressed={selectedSize === size}
-                className={`min-w-[48px] px-3 py-2 border rounded-lg text-sm font-bold uppercase transition-all ${selectedSize === size ? 'bg-primary-500 text-white border-primary-500 shadow-lg shadow-primary-500/20' : 'bg-surface border-white/10 text-textMuted hover:border-white/30 hover:text-white'}`}
+                className={`min-w-[48px] px-3 py-2 border rounded-[2px] text-[0.8rem] font-mono uppercase tracking-[0.1em] transition-all ${selectedSize === size ? 'bg-kinpaku-gold text-lacquer-deep border-kinpaku-gold font-bold' : 'bg-lacquer-deep border-gold-hairline text-text-muted hover:border-kinpaku-gold hover:text-champagne font-medium'}`}
               >
                 {size}
               </button>
@@ -93,20 +93,20 @@ export default function AddToCartForm({ product }: AddToCartFormProps) {
 
       {/* Quantity */}
       <div>
-         <h4 className="text-xs font-black uppercase tracking-widest text-white mb-3">Quantity</h4>
-         <div className="flex items-center gap-1 bg-surface border border-white/10 w-fit rounded-lg overflow-hidden">
-           <button type="button" aria-label="Decrease quantity" className="px-3 py-2 text-textMuted hover:text-white transition-colors" onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button>
-           <span className="font-bold text-white w-8 text-center">{quantity}</span>
-           <button type="button" aria-label="Increase quantity" className="px-3 py-2 text-textMuted hover:text-white transition-colors" onClick={() => setQuantity(Math.min(product.stock, quantity + 1))}>+</button>
+         <h4 className="ks-section-eyebrow !mb-3">Quantity</h4>
+         <div className="flex items-center gap-1 bg-lacquer-deep border border-gold-hairline w-fit rounded-[2px] overflow-hidden">
+           <button type="button" aria-label="Decrease quantity" className="px-4 py-2 text-text-muted hover:text-champagne transition-colors" onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button>
+           <span className="font-mono font-medium text-champagne w-8 text-center">{quantity}</span>
+           <button type="button" aria-label="Increase quantity" className="px-4 py-2 text-text-muted hover:text-champagne transition-colors" onClick={() => setQuantity(Math.min(product.stock, quantity + 1))}>+</button>
          </div>
       </div>
 
       <button 
         disabled={addToCartMutation.isPending || product.stock === 0}
         onClick={handleAddToCart}
-        className="w-full bg-primary-500 hover:bg-primary-600 disabled:opacity-50 disabled:cursor-not-allowed text-white py-4 rounded-xl font-black uppercase italic tracking-widest shadow-xl shadow-primary-500/20 hover:shadow-primary-500/40 active:scale-[0.98] transition-all flex items-center justify-center gap-3 mt-8"
+        className="ks-button ks-button-primary w-full text-[1.18rem] mt-8 flex items-center justify-center gap-3"
       >
-        {addToCartMutation.isPending ? <Loader2 className="w-5 h-5 animate-spin" /> : <ShoppingCart className="w-5 h-5" />}
+        {addToCartMutation.isPending ? <Loader2 className="w-5 h-5 animate-spin text-lacquer-deep" /> : <ShoppingCart className="w-5 h-5" />}
         {product.stock === 0 ? 'Out of Stock' : 'Add to Cart — $' + (product.price * quantity).toFixed(2)}
       </button>
     </div>

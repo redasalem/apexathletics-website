@@ -40,7 +40,7 @@
   }
 
   .ks-button-secondary:hover {
-    @apply border-kinpaku-gold bg-kinpaku-gold/10;
+    @apply border-kinpaku-gold bg-raised-lacquer;
   }
 
   .ks-button-ghost {

@@ -24,12 +24,12 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
 
   return (
     <ProtectedRoute allowedRoles={['customer']}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 min-h-[60vh]">
-        <h1 className="text-3xl font-bold text-white mb-8 tracking-tight">Your Account</h1>
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-12 min-h-[70vh]">
+        <h1 className="font-display text-5xl text-champagne uppercase tracking-wider mb-10 leading-none">Your <span className="text-kinpaku-gold">Account</span></h1>
         
-        <div className="flex flex-col md:flex-row gap-8">
+        <div className="flex flex-col md:flex-row gap-10">
           <aside className="w-full md:w-64 flex-shrink-0">
-            <nav className="space-y-1">
+            <nav className="space-y-2">
               {links.map((link) => {
                 const isActive = pathname === link.href || pathname.startsWith(`${link.href}/`);
                 
@@ -37,14 +37,14 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
                   <Link
                     key={link.name}
                     href={link.href}
-                    className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-colors ${
+                    className={`flex items-center space-x-3 px-5 py-3.5 transition-all duration-300 sm:rounded-[2px] border ${
                       isActive 
-                        ? 'bg-primary-500/20 text-primary-500 font-medium' 
-                        : 'text-textMuted hover:bg-surfaceHighlight hover:text-white'
+                        ? 'bg-lacquer-deep border-gold-hairline text-kinpaku-gold shadow-panel font-medium' 
+                        : 'border-transparent text-text-muted hover:bg-lacquer-deep/50 hover:border-gold-hairline/30 hover:text-champagne'
                     }`}
                   >
                     <link.icon className="w-5 h-5" />
-                    <span>{link.name}</span>
+                    <span className="font-mono text-[0.85rem] uppercase tracking-wider">{link.name}</span>
                   </Link>
                 );
               })}
@@ -52,7 +52,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
               <button 
                 onClick={handleLogout}
                 disabled={logout.isPending}
-                className="w-full mt-4 flex items-center space-x-3 px-4 py-3 rounded-xl text-textMuted hover:bg-error/10 hover:text-error transition-colors text-left"
+                className="w-full mt-6 flex items-center space-x-3 px-5 py-3.5 sm:rounded-[2px] border border-transparent text-text-muted hover:bg-red-950/20 hover:border-red-900/50 hover:text-red-400 transition-all duration-300 text-left font-mono text-[0.85rem] uppercase tracking-wider"
               >
                 {logout.isPending ? <Loader2 className="w-5 h-5 animate-spin" /> : <LogOut className="w-5 h-5" />}
                 <span>Logout</span>
@@ -60,7 +60,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
             </nav>
           </aside>
 
-          <main className="flex-1 bg-surface border border-border rounded-2xl p-6 md:p-8">
+          <main className="flex-1 min-w-0">
             {children}
           </main>
         </div>

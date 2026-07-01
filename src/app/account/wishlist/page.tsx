@@ -11,7 +11,7 @@ export default function WishlistPage() {
   if (isLoading) {
     return (
       <div className="flex justify-center py-16">
-        <Loader2 className="w-8 h-8 animate-spin text-primary-500" />
+        <Loader2 className="w-8 h-8 animate-spin text-kinpaku-gold" />
       </div>
     );
   }
@@ -20,20 +20,20 @@ export default function WishlistPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h2 className="text-2xl font-black italic uppercase tracking-tight text-white mb-2">My Wishlist</h2>
-        <p className="text-textMuted">Saved items you want to buy later.</p>
+      <div className="pb-4 border-b border-gold-hairline">
+        <h2 className="font-display text-4xl text-champagne uppercase tracking-wider mb-2">My <span className="text-kinpaku-gold">Wishlist</span></h2>
+        <p className="text-text-muted text-[0.95rem]">Saved items you want to buy later.</p>
       </div>
 
       {items.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-16 text-center border border-dashed border-white/10 rounded-2xl bg-background/50">
-          <div className="p-4 bg-primary-500/10 rounded-full mb-4">
-            <Heart className="w-8 h-8 text-primary-500" />
+        <div className="flex flex-col items-center justify-center py-20 text-center bg-raised-lacquer border border-gold-hairline shadow-panel sm:rounded-[4px]">
+          <div className="p-4 bg-lacquer-deep border border-gold-hairline rounded-full mb-6">
+            <Heart className="w-8 h-8 text-kinpaku-gold" />
           </div>
-          <h3 className="text-xl font-bold text-white mb-2">Your wishlist is empty</h3>
-          <p className="text-textMuted max-w-sm mb-6">You haven&apos;t saved any items yet. Browse our shop to find gear you love.</p>
-          <Link href="/shop" className="flex items-center gap-2 bg-primary-500 text-white px-6 py-3 rounded-xl font-bold hover:bg-primary-600 transition-colors">
-            <Search className="w-5 h-5" />
+          <h3 className="font-display text-3xl text-champagne uppercase tracking-wider mb-2">Your wishlist is empty</h3>
+          <p className="text-text-muted max-w-sm mb-8 font-mono text-[0.9rem]">You haven&apos;t saved any items yet. Browse our shop to find gear you love.</p>
+          <Link href="/shop" className="ks-button ks-button-primary px-8 flex items-center justify-center gap-2">
+            <Search className="w-4 h-4" />
             Explore Gear
           </Link>
         </div>

@@ -37,16 +37,16 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   const url = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://apexathletics.com'}/product/${product._id}`;
 
   return {
-    title: `${product.title} - Apex Athletics`,
+    title: `${product.title} - Impeccable Athletics`,
     description: product.description,
     alternates: {
       canonical: url,
     },
     openGraph: {
-      title: `${product.title} - Apex Athletics`,
+      title: `${product.title} - Impeccable Athletics`,
       description: product.description,
       url: url,
-      siteName: 'Apex Athletics',
+      siteName: 'Impeccable Athletics',
       images: [
         {
           url: product.images?.[0] || getCategoryImage(product.category),
@@ -59,7 +59,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${product.title} - Apex Athletics`,
+      title: `${product.title} - Impeccable Athletics`,
       description: product.description,
       images: [product.images?.[0] || getCategoryImage(product.category)],
     }
@@ -94,7 +94,7 @@ export default async function ProductDetailsPage({ params }: { params: { id: str
       availability: product.stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
       seller: {
         '@type': 'Organization',
-        name: product.vendor?.storeName || 'Apex Vendor',
+        name: product.vendor?.storeName || 'Impeccable Vendor',
       },
     },
     ...(product.averageRating > 0 && {
@@ -147,101 +147,114 @@ export default async function ProductDetailsPage({ params }: { params: { id: str
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
     />
-    <div className="max-w-7xl mx-auto px-6 py-12">
-      <Link 
-        href="/shop"
-        className="inline-flex items-center gap-2 text-textMuted hover:text-white transition-colors mb-8 text-sm font-bold uppercase tracking-widest"
-      >
-        ← Back to Shop
-      </Link>
+    <div className="bg-lacquer-black">
+      <div className="max-w-[1320px] mx-auto px-6 py-12 md:py-16">
+        <Link 
+          href="/shop"
+          className="inline-flex items-center gap-2 text-kinpaku-gold hover:text-champagne transition-colors mb-10 text-[0.72rem] font-mono uppercase tracking-[0.22em]"
+        >
+          ← Back to Collection
+        </Link>
 
-      <div className="flex flex-col md:flex-row gap-12 lg:gap-20">
-        
-        {/* Left Side: Images */}
-        <div className="w-full md:w-1/2 flex-shrink-0">
-        <ProductGallery images={product.images?.length ? product.images : [imageSrc]} title={product.title} />
-        </div>
-
-        {/* Right Side: Details */}
-        <div className="w-full md:w-1/2 flex flex-col pt-2 lg:pt-10">
-          <div className="mb-2">
-            <span className="text-xs font-black uppercase text-textMuted tracking-[0.2em]">{product.category} • {product.subcategory}</span>
-          </div>
-          <h1 className="text-4xl lg:text-5xl font-black italic uppercase tracking-tight text-white mb-4 leading-tight">
-            {product.title}
-          </h1>
+        <div className="flex flex-col md:flex-row gap-12 lg:gap-20">
           
-          <div className="flex items-center gap-4 mb-6 pb-6 border-b border-white/5">
-             <div className="flex items-center gap-1">
-               {[1,2,3,4,5].map(i => (
-                 <Star 
-                   key={i} 
-                   className={`w-4 h-4 ${i <= Math.round(product.averageRating || 5) ? 'fill-primary-500 text-primary-500' : 'text-white/10'}`} 
-                 />
-               ))}
-               <span className="text-xs font-bold text-white ml-2">{product.averageRating?.toFixed(1) || '5.0'}</span>
-               <span className="text-[10px] uppercase font-black tracking-widest text-textMuted ml-3">({product.numReviews || 0} Reviews)</span>
-             </div>
-             <div className="w-px h-4 bg-white/10" />
-             <span className="text-sm text-textMuted font-medium italic">
-                Sold by <Link href={`/vendor/${product.vendor?._id}`} className="text-primary-500 hover:underline font-bold not-italic">{product.vendor?.storeName || 'Apex Vendor'}</Link>
-             </span>
+          {/* Left Side: Images */}
+          <div className="w-full md:w-[55%] flex-shrink-0">
+            <ProductGallery images={product.images?.length ? product.images : [imageSrc]} title={product.title} />
           </div>
 
-          <p className="text-xl lg:text-3xl font-black text-primary-500 italic mb-8">${product.price.toFixed(2)}</p>
+          {/* Right Side: Details */}
+          <div className="w-full md:w-[45%] flex flex-col pt-2 lg:pt-6">
+            <div className="mb-4">
+              <span className="ks-section-eyebrow !mb-0">{product.category} {product.subcategory ? `• ${product.subcategory}` : ''}</span>
+            </div>
+            
+            <h1 className="font-display text-5xl lg:text-7xl uppercase tracking-wider text-champagne mb-6 leading-none">
+              {product.title}
+            </h1>
+            
+            <div className="flex items-center gap-4 mb-8 pb-8 border-b border-gold-hairline">
+               <div className="flex items-center gap-1.5">
+                 {[1,2,3,4,5].map(i => (
+                   <Star 
+                     key={i} 
+                     className={`w-4 h-4 ${i <= Math.round(product.averageRating || 5) ? 'fill-kinpaku-gold text-kinpaku-gold' : 'text-gold-hairline'}`} 
+                   />
+                 ))}
+                 <span className="text-[0.8rem] font-mono font-medium text-champagne ml-2">{product.averageRating?.toFixed(1) || '5.0'}</span>
+                 <span className="text-[0.72rem] font-mono uppercase tracking-[0.22em] text-text-muted ml-3">({product.numReviews || 0} Reviews)</span>
+               </div>
+               <div className="w-px h-4 bg-gold-hairline" />
+               <span className="text-[0.8rem] font-mono text-text-muted">
+                  Sold by <Link href={`/vendor/${product.vendor?._id}`} className="text-kinpaku-gold hover:text-champagne transition-colors underline underline-offset-4">{product.vendor?.storeName || 'Impeccable Vendor'}</Link>
+               </span>
+            </div>
 
-          <p className="text-textMuted text-base mb-10 leading-relaxed max-w-lg">
-            {product.description}
-          </p>
+            <p className="text-3xl lg:text-4xl font-mono font-medium text-champagne tracking-tight mb-8">
+              ${product.price.toFixed(2)}
+            </p>
 
-          <AddToCartForm product={product} />
+            <p className="text-text-muted text-[1.05rem] mb-12 leading-[1.8] max-w-lg">
+              {product.description}
+            </p>
 
-          {/* Social Proof & Guarantees */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-white/5 pt-8">
-             <div className="flex items-start gap-3">
-                <Truck className="w-5 h-5 text-textMuted mt-0.5" />
-                <div>
-                   <h5 className="text-sm font-bold text-white mb-1">Free Delivery</h5>
-                   <p className="text-xs text-textMuted">On orders over $50. Arrives in 3-5 days.</p>
-                </div>
-             </div>
-             <div className="flex items-start gap-3">
-                <ShieldCheck className="w-5 h-5 text-textMuted mt-0.5" />
-                <div>
-                   <h5 className="text-sm font-bold text-white mb-1">Authenticity Guaranteed</h5>
-                   <p className="text-xs text-textMuted">Every item verified by Apex Athletics.</p>
-                </div>
-             </div>
+            <AddToCartForm product={product} />
+
+            {/* Social Proof & Guarantees */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 border-t border-gold-hairline pt-10 mt-10">
+               <div className="flex items-start gap-4">
+                  <div className="p-2 border border-gold-hairline rounded-[2px] bg-lacquer-deep shrink-0">
+                    <Truck className="w-4 h-4 text-kinpaku-gold" />
+                  </div>
+                  <div>
+                     <h5 className="text-[0.95rem] font-medium text-champagne mb-1">Free Delivery</h5>
+                     <p className="text-[0.85rem] text-text-muted leading-relaxed">On orders over $50.<br/>Arrives in 3-5 days.</p>
+                  </div>
+               </div>
+               <div className="flex items-start gap-4">
+                  <div className="p-2 border border-gold-hairline rounded-[2px] bg-lacquer-deep shrink-0">
+                    <ShieldCheck className="w-4 h-4 text-kinpaku-gold" />
+                  </div>
+                  <div>
+                     <h5 className="text-[0.95rem] font-medium text-champagne mb-1">Authentic</h5>
+                     <p className="text-[0.85rem] text-text-muted leading-relaxed">Every item verified by Impeccable.</p>
+                  </div>
+               </div>
+            </div>
+
           </div>
-
         </div>
       </div>
     </div>
 
     {/* Reviews Section */}
-    <div className="max-w-7xl mx-auto px-6 py-24 border-t border-white/5">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
-        
-        {/* Left: Review Stats & Form */}
-        <div className="lg:col-span-1 space-y-12">
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <MessageSquare className="w-6 h-6 text-primary-500" />
-              <h2 className="text-2xl font-black italic uppercase text-white tracking-tight">Gear Reviews</h2>
+    <div className="bg-lacquer-deep border-t border-gold-hairline">
+      <div className="max-w-[1320px] mx-auto px-6 py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
+          
+          {/* Left: Review Stats & Form */}
+          <div className="lg:col-span-1 space-y-10">
+            <div>
+              <div className="flex items-center gap-4 mb-6">
+                <div className="p-3 border border-gold-hairline rounded-[2px] bg-lacquer-black">
+                  <MessageSquare className="w-6 h-6 text-kinpaku-gold" />
+                </div>
+                <h2 className="font-display text-4xl uppercase text-champagne tracking-wider">Gear <span className="text-kinpaku-gold">Reviews</span></h2>
+              </div>
+              <p className="text-text-muted text-[0.95rem] leading-[1.8]">
+                Tested by athletes, for athletes. Read what our community thinks about this {product.category.toLowerCase()} gear.
+              </p>
             </div>
-            <p className="text-textMuted text-sm leading-relaxed">
-              Tested by athletes, for athletes. Read what our community thinks about this {product.category.toLowerCase()} gear.
-            </p>
+
+            <ReviewForm productId={product._id} />
           </div>
 
-          <ReviewForm productId={product._id} />
-        </div>
+          {/* Right: Review List */}
+          <div className="lg:col-span-2">
+             <ReviewList reviews={reviews} />
+          </div>
 
-        {/* Right: Review List */}
-        <div className="lg:col-span-2">
-           <ReviewList reviews={reviews} />
         </div>
-
       </div>
     </div>
     </>

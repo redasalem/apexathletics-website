@@ -29,7 +29,7 @@ type ResetPasswordForm = z.infer<typeof resetPasswordSchema>;
 
 export default function ResetPasswordPage() {
   return (
-    <Suspense fallback={<div className="flex justify-center p-20"><Loader2 className="w-10 h-10 animate-spin text-primary-500" /></div>}>
+    <Suspense fallback={<div className="flex justify-center p-20"><Loader2 className="w-10 h-10 animate-spin text-kinpaku-gold" /></div>}>
       <ResetPasswordContent />
     </Suspense>
   );
@@ -66,78 +66,78 @@ function ResetPasswordContent() {
   };
 
   return (
-    <div className="min-h-[80vh] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-[80vh] flex flex-col justify-center py-12 px-6 lg:px-8 bg-lacquer-black">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-        <div className="bg-surfaceHighlight p-4 rounded-full inline-block mx-auto mb-4">
-          <KeyRound className="w-10 h-10 text-primary-500" />
+        <div className="border border-gold-hairline p-4 rounded-[2px] inline-block mx-auto mb-6 bg-lacquer-deep">
+          <KeyRound className="w-8 h-8 text-kinpaku-gold" />
         </div>
-        <h2 className="text-3xl font-extrabold text-white tracking-tight">Create new password</h2>
-        <p className="mt-2 text-sm text-textMuted max-w-sm mx-auto">
-          Choose a strong password to regain access to your Apex Sports account.
+        <h2 className="font-display text-5xl md:text-6xl text-champagne tracking-wider uppercase">Reset <span className="text-kinpaku-gold">Password</span></h2>
+        <p className="mt-4 text-[1.02rem] text-text-muted max-w-sm mx-auto">
+          Choose a strong password to regain access to your Impeccable account.
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-surface border border-border py-8 px-4 shadow sm:rounded-2xl sm:px-10">
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-raised-lacquer border border-gold-hairline py-10 px-6 sm:rounded-[4px] sm:px-10 shadow-panel">
           {!token ? (
-            <div className="text-center space-y-4">
-              <p className="text-error">Reset token is missing or invalid.</p>
-              <Link href="/forgot-password" className="btn-primary">
+            <div className="text-center space-y-6">
+              <p className="text-red-500 font-medium">Reset token is missing or invalid.</p>
+              <Link href="/forgot-password" className="ks-button ks-button-secondary w-full text-[1.18rem]">
                 Request a new link
               </Link>
             </div>
           ) : (
             <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
               <div>
-                <label className="block text-sm font-medium text-white">New password</label>
+                <label className="label">New password</label>
                 <div className="relative mt-2">
                   <input
                     {...register('password')}
                     type={showPassword ? 'text' : 'password'}
-                    className="w-full p-3 pr-12 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                    className="input-field pr-12"
                     placeholder="Enter a strong password"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 flex items-center pr-4 text-textMuted hover:text-white transition-colors"
+                    className="absolute inset-y-0 right-0 flex items-center pr-4 text-text-muted hover:text-champagne transition-colors"
                   >
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
                 </div>
-                {errors.password && <p className="mt-1 text-sm text-error">{errors.password.message}</p>}
+                {errors.password && <p className="mt-1.5 text-sm text-red-500 font-medium">{errors.password.message}</p>}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-white">Confirm password</label>
+                <label className="label">Confirm password</label>
                 <div className="relative mt-2">
                   <input
                     {...register('confirmPassword')}
                     type={showConfirmPassword ? 'text' : 'password'}
-                    className="w-full p-3 pr-12 bg-background border border-border rounded-xl text-white placeholder-textMuted focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                    className="input-field pr-12"
                     placeholder="Repeat your password"
                   />
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute inset-y-0 right-0 flex items-center pr-4 text-textMuted hover:text-white transition-colors"
+                    className="absolute inset-y-0 right-0 flex items-center pr-4 text-text-muted hover:text-champagne transition-colors"
                   >
                     {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
                 </div>
-                {errors.confirmPassword && <p className="mt-1 text-sm text-error">{errors.confirmPassword.message}</p>}
+                {errors.confirmPassword && <p className="mt-1.5 text-sm text-red-500 font-medium">{errors.confirmPassword.message}</p>}
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmitting || resetPassword.isPending}
-                className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-primary-500 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all disabled:opacity-50"
+                className="ks-button ks-button-primary w-full text-[1.18rem] mt-4"
               >
                 {isSubmitting || resetPassword.isPending ? (
-                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <Loader2 className="w-6 h-6 animate-spin text-lacquer-deep" />
                 ) : (
                   <>
-                    Reset password <ArrowRight className="ml-2 w-4 h-4" />
+                    Reset password <ArrowRight className="ml-2 w-5 h-5" />
                   </>
                 )}
               </button>
