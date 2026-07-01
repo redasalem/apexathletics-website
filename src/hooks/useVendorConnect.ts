@@ -19,3 +19,30 @@ export const useVendorPayoutStatus = () => {
     }
   });
 };
+
+export const useVendorEarnings = () => {
+  return useQuery({
+    queryKey: ['vendorEarnings'],
+    queryFn: async () => {
+      const { data } = await backendApi.get('/vendors/me/earnings');
+      return data.data as { availableBalance: number; totalEarnings: number; totalPlatformFees: number };
+    }
+  });
+};
+
+export const useVendorTransfers = () => {
+  return useQuery({
+    queryKey: ['vendorTransfers'],
+    queryFn: async () => {
+      const { data } = await backendApi.get('/vendors/me/transfers');
+      return data.data as Array<{
+        _id: string;
+        orderId: string;
+        amount: number;
+        platformFee: number;
+        status: string;
+        createdAt: string;
+      }>;
+    }
+  });
+};

@@ -47,7 +47,7 @@ export default function Navbar() {
             <div className="p-1.5 sm:p-2 bg-primary-500 rounded-lg group-hover:scale-105 transition-transform">
               <ShoppingBag className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </div>
-            <span className="text-lg sm:text-xl font-black tracking-tighter uppercase italic text-white group-hover:text-primary-500 transition-colors">Apex Sports</span>
+            <span className="text-xl sm:text-2xl font-display tracking-wider uppercase text-white group-hover:text-primary-500 transition-colors">Apex Sports</span>
           </Link>
 
           {/* Desktop Search */}

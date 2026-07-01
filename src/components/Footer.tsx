@@ -12,7 +12,7 @@ export default function Footer() {
               <div className="p-1.5 bg-primary-500 rounded-lg">
                 <ShoppingBag className="w-5 h-5 text-white" />
               </div>
-              <span className="text-lg font-black tracking-tighter uppercase italic text-white">Apex Sports</span>
+              <span className="text-xl font-display tracking-wider uppercase text-white">Apex Sports</span>
             </Link>
             <p className="text-sm text-textMuted leading-relaxed">
               Premium multi-vendor sports marketplace. Connecting athletes with the best performance gear from independent vendors.

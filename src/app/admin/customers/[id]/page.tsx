@@ -1,15 +1,32 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
-import { useAdminUserDetail } from '@/hooks/useAdmin';
-import { ChevronLeft, Loader2, User, Mail, Calendar } from 'lucide-react';
+import { useAdminUserDetail, useAdminBanCustomer } from '@/hooks/useAdmin';
+import { ChevronLeft, Loader2, User, Mail, Calendar, ShieldAlert, RefreshCw } from 'lucide-react';
+import toast from 'react-hot-toast';
 import { format } from 'date-fns';
 
 export default function AdminCustomerDetailPage() {
   const params = useParams();
   const router = useRouter();
   const id = params.id as string;
-  const { data: customer, isLoading, isError } = useAdminUserDetail(id);
+  const { data: customer, isLoading, isError, refetch } = useAdminUserDetail(id);
+  const banMutation = useAdminBanCustomer();
+
+  const handleBan = () => {
+    if (!window.confirm('Are you sure you want to ban this customer? They will lose access immediately.')) return;
+    
+    banMutation.mutate(id, {
+      onSuccess: () => {
+        toast.success('Customer banned successfully');
+        refetch();
+      },
+      onError: (err: unknown) => {
+        const error = err as { response?: { data?: { message?: string } } };
+        toast.error(error.response?.data?.message || 'Failed to ban customer');
+      }
+    });
+  };
 
   if (isLoading) return <div className="h-[60vh] flex items-center justify-center"><Loader2 className="w-10 h-10 text-primary-500 animate-spin" /></div>;
   if (isError || !customer) return <div className="text-center text-error mt-10">Customer not found.</div>;
@@ -41,6 +58,15 @@ export default function AdminCustomerDetailPage() {
           </div>
 
           <div className="space-y-4 pt-4 border-t border-border">
+            <div className="flex items-center gap-3">
+              <div className={`p-2 rounded-lg ${customer?.isActive !== false ? 'bg-success/20' : 'bg-error/20'}`}>
+                <ShieldAlert className={`w-5 h-5 ${customer?.isActive !== false ? 'text-success' : 'text-error'}`} />
+              </div>
+              <div>
+                <p className="text-xs text-textMuted uppercase tracking-widest font-bold">Status</p>
+                <p className="font-medium text-white">{customer?.isActive !== false ? 'Active' : 'Banned'}</p>
+              </div>
+            </div>
             <div>
               <p className="text-xs uppercase tracking-wider text-textMuted font-medium mb-1 flex items-center gap-2"><Mail className="w-4 h-4" /> Email Access</p>
               <p className="text-white font-medium">{customer.email}</p>
@@ -57,8 +83,12 @@ export default function AdminCustomerDetailPage() {
           <p className="text-sm text-textMuted">Account modification restrictions apply to active buyer ledgers.</p>
           
           <div className="pt-4 space-y-3">
-            <button disabled className="w-full bg-warning/10 text-warning font-medium p-3 rounded-lg border border-warning/20 opacity-50 cursor-not-allowed">
-              Ban Customer (Coming Soon)
+            <button 
+              onClick={handleBan}
+              disabled={banMutation.isPending || customer?.isActive === false} 
+              className="w-full bg-warning/10 hover:bg-warning/20 text-warning font-medium p-3 rounded-lg border border-warning/20 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {banMutation.isPending ? <RefreshCw className="w-5 h-5 animate-spin" /> : <span>Ban Customer</span>}
             </button>
           </div>
         </div>

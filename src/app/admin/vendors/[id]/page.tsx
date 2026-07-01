@@ -1,15 +1,46 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
-import { useAdminUserDetail } from '@/hooks/useAdmin';
-import { ChevronLeft, Loader2, Store, Mail, Calendar } from 'lucide-react';
+import { useAdminUserDetail, useAdminSuspendVendor, useAdminForceReset } from '@/hooks/useAdmin';
+import { ChevronLeft, Loader2, Store, Mail, Calendar, RefreshCw, ShieldAlert } from 'lucide-react';
+import toast from 'react-hot-toast';
 import { format } from 'date-fns';
 
 export default function AdminVendorDetailPage() {
   const params = useParams();
   const router = useRouter();
   const id = params.id as string;
-  const { data: vendor, isLoading, isError } = useAdminUserDetail(id);
+  const { data: vendor, isLoading, isError, refetch } = useAdminUserDetail(id);
+  const suspendMutation = useAdminSuspendVendor();
+  const resetMutation = useAdminForceReset();
+
+  const handleSuspend = () => {
+    if (!window.confirm('Are you sure you want to suspend this vendor? All their products will be hidden from the store.')) return;
+    suspendMutation.mutate(id, {
+      onSuccess: () => {
+        toast.success('Vendor suspended successfully');
+        refetch();
+      },
+      onError: (err: unknown) => {
+        const error = err as { response?: { data?: { message?: string } } };
+        toast.error(error.response?.data?.message || 'Failed to suspend vendor');
+      }
+    });
+  };
+
+  const handleForceReset = () => {
+    if (!window.confirm('Are you sure you want to force a password reset for this vendor?')) return;
+    resetMutation.mutate(id, {
+      onSuccess: () => {
+        toast.success('Password reset enforced');
+        refetch();
+      },
+      onError: (err: unknown) => {
+        const error = err as { response?: { data?: { message?: string } } };
+        toast.error(error.response?.data?.message || 'Failed to enforce reset');
+      }
+    });
+  };
 
   if (isLoading) return <div className="h-[60vh] flex items-center justify-center"><Loader2 className="w-10 h-10 text-primary-500 animate-spin" /></div>;
   if (isError || !vendor) return <div className="text-center text-error mt-10">Vendor not found.</div>;
@@ -40,6 +71,16 @@ export default function AdminVendorDetailPage() {
             </div>
           </div>
 
+          <div className="flex items-center gap-3">
+              <div className={`p-2 rounded-lg ${vendor?.isActive !== false ? 'bg-success/20' : 'bg-error/20'}`}>
+                <ShieldAlert className={`w-5 h-5 ${vendor?.isActive !== false ? 'text-success' : 'text-error'}`} />
+              </div>
+              <div>
+                <p className="text-xs text-textMuted uppercase tracking-widest font-bold">Status</p>
+                <p className="font-medium text-white">{vendor?.isActive !== false ? 'Active' : 'Suspended'}</p>
+              </div>
+          </div>
+
           <div className="space-y-4 pt-4 border-t border-border">
             <div>
               <p className="text-xs uppercase tracking-wider text-textMuted font-medium mb-1 flex items-center gap-2"><Mail className="w-4 h-4" /> Email Access</p>
@@ -57,11 +98,19 @@ export default function AdminVendorDetailPage() {
           <p className="text-sm text-textMuted">Actions applied here directly affect the vendor&apos;s ability to operate on the platform.</p>
           
           <div className="pt-4 space-y-3">
-            <button disabled className="w-full bg-surfaceHighlight text-textMuted font-medium p-3 rounded-lg border border-border opacity-50 cursor-not-allowed">
-              Suspend Vendor Account (Coming Soon)
+            <button 
+              onClick={handleSuspend}
+              disabled={suspendMutation.isPending || vendor?.isActive === false}
+              className="w-full bg-surfaceHighlight hover:bg-white/10 text-white font-medium p-3 rounded-lg border border-border transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {suspendMutation.isPending ? <RefreshCw className="w-5 h-5 animate-spin" /> : <span>Suspend Vendor Account</span>}
             </button>
-            <button disabled className="w-full bg-error/10 text-error font-medium p-3 rounded-lg border border-error/20 opacity-50 cursor-not-allowed">
-              Force Password Reset (Coming Soon)
+            <button 
+              onClick={handleForceReset}
+              disabled={resetMutation.isPending}
+              className="w-full bg-error/10 hover:bg-error/20 text-error font-medium p-3 rounded-lg border border-error/20 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {resetMutation.isPending ? <RefreshCw className="w-5 h-5 animate-spin" /> : <span>Force Password Reset</span>}
             </button>
           </div>
         </div>

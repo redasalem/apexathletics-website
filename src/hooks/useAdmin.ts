@@ -17,6 +17,7 @@ export interface UserDetail {
   name: string;
   email: string;
   role: string;
+  isActive: boolean;
   createdAt: string;
 }
 
@@ -84,6 +85,33 @@ export const useModerateProductStatus = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['adminProducts'] });
+    }
+  });
+};
+
+export const useAdminSuspendVendor = () => {
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const { data } = await backendApi.patch(`/admin/users/${id}/suspend`);
+      return data;
+    }
+  });
+};
+
+export const useAdminBanCustomer = () => {
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const { data } = await backendApi.patch(`/admin/users/${id}/ban`);
+      return data;
+    }
+  });
+};
+
+export const useAdminForceReset = () => {
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const { data } = await backendApi.post(`/admin/users/${id}/force-reset`);
+      return data;
     }
   });
 };

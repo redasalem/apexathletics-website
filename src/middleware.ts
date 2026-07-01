@@ -15,6 +15,18 @@ function getTokenCookie(request: NextRequest): string | undefined {
   return request.cookies.get('token')?.value;
 }
 
+/**
+ * UX-ONLY — NOT A SECURITY BOUNDARY
+ * ===================================
+ * This middleware decodes the JWT WITHOUT verifying its signature (using atob).
+ * This is intentional: Next.js Edge Middleware cannot use Node.js crypto modules.
+ * 
+ * Purpose: Route-based UX redirects only (e.g., redirect unauthenticated users to /login).
+ * Security: All actual auth/authorization is enforced server-side in the Express backend
+ *           via proper JWT verification with jsonwebtoken library.
+ * 
+ * DO NOT rely on this middleware for access control decisions.
+ */
 function decodeTokenPayload(token: string): Record<string, unknown> | null {
   try {
     const payload = token.split('.')[1];

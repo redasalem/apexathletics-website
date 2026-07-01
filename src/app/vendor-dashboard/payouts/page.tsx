@@ -1,11 +1,13 @@
 'use client';
 
-import { useVendorPayoutStatus, useVendorOnboarding } from '@/hooks/useVendorConnect';
+import { useVendorPayoutStatus, useVendorOnboarding, useVendorEarnings, useVendorTransfers } from '@/hooks/useVendorConnect';
 import { CreditCard, CheckCircle2, AlertCircle, Loader2, ArrowRight, Wallet, ExternalLink } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function VendorPayoutsPage() {
   const { data: status, isLoading: isStatusLoading } = useVendorPayoutStatus();
+  const { data: earnings } = useVendorEarnings();
+  const { data: transfers } = useVendorTransfers();
   const onboardMutation = useVendorOnboarding();
 
   const handleOnboard = () => {
@@ -108,9 +110,80 @@ export default function VendorPayoutsPage() {
                     </>
                   )}
                 </button>
-             </div>
+              </div>
+           </div>
+         </div>
+       )}
+
+      {/* Earnings Overview */}
+      {status?.active && (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+            <div className="bg-surface border border-white/5 p-6 rounded-2xl flex flex-col justify-between">
+               <div>
+                  <h3 className="text-xs font-black uppercase tracking-widest text-textMuted mb-2">Available to Payout</h3>
+                  <div className="flex items-baseline gap-2">
+                     <span className="text-3xl font-display tracking-wider text-white">${earnings?.availableBalance?.toFixed(2) || '0.00'}</span>
+                  </div>
+               </div>
+               <p className="text-[10px] text-textMuted mt-4 uppercase tracking-wider">Funds sent via Stripe Connect</p>
+            </div>
+            <div className="bg-surface border border-white/5 p-6 rounded-2xl flex flex-col justify-between">
+               <div>
+                  <h3 className="text-xs font-black uppercase tracking-widest text-textMuted mb-2">Total Platform Fees</h3>
+                  <div className="flex items-baseline gap-2">
+                     <span className="text-3xl font-display tracking-wider text-textMuted">${earnings?.totalPlatformFees?.toFixed(2) || '0.00'}</span>
+                  </div>
+               </div>
+               <p className="text-[10px] text-textMuted mt-4 uppercase tracking-wider">10% per transaction</p>
+            </div>
           </div>
-        </div>
+
+          {/* Transfers History */}
+          <div className="mt-8">
+            <h3 className="text-lg font-black uppercase tracking-tight text-white mb-4">Transfer History</h3>
+            <div className="bg-surface border border-white/5 rounded-2xl overflow-hidden">
+              <table className="w-full text-left text-sm">
+                <thead className="bg-surfaceHighlight border-b border-white/5">
+                  <tr>
+                    <th className="px-6 py-4 text-xs font-black uppercase tracking-widest text-textMuted">Date</th>
+                    <th className="px-6 py-4 text-xs font-black uppercase tracking-widest text-textMuted">Order ID</th>
+                    <th className="px-6 py-4 text-xs font-black uppercase tracking-widest text-textMuted text-right">Amount</th>
+                    <th className="px-6 py-4 text-xs font-black uppercase tracking-widest text-textMuted text-center">Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/5">
+                  {transfers && transfers.length > 0 ? (
+                    transfers.map((t) => (
+                      <tr key={t._id} className="hover:bg-white/[0.02] transition-colors">
+                        <td className="px-6 py-4 text-textMuted">
+                          {new Date(t.createdAt).toLocaleDateString()}
+                        </td>
+                        <td className="px-6 py-4 text-white font-mono text-xs">
+                          {t.orderId.substring(0, 8)}...
+                        </td>
+                        <td className="px-6 py-4 text-white font-bold text-right">
+                          ${t.amount.toFixed(2)}
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest bg-success/20 text-success">
+                            {t.status}
+                          </span>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan={4} className="px-6 py-12 text-center text-textMuted text-sm">
+                        No transfers found yet.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </>
       )}
 
       {/* FAQs / Info */}

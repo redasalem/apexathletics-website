@@ -49,7 +49,7 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
   };
 
   return (
-    <div className="bg-surface border border-border rounded-xl overflow-hidden hover:border-primary-500/50 transition-all duration-300 group flex flex-col h-full relative hover:shadow-lg hover:shadow-black/30">
+    <div className="bg-surface border border-border rounded-xl overflow-hidden hover:border-primary-500/50 transition-all duration-300 group flex flex-col h-full relative shadow-elevation-1 hover:shadow-elevation-3 hover:-translate-y-1">
       <Link href={`/product/${product._id}`} className="relative aspect-square overflow-hidden block flex-shrink-0">
         <OptimizedImage
           src={imageSrc}
