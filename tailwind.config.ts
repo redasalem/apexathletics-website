@@ -10,33 +10,29 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)', 'Inter', 'sans-serif'],
-        display: ['var(--font-display)', 'Bebas Neue', 'sans-serif'],
+        sans: ['var(--font-albert)', 'Albert Sans', 'Avenir Next', 'system-ui', 'sans-serif'],
+        display: ['var(--font-alumni)', 'Alumni Sans Pinstripe', 'sans-serif'],
+        wordmark: ['var(--font-alumni-solid)', 'Alumni Sans', 'sans-serif'],
       },
       colors: {
-        primary: {
-          400: '#ff1a1a',
-          500: '#d80000',
-          600: '#a30000',
-          700: '#7a0000',
-          800: '#520000',
-        },
-        background: '#0a0a0a',
-        surface: '#171717',
-        surfaceHighlight: '#262626',
-        textMain: '#ffffff',
-        textMuted: '#a3a3a3',
-        textDark: '#525252',
-        border: '#333333',
-        error: '#f87171',
-        success: '#4ade80',
-        warning: '#facc15'
+        'lacquer-black': 'oklch(7% 0.006 95)',
+        'lacquer-deep': 'oklch(4% 0.004 95)',
+        'raised-lacquer': 'oklch(11% 0.006 95)',
+        'graphite': 'oklch(15% 0.008 95)',
+        'kinpaku-gold': 'oklch(84% 0.19 80.46)',
+        'kinpaku-rich': 'oklch(77% 0.13 82)',
+        'kinpaku-pale': 'oklch(86% 0.07 84)',
+        'verdigris-patina': 'oklch(70% 0.12 188)',
+        'champagne': 'oklch(91% 0 0)',
+        'text-warm': 'oklch(88% 0 0)',
+        'text-muted': 'oklch(72% 0 0)',
+        'gold-hairline': 'oklch(78% 0 0 / 0.16)',
+        'gold-hairline-strong': 'oklch(74% 0.09 82 / 0.6)',
       },
       boxShadow: {
-        'elevation-1': '0 1px 3px rgba(0,0,0,0.5), 0 1px 2px rgba(0,0,0,0.3)',
-        'elevation-2': '0 4px 14px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.3)',
-        'elevation-3': '0 10px 30px rgba(0,0,0,0.6), 0 4px 8px rgba(0,0,0,0.3)',
-        'glow-primary': '0 0 20px rgba(216,0,0,0.3), 0 0 60px rgba(216,0,0,0.1)',
+        'panel': '0 24px 70px oklch(2% 0.004 95 / 0.42)',
+        'cta-lift': '0 18px 48px oklch(2% 0.004 95 / 0.4)',
+        'patina-glow': '0 0 22px oklch(70% 0.105 190 / 0.24)',
       },
       keyframes: {
         'fade-up': {

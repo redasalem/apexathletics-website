@@ -39,15 +39,15 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="border-b border-white/5 bg-background/80 backdrop-blur-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-4">
+      <nav className="border-b border-gold-hairline bg-lacquer-deep sticky top-0 z-50">
+        <div className="max-w-[1320px] mx-auto px-6 h-16 sm:h-20 flex items-center justify-between gap-4">
           
           {/* Left: Logo */}
           <Link href="/" className="flex-shrink-0 flex items-center gap-2 group">
-            <div className="p-1.5 sm:p-2 bg-primary-500 rounded-lg group-hover:scale-105 transition-transform">
-              <ShoppingBag className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+            <div className="p-1.5 sm:p-2 border border-transparent group-hover:border-gold-hairline rounded-[2px] transition-colors">
+              <ShoppingBag className="w-5 h-5 sm:w-6 sm:h-6 text-kinpaku-gold" />
             </div>
-            <span className="text-xl sm:text-2xl font-display tracking-wider uppercase text-white group-hover:text-primary-500 transition-colors">Apex Sports</span>
+            <span className="text-xl sm:text-2xl font-wordmark tracking-[0.15em] uppercase text-champagne group-hover:text-kinpaku-gold transition-colors">IMPECCABLE</span>
           </Link>
 
           {/* Desktop Search */}
@@ -58,7 +58,7 @@ export default function Navbar() {
           {/* Desktop Navigation Links */}
           <div className="hidden lg:flex items-center gap-8">
             {navLinks.map(link => (
-              <Link key={link.href} href={link.href} className={`text-sm font-bold uppercase tracking-widest transition-colors ${link.active ? 'text-primary-500' : 'text-textMuted hover:text-white'}`}>
+              <Link key={link.href} href={link.href} className={`text-sm font-medium uppercase tracking-[0.18em] transition-colors ${link.active ? 'text-kinpaku-gold' : 'text-text-muted hover:text-champagne'}`}>
                 {link.label}
               </Link>
             ))}
@@ -66,22 +66,22 @@ export default function Navbar() {
 
           {/* Right: Cart & Auth & Hamburger */}
           <div className="flex items-center gap-3 sm:gap-6">
-            <Link href="/wishlist" className="relative text-textMuted hover:text-white transition-colors flex items-center gap-2">
+            <Link href="/wishlist" className="relative text-text-muted hover:text-champagne transition-colors flex items-center gap-2">
               <Heart className="w-5 h-5" />
-              <span className="hidden sm:inline font-bold text-sm">Wishlist</span>
+              <span className="hidden sm:inline font-medium text-sm">Wishlist</span>
               {wishlistItemsCount > 0 && (
-                <span aria-live="polite" aria-atomic="true" className="absolute -top-1.5 -right-1.5 bg-primary-500 text-white text-[10px] font-black w-4 h-4 rounded-full flex items-center justify-center">
+                <span aria-live="polite" aria-atomic="true" className="absolute -top-1.5 -right-1.5 bg-kinpaku-gold text-lacquer-deep text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                   <span className="sr-only">Wishlist items: </span>
                   {wishlistItemsCount}
                 </span>
               )}
             </Link>
 
-            <Link href="/cart" className="relative text-textMuted hover:text-white transition-colors flex items-center gap-2">
+            <Link href="/cart" className="relative text-text-muted hover:text-champagne transition-colors flex items-center gap-2">
               <ShoppingBag className="w-5 h-5" />
-              <span className="hidden sm:inline font-bold text-sm">Cart</span>
+              <span className="hidden sm:inline font-medium text-sm">Cart</span>
               {cartItemsCount > 0 && (
-                <span aria-live="polite" aria-atomic="true" className="absolute -top-1.5 -right-1.5 bg-primary-500 text-white text-[10px] font-black w-4 h-4 rounded-full flex items-center justify-center">
+                <span aria-live="polite" aria-atomic="true" className="absolute -top-1.5 -right-1.5 bg-kinpaku-gold text-lacquer-deep text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                   <span className="sr-only">Cart items: </span>
                   {cartItemsCount}
                 </span>
@@ -89,12 +89,12 @@ export default function Navbar() {
             </Link>
 
             {!isLoading && user ? (
-              <Link href={accountHref} className="hidden sm:flex items-center gap-2 bg-surfaceHighlight hover:bg-border px-4 py-2 rounded-xl text-sm font-bold transition-all border border-white/10">
-                <User className="w-4 h-4 text-primary-500" />
+              <Link href={accountHref} className="hidden sm:flex items-center gap-2 bg-transparent hover:bg-raised-lacquer px-4 py-2 rounded-[2px] text-sm font-medium transition-all border border-gold-hairline hover:border-gold-hairline-strong text-champagne">
+                <User className="w-4 h-4 text-kinpaku-gold" />
                 <span className="hidden md:inline">Account</span>
               </Link>
             ) : (
-              <Link href="/login" className="hidden sm:flex items-center gap-2 bg-primary-500 hover:bg-primary-600 px-4 py-2 rounded-xl text-sm font-bold text-white transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-primary-500/20">
+              <Link href="/login" className="hidden sm:flex items-center gap-2 bg-kinpaku-gold hover:bg-kinpaku-pale px-4 py-2 rounded-[2px] text-sm font-medium text-lacquer-deep transition-colors border border-kinpaku-gold">
                 <LogIn className="w-4 h-4" />
                 <span className="hidden md:inline">Sign In</span>
               </Link>
@@ -103,7 +103,7 @@ export default function Navbar() {
             {/* Mobile Hamburger */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden p-2 text-textMuted hover:text-white transition-colors"
+              className="lg:hidden p-2 text-text-muted hover:text-champagne transition-colors"
               aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             >
               {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -113,8 +113,8 @@ export default function Navbar() {
 
         {/* Mobile Drawer */}
         {mobileOpen && (
-          <div className="lg:hidden border-t border-white/5 bg-background/95 backdrop-blur-lg animate-in slide-in-from-top-2 duration-200">
-            <div className="max-w-7xl mx-auto px-4 py-4 space-y-4">
+          <div className="lg:hidden border-t border-gold-hairline bg-lacquer-deep animate-in slide-in-from-top-2 duration-200">
+            <div className="max-w-[1320px] mx-auto px-6 py-4 space-y-4">
               {/* Mobile Search */}
               <div className="md:hidden">
                 <SearchBar />
@@ -126,7 +126,7 @@ export default function Navbar() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`block px-4 py-3 rounded-xl text-sm font-bold uppercase tracking-widest transition-colors ${link.active ? 'text-primary-500 bg-primary-500/10' : 'text-textMuted hover:text-white hover:bg-surfaceHighlight'}`}
+                    className={`block px-4 py-3 rounded-[2px] text-sm font-medium uppercase tracking-[0.18em] transition-colors ${link.active ? 'text-kinpaku-gold bg-raised-lacquer border border-gold-hairline' : 'text-text-muted hover:text-champagne hover:bg-raised-lacquer'}`}
                   >
                     {link.label}
                   </Link>
@@ -134,25 +134,25 @@ export default function Navbar() {
               </div>
 
               {/* Mobile Auth & Wishlist */}
-              <div className="pt-2 border-t border-white/5 space-y-3">
-                <Link href="/wishlist" className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-white hover:bg-surfaceHighlight transition-colors">
-                  <Heart className="w-5 h-5 text-primary-500" />
+              <div className="pt-2 border-t border-gold-hairline space-y-3">
+                <Link href="/wishlist" className="flex items-center gap-3 px-4 py-3 rounded-[2px] text-sm font-medium text-champagne hover:bg-raised-lacquer transition-colors border border-transparent hover:border-gold-hairline">
+                  <Heart className="w-5 h-5 text-kinpaku-gold" />
                   <div>
                     <div>Wishlist</div>
-                    <div className="text-xs text-textMuted font-normal">{wishlistItemsCount} Items</div>
+                    <div className="text-xs text-text-muted font-normal">{wishlistItemsCount} Items</div>
                   </div>
                 </Link>
                 {!isLoading && user ? (
-                  <Link href={accountHref} className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-white hover:bg-surfaceHighlight transition-colors">
-                    <User className="w-5 h-5 text-primary-500" />
+                  <Link href={accountHref} className="flex items-center gap-3 px-4 py-3 rounded-[2px] text-sm font-medium text-champagne hover:bg-raised-lacquer transition-colors border border-transparent hover:border-gold-hairline">
+                    <User className="w-5 h-5 text-kinpaku-gold" />
                     <div>
                       <div>{user.name}</div>
-                      <div className="text-xs text-textMuted font-normal capitalize">{user.role} Account</div>
+                      <div className="text-xs text-text-muted font-normal capitalize">{user.role} Account</div>
                     </div>
                   </Link>
                 ) : (
-                  <Link href="/login" className="btn-primary w-full py-3 text-center">
-                    <LogIn className="w-4 h-4 mr-2" /> Sign In
+                  <Link href="/login" className="flex items-center justify-center gap-2 bg-kinpaku-gold hover:bg-kinpaku-pale px-4 py-3 rounded-[2px] text-sm font-medium text-lacquer-deep transition-colors w-full">
+                    <LogIn className="w-4 h-4" /> Sign In
                   </Link>
                 )}
               </div>

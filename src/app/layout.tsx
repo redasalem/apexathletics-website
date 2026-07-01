@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
-import { Inter, Bebas_Neue } from 'next/font/google';
+import { Albert_Sans, Alumni_Sans_Pinstripe, Alumni_Sans } from 'next/font/google';
 import './globals.css';
 import Providers from './providers';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const bebasNeue = Bebas_Neue({ weight: '400', subsets: ['latin'], variable: '--font-display' });
+const albert = Albert_Sans({ subsets: ['latin'], variable: '--font-albert' });
+const alumniPinstripe = Alumni_Sans_Pinstripe({ weight: '400', subsets: ['latin'], variable: '--font-alumni' });
+const alumniSolid = Alumni_Sans({ subsets: ['latin'], variable: '--font-alumni-solid' });
 
 export const metadata: Metadata = {
   title: {
@@ -39,7 +40,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https:; frame-src https://checkout.stripe.com https://js.stripe.com;" />
       </head>
-      <body className={`${inter.variable} ${bebasNeue.variable} font-sans bg-background text-textMain min-h-screen flex flex-col`}>
+      <body className={`${albert.variable} ${alumniPinstripe.variable} ${alumniSolid.variable} font-sans bg-lacquer-black text-champagne min-h-screen flex flex-col`}>
         <Providers>
           <Navbar />
           <main className="flex-1">{children}</main>
