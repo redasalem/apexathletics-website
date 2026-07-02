@@ -104,7 +104,7 @@ export default function CheckoutPage() {
       
       if (session?.url) {
         toast.loading('Redirecting to Stripe...');
-        window.location.href = session.url;
+        window.location.assign(session.url);
       } else {
         throw new Error('Could not retrieve Checkout session URL');
       }
