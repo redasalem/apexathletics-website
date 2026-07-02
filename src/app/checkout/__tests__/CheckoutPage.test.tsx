@@ -50,6 +50,7 @@ beforeAll(() => {
 });
 
 afterAll(() => {
+  // @ts-expect-error restoring mock
   window.location = originalLocation;
 });
 
