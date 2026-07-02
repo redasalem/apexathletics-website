@@ -40,10 +40,12 @@ let assignMock: jest.Mock;
 
 beforeAll(() => {
   assignMock = jest.fn();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   delete (window as any).location;
   window.location = { 
     assign: assignMock,
     href: 'http://localhost'
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any;
 });
 
