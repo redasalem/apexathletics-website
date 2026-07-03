@@ -1,0 +1,12 @@
+{
+  "name": "apex-athletics-system-tests",
+  "version": "1.0.0",
+  "description": "System tests using Playwright",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.44.0",
+    "@types/node": "^20.0.0"
+  }
+}
