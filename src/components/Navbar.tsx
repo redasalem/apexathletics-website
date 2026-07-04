@@ -49,6 +49,7 @@ export default function Navbar() {
   const navLinks = [
     { href: '/', label: 'Home', active: pathname === '/' },
     { href: '/shop', label: 'Products', active: pathname.startsWith('/shop') || pathname.startsWith('/product') },
+    { href: '/vendors', label: 'Vendors', active: pathname.startsWith('/vendor') },
   ];
 
   const accountHref = user?.role === 'admin' ? '/admin' : user?.role === 'vendor' ? '/vendor-dashboard' : '/account/orders';

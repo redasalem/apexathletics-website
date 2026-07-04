@@ -31,6 +31,19 @@ export const useVendorStats = () => {
 };
 
 /**
+ * Get a list of all public vendors
+ */
+export const usePublicVendors = () => {
+  return useQuery({
+    queryKey: ['publicVendors'],
+    queryFn: async () => {
+      const { data } = await backendApi.get('/vendors');
+      return data.data as PublicVendor[];
+    }
+  });
+};
+
+/**
  * Get a public profile of a vendor
  */
 export const usePublicVendor = (id: string) => {
