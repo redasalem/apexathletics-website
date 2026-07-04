@@ -36,100 +36,102 @@ Call log:
           - /url: /
         - link "Products" [ref=e19] [cursor=pointer]:
           - /url: /shop
-      - generic [ref=e20]:
-        - link "Wishlist" [ref=e21] [cursor=pointer]:
+        - link "Vendors" [ref=e20] [cursor=pointer]:
+          - /url: /vendors
+      - generic [ref=e21]:
+        - link "Wishlist" [ref=e22] [cursor=pointer]:
           - /url: /wishlist
-          - img [ref=e22]
-          - generic [ref=e24]: Wishlist
-        - link "Cart" [ref=e25] [cursor=pointer]:
+          - img [ref=e23]
+          - generic [ref=e25]: Wishlist
+        - link "Cart" [ref=e26] [cursor=pointer]:
           - /url: /cart
-          - img [ref=e26]
-          - generic [ref=e29]: Cart
-        - link "Sign In" [ref=e30] [cursor=pointer]:
+          - img [ref=e27]
+          - generic [ref=e30]: Cart
+        - link "Sign In" [ref=e31] [cursor=pointer]:
           - /url: /login
-          - img [ref=e31]
-          - generic [ref=e34]: Sign In
-  - main [ref=e35]:
-    - generic [ref=e36]:
-      - generic [ref=e37]:
-        - heading "Welcome Back" [level=2] [ref=e38]
-        - paragraph [ref=e39]:
+          - img [ref=e32]
+          - generic [ref=e35]: Sign In
+  - main [ref=e36]:
+    - generic [ref=e37]:
+      - generic [ref=e38]:
+        - heading "Welcome Back" [level=2] [ref=e39]
+        - paragraph [ref=e40]:
           - text: New to Impeccable?
-          - link "Create your free account" [ref=e40] [cursor=pointer]:
+          - link "Create your free account" [ref=e41] [cursor=pointer]:
             - /url: /register
-      - generic [ref=e43]:
-        - generic [ref=e44]:
-          - generic [ref=e45]: Email address
-          - textbox "you@example.com" [ref=e46]
-        - generic [ref=e47]:
-          - generic [ref=e48]: Password
-          - generic [ref=e49]:
-            - textbox "••••••••" [ref=e50]
-            - button [ref=e51] [cursor=pointer]:
-              - img [ref=e52]
-        - link "Forgot your password?" [ref=e57] [cursor=pointer]:
+      - generic [ref=e44]:
+        - generic [ref=e45]:
+          - generic [ref=e46]: Email address
+          - textbox "you@example.com" [ref=e47]
+        - generic [ref=e48]:
+          - generic [ref=e49]: Password
+          - generic [ref=e50]:
+            - textbox "••••••••" [ref=e51]
+            - button [ref=e52] [cursor=pointer]:
+              - img [ref=e53]
+        - link "Forgot your password?" [ref=e58] [cursor=pointer]:
           - /url: /forgot-password
-        - button "Sign In" [ref=e58] [cursor=pointer]:
+        - button "Sign In" [ref=e59] [cursor=pointer]:
           - text: Sign In
-          - img [ref=e59]
-  - contentinfo [ref=e61]:
-    - generic [ref=e62]:
-      - generic [ref=e63]:
-        - generic [ref=e64]:
-          - link "IMPECCABLE" [ref=e65] [cursor=pointer]:
+          - img [ref=e60]
+  - contentinfo [ref=e62]:
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - generic [ref=e65]:
+          - link "IMPECCABLE" [ref=e66] [cursor=pointer]:
             - /url: /
-            - img [ref=e67]
-            - generic [ref=e70]: IMPECCABLE
-          - paragraph [ref=e71]: Premium multi-vendor sports marketplace. Connecting athletes with the best performance gear from independent vendors.
-        - generic [ref=e72]:
-          - heading "Shop" [level=3] [ref=e73]
-          - list [ref=e74]:
-            - listitem [ref=e75]:
-              - link "All Products" [ref=e76] [cursor=pointer]:
+            - img [ref=e68]
+            - generic [ref=e71]: IMPECCABLE
+          - paragraph [ref=e72]: Premium multi-vendor sports marketplace. Connecting athletes with the best performance gear from independent vendors.
+        - generic [ref=e73]:
+          - heading "Shop" [level=3] [ref=e74]
+          - list [ref=e75]:
+            - listitem [ref=e76]:
+              - link "All Products" [ref=e77] [cursor=pointer]:
                 - /url: /shop
-            - listitem [ref=e77]:
-              - link "Athletic Shoes" [ref=e78] [cursor=pointer]:
+            - listitem [ref=e78]:
+              - link "Athletic Shoes" [ref=e79] [cursor=pointer]:
                 - /url: /shop?category=Athletic+Shoes
-            - listitem [ref=e79]:
-              - link "Sportswear" [ref=e80] [cursor=pointer]:
+            - listitem [ref=e80]:
+              - link "Sportswear" [ref=e81] [cursor=pointer]:
                 - /url: /shop?category=Sportswear
-            - listitem [ref=e81]:
-              - link "Sports Equipment" [ref=e82] [cursor=pointer]:
+            - listitem [ref=e82]:
+              - link "Sports Equipment" [ref=e83] [cursor=pointer]:
                 - /url: /shop?category=Sports+Equipment
-        - generic [ref=e83]:
-          - heading "Account" [level=3] [ref=e84]
-          - list [ref=e85]:
-            - listitem [ref=e86]:
-              - link "Sign In" [ref=e87] [cursor=pointer]:
+        - generic [ref=e84]:
+          - heading "Account" [level=3] [ref=e85]
+          - list [ref=e86]:
+            - listitem [ref=e87]:
+              - link "Sign In" [ref=e88] [cursor=pointer]:
                 - /url: /login
-            - listitem [ref=e88]:
-              - link "Create Account" [ref=e89] [cursor=pointer]:
+            - listitem [ref=e89]:
+              - link "Create Account" [ref=e90] [cursor=pointer]:
                 - /url: /register
-            - listitem [ref=e90]:
-              - link "My Orders" [ref=e91] [cursor=pointer]:
+            - listitem [ref=e91]:
+              - link "My Orders" [ref=e92] [cursor=pointer]:
                 - /url: /account/orders
-            - listitem [ref=e92]:
-              - link "Shopping Cart" [ref=e93] [cursor=pointer]:
+            - listitem [ref=e93]:
+              - link "Shopping Cart" [ref=e94] [cursor=pointer]:
                 - /url: /cart
-        - generic [ref=e94]:
-          - heading "Information" [level=3] [ref=e95]
-          - list [ref=e96]:
-            - listitem [ref=e97]:
-              - link "Privacy Policy" [ref=e98] [cursor=pointer]:
+        - generic [ref=e95]:
+          - heading "Information" [level=3] [ref=e96]
+          - list [ref=e97]:
+            - listitem [ref=e98]:
+              - link "Privacy Policy" [ref=e99] [cursor=pointer]:
                 - /url: /privacy
-            - listitem [ref=e99]:
-              - link "Terms of Service" [ref=e100] [cursor=pointer]:
+            - listitem [ref=e100]:
+              - link "Terms of Service" [ref=e101] [cursor=pointer]:
                 - /url: /terms
-            - listitem [ref=e101]:
-              - link "Shipping Policy" [ref=e102] [cursor=pointer]:
+            - listitem [ref=e102]:
+              - link "Shipping Policy" [ref=e103] [cursor=pointer]:
                 - /url: /shipping
-            - listitem [ref=e103]:
-              - link "Contact Us" [ref=e104] [cursor=pointer]:
+            - listitem [ref=e104]:
+              - link "Contact Us" [ref=e105] [cursor=pointer]:
                 - /url: /contact
-      - generic [ref=e105]:
-        - paragraph [ref=e106]: © 2026 Impeccable Athletics. All rights reserved.
-        - generic [ref=e108]: Secure Payments via Stripe
-  - alert [ref=e109]
+      - generic [ref=e106]:
+        - paragraph [ref=e107]: © 2026 Impeccable Athletics. All rights reserved.
+        - generic [ref=e109]: Secure Payments via Stripe
+  - alert [ref=e110]
 ```
 
 # Test source

@@ -67,6 +67,11 @@ api.interceptors.response.use(
       undefined;
 
     if (typeof window !== 'undefined' && extendedError.response?.status === 401) {
+      if (localStorage.getItem('wasLoggedIn') === 'true') {
+        localStorage.setItem('showSessionExpiredToast', 'true');
+        localStorage.removeItem('wasLoggedIn');
+      }
+
       // TODO: [SECURITY] For better UX, implement refresh-token rotation with HTTP-only cookies and Redis blacklisting in the future.
       cancelPendingRequests();
       try { window.dispatchEvent(new CustomEvent('auth:unauthorized')); } catch {

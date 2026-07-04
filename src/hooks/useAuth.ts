@@ -33,6 +33,7 @@ export const useAuth = () => {
     queryFn: async () => {
       try {
         const { data } = await backendApi.get('/auth/me');
+        if (typeof window !== 'undefined') localStorage.setItem('wasLoggedIn', 'true');
         return data.data as User;
       } catch (error: unknown) {
         const status = (error as { response?: { status?: number } })?.response?.status;
@@ -112,6 +113,7 @@ export const useLogout = () => {
       await backendApi.post('/auth/logout');
     },
     onSuccess: () => {
+      if (typeof window !== 'undefined') localStorage.removeItem('wasLoggedIn');
       // Set auth to null and selectively invalidate user-related caches instead of clearing everything
       queryClient.setQueryData(['auth'], null);
       const keysToInvalidate = ['cart', 'wishlist', 'customerOrders', 'customerOrder', 'adminOrders', 'vendorOrders'];

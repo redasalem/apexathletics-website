@@ -105,7 +105,9 @@ export default function Navbar() {
               )}
             </Link>
 
-            {!isLoading && user ? (
+            {isLoading ? (
+              <div className="hidden sm:block w-[100px] md:w-[120px] h-[38px] bg-raised-lacquer animate-pulse rounded-[2px] border border-gold-hairline"></div>
+            ) : user ? (
               <Link href={accountHref} className="hidden sm:flex items-center gap-2 bg-transparent hover:bg-raised-lacquer px-4 py-2 rounded-[2px] text-sm font-medium transition-all border border-gold-hairline hover:border-gold-hairline-strong text-champagne">
                 <User className="w-4 h-4 text-kinpaku-gold" />
                 <span className="hidden md:inline">Account</span>
@@ -159,7 +161,9 @@ export default function Navbar() {
                     <div className="text-xs text-text-muted font-normal">{wishlistItemsCount} Items</div>
                   </div>
                 </Link>
-                {!isLoading && user ? (
+                {isLoading ? (
+                  <div className="h-[66px] w-full rounded-[2px] bg-raised-lacquer animate-pulse border border-gold-hairline"></div>
+                ) : user ? (
                   <Link href={accountHref} className="flex items-center gap-3 px-4 py-3 rounded-[2px] text-sm font-medium text-champagne hover:bg-raised-lacquer transition-colors border border-transparent hover:border-gold-hairline">
                     <User className="w-5 h-5 text-kinpaku-gold" />
                     <div>

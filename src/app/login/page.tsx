@@ -39,6 +39,13 @@ function LoginContent() {
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
+    if (typeof window !== 'undefined' && localStorage.getItem('showSessionExpiredToast') === 'true') {
+      toast.error('Your session has expired. Please sign in again.', { duration: 5000 });
+      localStorage.removeItem('showSessionExpiredToast');
+    }
+  }, []);
+
+  useEffect(() => {
     if (!loginMutation.isSuccess) return;
     const userData = loginMutation.data?.data;
     if (!userData) return;
