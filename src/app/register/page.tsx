@@ -6,10 +6,9 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRegister } from '@/hooks/useAuth';
 import Link from 'next/link';
-import { Loader2, ArrowRight, Eye, EyeOff } from 'lucide-react';
+import { Loader2, ArrowRight, Eye, EyeOff, AlertCircle, CheckCircle2 } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { getErrorMessage } from '@/utils/errors';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const registerSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -44,18 +43,56 @@ const registerSchema = z.object({
 
 type RegisterForm = z.infer<typeof registerSchema>;
 
+/**
+ * Extract a user-friendly error message from the API error response.
+ * Handles rate-limiting (429), duplicate email (400/409), and generic errors.
+ */
+function getRegisterErrorMessage(err: unknown): string {
+  if (!err || typeof err !== 'object') return 'Registration failed. Please try again.';
+
+  const axiosErr = err as {
+    response?: { status?: number; data?: { message?: string } };
+    friendlyMessage?: string;
+    message?: string;
+    code?: string;
+  };
+
+  const status = axiosErr.response?.status;
+  const serverMessage = axiosErr.response?.data?.message;
+
+  // Rate limiting
+  if (status === 429) {
+    return serverMessage || 'Too many attempts. Please wait a few minutes and try again.';
+  }
+
+  // Duplicate email or validation error
+  if (status === 400 || status === 409) {
+    if (serverMessage?.toLowerCase().includes('already') || serverMessage?.toLowerCase().includes('exists') || serverMessage?.toLowerCase().includes('duplicate')) {
+      return 'This email is already registered. Try signing in instead.';
+    }
+    return serverMessage || 'Invalid registration data. Please check your details.';
+  }
+
+  // Server error
+  if (status && status >= 500) {
+    return 'Our servers are having issues. Please try again in a moment.';
+  }
+
+  // Network / timeout
+  if (axiosErr.code === 'ECONNABORTED' || axiosErr.code === 'ERR_NETWORK') {
+    return 'Connection error. Please check your internet and try again.';
+  }
+
+  // Fallback: use server message, friendly message, or generic
+  return serverMessage || axiosErr.friendlyMessage || 'Registration failed. Please try again.';
+}
+
 export default function RegisterPage() {
   const router = useRouter();
   const registerMutation = useRegister();
   const [showPassword, setShowPassword] = useState(false);
-
-  useEffect(() => {
-    if (!registerMutation.isSuccess) return;
-    const role = registerMutation.data?.data?.role;
-    if (!role) return;
-    if (role === 'vendor') router.replace('/vendor-dashboard');
-    else router.replace('/account');
-  }, [registerMutation.isSuccess, registerMutation.data, router]);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm<RegisterForm>({
     resolver: zodResolver(registerSchema),
@@ -65,17 +102,28 @@ export default function RegisterPage() {
   });
 
   const selectedRole = watch('role');
+  const isSubmitting = registerMutation.isPending;
 
   const onSubmit = async (data: RegisterForm) => {
+    // Clear previous feedback
+    setSubmitError(null);
+    setSubmitSuccess(false);
+
     try {
       const resp = await registerMutation.mutateAsync(data);
-      toast.success(`Account created as ${data.role}!`);
       
+      // Show success state before redirect
+      setSubmitSuccess(true);
+      toast.success(`Account created as ${data.role}!`);
+
+      // Redirect based on role
       const role = resp.data?.role;
       if (role === 'vendor') router.replace('/vendor-dashboard');
       else router.replace('/account');
     } catch (err: unknown) {
-      toast.error(getErrorMessage(err, 'Failed to register account'));
+      const errorMessage = getRegisterErrorMessage(err);
+      setSubmitError(errorMessage);
+      toast.error(errorMessage);
     }
   };
 
@@ -97,12 +145,12 @@ export default function RegisterPage() {
             <div>
               <label className="label">Account Type</label>
               <div className="grid grid-cols-2 gap-4 mt-2">
-                <label className="cursor-pointer">
-                  <input type="radio" value="customer" {...register('role')} className="peer sr-only" />
+                <label className={`cursor-pointer ${isSubmitting ? 'pointer-events-none opacity-60' : ''}`}>
+                  <input type="radio" value="customer" {...register('role')} className="peer sr-only" disabled={isSubmitting} />
                   <div className="text-center py-3 border border-gold-hairline rounded-[2px] text-text-muted peer-checked:bg-kinpaku-gold peer-checked:border-kinpaku-gold peer-checked:text-lacquer-deep transition-colors font-medium">Customer</div>
                 </label>
-                <label className="cursor-pointer">
-                  <input type="radio" value="vendor" {...register('role')} className="peer sr-only" />
+                <label className={`cursor-pointer ${isSubmitting ? 'pointer-events-none opacity-60' : ''}`}>
+                  <input type="radio" value="vendor" {...register('role')} className="peer sr-only" disabled={isSubmitting} />
                   <div className="text-center py-3 border border-gold-hairline rounded-[2px] text-text-muted peer-checked:bg-kinpaku-gold peer-checked:border-kinpaku-gold peer-checked:text-lacquer-deep transition-colors font-medium">Vendor</div>
                 </label>
               </div>
@@ -115,6 +163,7 @@ export default function RegisterPage() {
                   type="text"
                   className="input-field"
                   placeholder="John Doe"
+                  disabled={isSubmitting}
                 />
                 {errors.name && <p className="mt-1.5 text-sm text-red-500 font-medium">{errors.name.message}</p>}
             </div>
@@ -126,6 +175,7 @@ export default function RegisterPage() {
                   type="email"
                   className="input-field"
                   placeholder="you@example.com"
+                  disabled={isSubmitting}
                 />
                 {errors.email && <p className="mt-1.5 text-sm text-red-500 font-medium">{errors.email.message}</p>}
             </div>
@@ -138,6 +188,7 @@ export default function RegisterPage() {
                   type={showPassword ? 'text' : 'password'}
                   className="input-field pr-12"
                   placeholder="••••••••"
+                  disabled={isSubmitting}
                 />
                 <button
                   type="button"
@@ -159,6 +210,7 @@ export default function RegisterPage() {
                   type="text"
                   className="input-field"
                   placeholder="My Awesome Store"
+                  disabled={isSubmitting}
                 />
                     {errors.storeName && <p className="mt-1.5 text-sm text-red-500 font-medium">{errors.storeName.message}</p>}
                 </div>
@@ -170,6 +222,7 @@ export default function RegisterPage() {
                   className="input-field min-h-[100px]"
                   placeholder="Tell us about your products..."
                   rows={3}
+                  disabled={isSubmitting}
                 />
                     {errors.storeDescription && <p className="mt-1.5 text-sm text-red-500 font-medium">{errors.storeDescription.message}</p>}
                 </div>
@@ -178,10 +231,10 @@ export default function RegisterPage() {
 
             <button
               type="submit"
-              disabled={registerMutation.isPending}
+              disabled={isSubmitting}
               className="ks-button ks-button-primary w-full text-[1.18rem] mt-4"
             >
-              {registerMutation.isPending ? (
+              {isSubmitting ? (
                 <Loader2 className="w-6 h-6 animate-spin text-lacquer-deep" />
               ) : (
                 <>
@@ -189,6 +242,29 @@ export default function RegisterPage() {
                 </>
               )}
             </button>
+
+            {/* ── Inline error banner ── */}
+            {submitError && !isSubmitting && (
+              <div className="flex items-start gap-3 p-4 rounded-[2px] border border-red-500/40 bg-red-500/10 text-red-400 text-sm animate-in fade-in slide-in-from-top-1 duration-200">
+                <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-medium">{submitError}</p>
+                  {submitError.includes('already registered') && (
+                    <Link href="/login" className="text-kinpaku-gold hover:text-champagne underline underline-offset-2 mt-1 inline-block text-sm">
+                      Go to Sign In →
+                    </Link>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* ── Inline success banner ── */}
+            {submitSuccess && (
+              <div className="flex items-center gap-3 p-4 rounded-[2px] border border-green-500/40 bg-green-500/10 text-green-400 text-sm animate-in fade-in slide-in-from-top-1 duration-200">
+                <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
+                <p className="font-medium">Account created! Redirecting…</p>
+              </div>
+            )}
           </form>
         </div>
       </div>
