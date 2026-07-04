@@ -37,6 +37,7 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
 
   const handleWishlistClick = (e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     if (!isCustomer) {
       toast.error('Please sign in as a customer to use wishlist');
       return;
@@ -50,15 +51,17 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
 
   return (
     <div className="bg-raised-lacquer border border-gold-hairline rounded-[4px] overflow-hidden hover:border-gold-hairline-strong transition-colors group flex flex-col h-full relative">
-      <Link href={`/product/${product._id}`} className="relative aspect-square overflow-hidden block flex-shrink-0 border-b border-gold-hairline">
-        <OptimizedImage
-          src={imageSrc}
-          alt={product.title}
-          fallback={getCategoryImage(product.category)}
-          type="product"
-          priority={false}
-          className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 mix-blend-luminosity hover:mix-blend-normal"
-        />
+      <div className="relative aspect-square overflow-hidden block flex-shrink-0 border-b border-gold-hairline">
+        <Link href={`/product/${product._id}`} className="absolute inset-0 z-0 block" aria-label={`View ${product.title}`}>
+          <OptimizedImage
+            src={imageSrc}
+            alt={product.title}
+            fallback={getCategoryImage(product.category)}
+            type="product"
+            priority={false}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 mix-blend-luminosity hover:mix-blend-normal"
+          />
+        </Link>
 
         {/* Wishlist Button */}
         <button
@@ -72,11 +75,11 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
 
         {/* Sale Badge */}
         {product.discountPrice && product.discountPrice < product.price && (
-          <div className="absolute top-3 right-3 z-10 bg-kinpaku-gold text-lacquer-deep font-bold text-[0.7rem] px-2.5 py-1 rounded-[2px] uppercase tracking-[0.18em]">
+          <div className="absolute top-3 right-3 z-10 bg-kinpaku-gold text-lacquer-deep font-bold text-[0.7rem] px-2.5 py-1 rounded-[2px] uppercase tracking-[0.18em] pointer-events-none">
             -{Math.round((1 - product.discountPrice / product.price) * 100)}%
           </div>
         )}
-      </Link>
+      </div>
 
       <div className="p-5 flex flex-col flex-1 bg-raised-lacquer">
         {/* Category & Star Rating */}
