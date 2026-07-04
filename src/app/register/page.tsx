@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRegister } from '@/hooks/useAuth';
 import Link from 'next/link';
 import { Loader2, ArrowRight, Eye, EyeOff, AlertCircle, CheckCircle2 } from 'lucide-react';
-import toast from 'react-hot-toast';
+
 import { useState } from 'react';
 
 const registerSchema = z.object({
@@ -112,9 +112,8 @@ export default function RegisterPage() {
     try {
       const resp = await registerMutation.mutateAsync(data);
       
-      // Show success state before redirect
+      // Show inline success banner before redirect
       setSubmitSuccess(true);
-      toast.success(`Account created as ${data.role}!`);
 
       // Redirect based on role
       const role = resp.data?.role;
@@ -123,7 +122,7 @@ export default function RegisterPage() {
     } catch (err: unknown) {
       const errorMessage = getRegisterErrorMessage(err);
       setSubmitError(errorMessage);
-      toast.error(errorMessage);
+      // Error displayed via inline banner below the form — no toast needed
     }
   };
 
