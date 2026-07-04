@@ -29,18 +29,20 @@
 
 ## 🟠 High-Priority Issues
 
-### 3. Add to Cart: Silent Redirect to Login for Guest Users
+### 3. Add to Cart: Silent Redirect to Login for Guest Users (✅ FIXED locally, pending deployment)
 - **Where**: Product detail page → "Add to Cart" button
 - **What happens**: Guest user clicks "Add to Cart" and is **silently redirected** to `/login` with no explanation.
 - **Expected**: A toast notification like `"Please sign in to add items to your cart"` before redirecting, or a modal prompt.
 - **Impact**: User loses context. They don't understand why they were suddenly taken to the login page. Feels broken.
 - **Screenshot**: `screenshots/08-addtocart-redirected-to-login.png`
+- **Fix Applied**: Added client-side authentication check inside `AddToCartForm.tsx` that intercepts the action, shows an explicit error toast `"Please sign in to add items to your cart"`, waits 500ms for readability, and then redirects to `/login` with a `redirect` query parameter pointing back to the product page.
 
-### 4. Cart & Wishlist Pages Require Authentication
+### 4. Cart & Wishlist Pages Require Authentication (✅ FIXED locally, pending deployment)
 - **Where**: `/cart` and `/wishlist` (Navbar links)
 - **What happens**: Clicking "Cart" or "Wishlist" in the navbar immediately redirects unauthenticated users to `/login?redirect=%2Fcart` or `/login?redirect=%2Fwishlist`.
 - **Expected**: Either allow guest carts (common in e-commerce) or show a message explaining why login is needed.
 - **Impact**: New visitors clicking "Cart" are confused by landing on a login page. This is unusual for e-commerce sites.
+- **Fix Applied**: Added client-side click interception in the Navbar for both Desktop and Mobile drawer links. Unauthenticated users now receive a clear toast message (`"Sign in to view your cart"` / `"Sign in to view your wishlist"`) and are given a 500ms delay to read the feedback before being redirected to the login page with the correct return parameter.
 
 ---
 

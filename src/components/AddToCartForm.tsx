@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useAddToCart } from '@/hooks/useCart';
+import { useAuth } from '@/hooks/useAuth';
 import { ShoppingCart, Loader2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { getErrorMessage } from '@/utils/errors';
@@ -18,11 +19,20 @@ interface AddToCartFormProps {
 
 export default function AddToCartForm({ product }: AddToCartFormProps) {
   const addToCartMutation = useAddToCart();
+  const { data: user } = useAuth();
   const [selectedSize, setSelectedSize] = useState<string>('');
   const [selectedColor, setSelectedColor] = useState<string>('');
   const [quantity, setQuantity] = useState<number>(1);
 
   const handleAddToCart = () => {
+    if (!user) {
+      toast.error('Please sign in to add items to your cart');
+      setTimeout(() => {
+        window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+      }, 500);
+      return;
+    }
+
     if (product.sizes && product.sizes.length > 0 && !selectedSize) {
       toast.error('Please select a size');
       return;

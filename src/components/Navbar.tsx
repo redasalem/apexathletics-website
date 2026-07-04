@@ -8,6 +8,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useCart } from '@/hooks/useCart';
 import { useWishlist } from '@/hooks/useWishlist';
 import SearchBar from './SearchBar';
+import toast from 'react-hot-toast';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -21,6 +22,16 @@ export default function Navbar() {
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
+
+  const handleProtectedNavigation = (e: React.MouseEvent, destination: string, message: string) => {
+    if (!user && !isLoading) {
+      e.preventDefault();
+      toast.error(message);
+      setTimeout(() => {
+        window.location.href = `/login?redirect=${encodeURIComponent(destination)}`;
+      }, 500);
+    }
+  };
 
   // Don't show global navbar inside admin or vendor dashboards
   if (pathname.startsWith('/admin') || pathname.startsWith('/vendor-dashboard')) {
@@ -66,7 +77,7 @@ export default function Navbar() {
 
           {/* Right: Cart & Auth & Hamburger */}
           <div className="flex items-center gap-3 sm:gap-6">
-            <Link href="/wishlist" className="relative text-text-muted hover:text-champagne transition-colors flex items-center gap-2">
+            <Link href="/wishlist" onClick={(e) => handleProtectedNavigation(e, '/wishlist', 'Sign in to view your wishlist')} className="relative text-text-muted hover:text-champagne transition-colors flex items-center gap-2">
               <Heart className="w-5 h-5" />
               <span className="hidden sm:inline font-medium text-sm">Wishlist</span>
               {wishlistItemsCount > 0 && (
@@ -77,7 +88,7 @@ export default function Navbar() {
               )}
             </Link>
 
-            <Link href="/cart" className="relative text-text-muted hover:text-champagne transition-colors flex items-center gap-2">
+            <Link href="/cart" onClick={(e) => handleProtectedNavigation(e, '/cart', 'Sign in to view your cart')} className="relative text-text-muted hover:text-champagne transition-colors flex items-center gap-2">
               <ShoppingBag className="w-5 h-5" />
               <span className="hidden sm:inline font-medium text-sm">Cart</span>
               {cartItemsCount > 0 && (
@@ -135,7 +146,7 @@ export default function Navbar() {
 
               {/* Mobile Auth & Wishlist */}
               <div className="pt-2 border-t border-gold-hairline space-y-3">
-                <Link href="/wishlist" className="flex items-center gap-3 px-4 py-3 rounded-[2px] text-sm font-medium text-champagne hover:bg-raised-lacquer transition-colors border border-transparent hover:border-gold-hairline">
+                <Link href="/wishlist" onClick={(e) => handleProtectedNavigation(e, '/wishlist', 'Sign in to view your wishlist')} className="flex items-center gap-3 px-4 py-3 rounded-[2px] text-sm font-medium text-champagne hover:bg-raised-lacquer transition-colors border border-transparent hover:border-gold-hairline">
                   <Heart className="w-5 h-5 text-kinpaku-gold" />
                   <div>
                     <div>Wishlist</div>
