@@ -337,7 +337,7 @@ Received string:    "https://apexathletics-website.vercel.app/"
   24  |     await page.getByRole('link', { name: 'Products' }).first().click();
   25  |     
   26  |     // Wait for either products to load or empty state
-  27  |     await page.waitForSelector('a[href^="/product/"], .empty-state', { state: 'visible' }).catch(() => {});
+  27  |     await page.waitForSelector('a[href^="/product/"], .empty-state', { state: 'visible', timeout: 5000 }).catch(() => {});
   28  |     
   29  |     const productLinks = page.locator('a[href^="/product/"]');
   30  |     if (await productLinks.count() === 0) {
