@@ -51,66 +51,138 @@ Received string:    "https://apexathletics-website.vercel.app/product/6a47170f73
           - generic [ref=e34]: Sign In
   - main [ref=e35]:
     - generic [ref=e37]:
-      - img [ref=e38]
-      - heading "Loading Product..." [level=2] [ref=e40]
-  - contentinfo [ref=e41]:
-    - generic [ref=e42]:
-      - generic [ref=e43]:
+      - link "← Back to Collection" [ref=e38] [cursor=pointer]:
+        - /url: /shop
+      - generic [ref=e39]:
+        - img "Running Pro Gear 15" [ref=e43]
         - generic [ref=e44]:
-          - link "IMPECCABLE" [ref=e45] [cursor=pointer]:
+          - generic [ref=e46]: Running • Running Accessories
+          - heading "Running Pro Gear 15" [level=1] [ref=e47]
+          - generic [ref=e48]:
+            - generic [ref=e49]:
+              - img [ref=e50]
+              - img [ref=e52]
+              - img [ref=e54]
+              - img [ref=e56]
+              - img [ref=e58]
+              - generic [ref=e60]: "0.0"
+              - generic [ref=e61]: (0 Reviews)
+            - generic [ref=e63]:
+              - text: Sold by
+              - link "PowerFit Store" [ref=e64] [cursor=pointer]:
+                - /url: /vendor/6a47170e7318b429b027ecdd
+          - paragraph [ref=e65]: $358.00
+          - paragraph [ref=e66]: High quality Running gear suitable for professionals and beginners alike. Grab yours today!
+          - generic [ref=e67]:
+            - generic [ref=e68]:
+              - heading "Quantity" [level=4] [ref=e69]
+              - generic [ref=e70]:
+                - button "Decrease quantity" [ref=e71] [cursor=pointer]: "-"
+                - generic [ref=e72]: "1"
+                - button "Increase quantity" [ref=e73] [cursor=pointer]: +
+            - button "Add to Cart — $358.00" [ref=e74] [cursor=pointer]:
+              - img [ref=e75]
+              - text: Add to Cart — $358.00
+          - generic [ref=e79]:
+            - generic [ref=e80]:
+              - img [ref=e82]
+              - generic [ref=e87]:
+                - heading "Free Delivery" [level=5] [ref=e88]
+                - paragraph [ref=e89]:
+                  - text: On orders over $50.
+                  - text: Arrives in 3-5 days.
+            - generic [ref=e90]:
+              - img [ref=e92]
+              - generic [ref=e95]:
+                - heading "Authentic" [level=5] [ref=e96]
+                - paragraph [ref=e97]: Every item verified by Impeccable.
+    - generic [ref=e100]:
+      - generic [ref=e101]:
+        - generic [ref=e102]:
+          - generic [ref=e103]:
+            - img [ref=e105]
+            - heading "Gear Reviews" [level=2] [ref=e107]
+          - paragraph [ref=e108]: Tested by athletes, for athletes. Read what our community thinks about this running gear.
+        - generic [ref=e109]:
+          - heading "Leave a Review" [level=3] [ref=e110]
+          - generic [ref=e111]:
+            - button [ref=e112] [cursor=pointer]:
+              - img [ref=e113]
+            - button [ref=e115] [cursor=pointer]:
+              - img [ref=e116]
+            - button [ref=e118] [cursor=pointer]:
+              - img [ref=e119]
+            - button [ref=e121] [cursor=pointer]:
+              - img [ref=e122]
+            - button [ref=e124] [cursor=pointer]:
+              - img [ref=e125]
+            - generic [ref=e127]: Select Rating
+          - textbox "Share your experience with this gear..." [ref=e128]
+          - button "Submit Review" [ref=e129] [cursor=pointer]:
+            - img [ref=e130]
+            - text: Submit Review
+          - paragraph [ref=e133]: "* Reviews can only be submitted by verified purchasers"
+      - generic [ref=e135]:
+        - paragraph [ref=e136]: No reviews yet
+        - paragraph [ref=e137]: Be the first to share your experience
+  - contentinfo [ref=e138]:
+    - generic [ref=e139]:
+      - generic [ref=e140]:
+        - generic [ref=e141]:
+          - link "IMPECCABLE" [ref=e142] [cursor=pointer]:
             - /url: /
-            - img [ref=e47]
-            - generic [ref=e50]: IMPECCABLE
-          - paragraph [ref=e51]: Premium multi-vendor sports marketplace. Connecting athletes with the best performance gear from independent vendors.
-        - generic [ref=e52]:
-          - heading "Shop" [level=3] [ref=e53]
-          - list [ref=e54]:
-            - listitem [ref=e55]:
-              - link "All Products" [ref=e56] [cursor=pointer]:
+            - img [ref=e144]
+            - generic [ref=e147]: IMPECCABLE
+          - paragraph [ref=e148]: Premium multi-vendor sports marketplace. Connecting athletes with the best performance gear from independent vendors.
+        - generic [ref=e149]:
+          - heading "Shop" [level=3] [ref=e150]
+          - list [ref=e151]:
+            - listitem [ref=e152]:
+              - link "All Products" [ref=e153] [cursor=pointer]:
                 - /url: /shop
-            - listitem [ref=e57]:
-              - link "Athletic Shoes" [ref=e58] [cursor=pointer]:
+            - listitem [ref=e154]:
+              - link "Athletic Shoes" [ref=e155] [cursor=pointer]:
                 - /url: /shop?category=Athletic+Shoes
-            - listitem [ref=e59]:
-              - link "Sportswear" [ref=e60] [cursor=pointer]:
+            - listitem [ref=e156]:
+              - link "Sportswear" [ref=e157] [cursor=pointer]:
                 - /url: /shop?category=Sportswear
-            - listitem [ref=e61]:
-              - link "Sports Equipment" [ref=e62] [cursor=pointer]:
+            - listitem [ref=e158]:
+              - link "Sports Equipment" [ref=e159] [cursor=pointer]:
                 - /url: /shop?category=Sports+Equipment
-        - generic [ref=e63]:
-          - heading "Account" [level=3] [ref=e64]
-          - list [ref=e65]:
-            - listitem [ref=e66]:
-              - link "Sign In" [ref=e67] [cursor=pointer]:
+        - generic [ref=e160]:
+          - heading "Account" [level=3] [ref=e161]
+          - list [ref=e162]:
+            - listitem [ref=e163]:
+              - link "Sign In" [ref=e164] [cursor=pointer]:
                 - /url: /login
-            - listitem [ref=e68]:
-              - link "Create Account" [ref=e69] [cursor=pointer]:
+            - listitem [ref=e165]:
+              - link "Create Account" [ref=e166] [cursor=pointer]:
                 - /url: /register
-            - listitem [ref=e70]:
-              - link "My Orders" [ref=e71] [cursor=pointer]:
+            - listitem [ref=e167]:
+              - link "My Orders" [ref=e168] [cursor=pointer]:
                 - /url: /account/orders
-            - listitem [ref=e72]:
-              - link "Shopping Cart" [ref=e73] [cursor=pointer]:
+            - listitem [ref=e169]:
+              - link "Shopping Cart" [ref=e170] [cursor=pointer]:
                 - /url: /cart
-        - generic [ref=e74]:
-          - heading "Information" [level=3] [ref=e75]
-          - list [ref=e76]:
-            - listitem [ref=e77]:
-              - link "Privacy Policy" [ref=e78] [cursor=pointer]:
+        - generic [ref=e171]:
+          - heading "Information" [level=3] [ref=e172]
+          - list [ref=e173]:
+            - listitem [ref=e174]:
+              - link "Privacy Policy" [ref=e175] [cursor=pointer]:
                 - /url: /privacy
-            - listitem [ref=e79]:
-              - link "Terms of Service" [ref=e80] [cursor=pointer]:
+            - listitem [ref=e176]:
+              - link "Terms of Service" [ref=e177] [cursor=pointer]:
                 - /url: /terms
-            - listitem [ref=e81]:
-              - link "Shipping Policy" [ref=e82] [cursor=pointer]:
+            - listitem [ref=e178]:
+              - link "Shipping Policy" [ref=e179] [cursor=pointer]:
                 - /url: /shipping
-            - listitem [ref=e83]:
-              - link "Contact Us" [ref=e84] [cursor=pointer]:
+            - listitem [ref=e180]:
+              - link "Contact Us" [ref=e181] [cursor=pointer]:
                 - /url: /contact
-      - generic [ref=e85]:
-        - paragraph [ref=e86]: © 2026 Impeccable Athletics. All rights reserved.
-        - generic [ref=e88]: Secure Payments via Stripe
-  - alert [ref=e89]: Running Pro Gear 15 - Impeccable Athletics | Apex Athletics
+      - generic [ref=e182]:
+        - paragraph [ref=e183]: © 2026 Impeccable Athletics. All rights reserved.
+        - generic [ref=e185]: Secure Payments via Stripe
+  - alert [ref=e186]: Running Pro Gear 15 - Impeccable Athletics | Apex Athletics
 ```
 
 # Test source
