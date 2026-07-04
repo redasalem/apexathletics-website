@@ -34,7 +34,7 @@ export default function Navbar() {
       toast.error(message);
       setTimeout(() => {
         router.push(`/login?redirect=${encodeURIComponent(destination)}`);
-      }, 500);
+      }, 1500);
     }
   };
 

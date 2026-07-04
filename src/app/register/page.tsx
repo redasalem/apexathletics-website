@@ -101,13 +101,14 @@ export default function RegisterPage() {
     }
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const selectedRole = watch('role');
-  const isSubmitting = registerMutation.isPending;
 
   const onSubmit = async (data: RegisterForm) => {
     // Clear previous feedback
     setSubmitError(null);
     setSubmitSuccess(false);
+    setIsSubmitting(true);
 
     try {
       const resp = await registerMutation.mutateAsync(data);
@@ -120,9 +121,11 @@ export default function RegisterPage() {
       if (role === 'vendor') router.replace('/vendor-dashboard');
       else router.replace('/account');
     } catch (err: unknown) {
-      const errorMessage = getRegisterErrorMessage(err);
+      const errorMessage = getRegisterErrorMessage(err) || "Something went wrong. Please try again.";
       setSubmitError(errorMessage);
       // Error displayed via inline banner below the form — no toast needed
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

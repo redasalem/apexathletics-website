@@ -29,7 +29,7 @@ export default function AddToCartForm({ product }: AddToCartFormProps) {
       toast.error('Please sign in to add items to your cart');
       setTimeout(() => {
         window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
-      }, 500);
+      }, 1500);
       return;
     }
 
