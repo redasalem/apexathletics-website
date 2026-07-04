@@ -112,9 +112,10 @@ export default function AddToCartForm({ product }: AddToCartFormProps) {
       </div>
 
       <button 
-        disabled={addToCartMutation.isPending || product.stock === 0}
+        disabled={addToCartMutation.isPending || product.stock === 0 || (!!product.sizes?.length && !selectedSize) || (!!product.colors?.length && !selectedColor)}
         onClick={handleAddToCart}
-        className="ks-button ks-button-primary w-full text-[1.18rem] mt-8 flex items-center justify-center gap-3"
+        title={(!!product.sizes?.length && !selectedSize) || (!!product.colors?.length && !selectedColor) ? 'Please select a size and color' : ''}
+        className="ks-button ks-button-primary w-full text-[1.18rem] mt-8 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {addToCartMutation.isPending ? <Loader2 className="w-5 h-5 animate-spin text-lacquer-deep" /> : <ShoppingCart className="w-5 h-5" />}
         {product.stock === 0 ? 'Out of Stock' : 'Add to Cart — $' + (product.price * quantity).toFixed(2)}

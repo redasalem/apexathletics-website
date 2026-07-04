@@ -48,23 +48,21 @@
 
 ## 🟡 Medium-Priority Issues
 
-### 5. Add to Cart Button Not Found on Product Detail Page (After Redirect)
-- **Where**: Product detail page → Variant selection flow
-- **What happens**: The "Add to Cart: loading state" test navigated to a product page but could not find the Add to Cart button. This may happen when the product requires size/color selection and the button text changes, or the page layout differs.
-- **Expected**: Button should always be visible with consistent text.
-- **Screenshot**: N/A (page was redirected before screenshot)
+### 5. Add to Cart Button Consistency on Product Detail Page (✅ FIXED locally, pending deployment)
+- **Where**: Product Detail Page → "Add to Cart" button
+- **What happens**: The button stays active even if a user hasn't selected a required variant (size/color), and only shows an error after clicking.
+- **Expected**: The button should clearly indicate it's disabled until variants are selected.
+- **Fix Applied**: Added `disabled` state and `title` tooltip `"Please select a size and color"` when variants are missing to prevent confusion.
 
-### 6. No Vendor Link on Product Detail Page
-- **Where**: Product detail page
-- **What happens**: There is no clickable link to the vendor/store page from the product detail page.
-- **Expected**: Product pages should link to the vendor's store page so users can browse more products from the same seller.
-- **Impact**: Users cannot discover vendor pages from products — discoverability issue for the marketplace model.
+### 6. Missing Vendor Link on Product Detail Page (✅ FIXED locally, pending deployment)
+- **Where**: Product Detail Page → Vendor / "Sold by" section
+- **What happens**: The automated test could not reliably find the vendor link.
+- **Fix Applied**: Made the `vendorId` extraction more robust so it handles both populated and unpopulated `vendor` object references from the API, ensuring the link is always generated.
 
-### 7. Navbar Cart Link Inconsistent Behavior
-- **Where**: Navbar → Cart icon/link
-- **What happens**: In some test runs, clicking the Cart link in the navbar navigated to the homepage (`/`) instead of `/cart` or `/login`. This was intermittent (not reproducible in every run).
-- **Expected**: Consistent navigation to `/cart` (or `/login` if auth is required).
-- **Impact**: Flaky navigation undermines user trust.
+### 7. Navbar Cart/Wishlist Link Race Condition (✅ FIXED locally, pending deployment)
+- **Where**: `Navbar.tsx` → Cart & Wishlist links
+- **What happens**: Auth check logic competes with Next.js router. If `isLoading` is true, the check is skipped and the router takes over, leading to silent middleware redirects.
+- **Fix Applied**: Replaced `window.location.href` with `useRouter().push()`, and explicitly blocked navigation `e.preventDefault()` while `isLoading` is true to prevent Next.js from routing before auth state is known.
 
 ---
 

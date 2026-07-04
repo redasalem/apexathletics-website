@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { ShoppingBag, LogIn, User, Menu, X, Heart } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
@@ -12,6 +12,7 @@ import toast from 'react-hot-toast';
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const { data: user, isLoading } = useAuth();
   const canUseCustomerCollections = user?.role === 'customer';
   const { data: cart } = useCart(canUseCustomerCollections);
@@ -24,11 +25,15 @@ export default function Navbar() {
   }, [pathname]);
 
   const handleProtectedNavigation = (e: React.MouseEvent, destination: string, message: string) => {
-    if (!user && !isLoading) {
+    if (isLoading) {
+      e.preventDefault();
+      return;
+    }
+    if (!user) {
       e.preventDefault();
       toast.error(message);
       setTimeout(() => {
-        window.location.href = `/login?redirect=${encodeURIComponent(destination)}`;
+        router.push(`/login?redirect=${encodeURIComponent(destination)}`);
       }, 500);
     }
   };

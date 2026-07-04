@@ -77,6 +77,10 @@ export default async function ProductDetailsPage({ params }: { params: { id: str
 
   const imageSrc = product.images?.[0] || getCategoryImage(product.category);
 
+  // Extract vendor info safely
+  const vendorId = typeof product.vendor === 'string' ? product.vendor : product.vendor?._id;
+  const vendorName = typeof product.vendor === 'string' ? 'Vendor Store' : (product.vendor?.storeName || 'Vendor Store');
+
   // JSON-LD Structured Data
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -94,7 +98,7 @@ export default async function ProductDetailsPage({ params }: { params: { id: str
       availability: product.stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
       seller: {
         '@type': 'Organization',
-        name: product.vendor?.storeName || 'Impeccable Vendor',
+        name: vendorName,
       },
     },
     ...(product.averageRating > 0 && {
@@ -185,9 +189,11 @@ export default async function ProductDetailsPage({ params }: { params: { id: str
                  <span className="text-[0.72rem] font-mono uppercase tracking-[0.22em] text-text-muted ml-3">({product.numReviews || 0} Reviews)</span>
                </div>
                <div className="w-px h-4 bg-gold-hairline" />
-               <span className="text-[0.8rem] font-mono text-text-muted">
-                  Sold by <Link href={`/vendor/${product.vendor?._id}`} className="text-kinpaku-gold hover:text-champagne transition-colors underline underline-offset-4">{product.vendor?.storeName || 'Impeccable Vendor'}</Link>
-               </span>
+               {vendorId && (
+                 <span className="text-[0.8rem] font-mono text-text-muted">
+                    Sold by <Link href={`/vendor/${vendorId}`} className="text-kinpaku-gold hover:text-champagne transition-colors underline underline-offset-4">{vendorName}</Link>
+                 </span>
+               )}
             </div>
 
             <p className="text-3xl lg:text-4xl font-mono font-medium text-champagne tracking-tight mb-8">
