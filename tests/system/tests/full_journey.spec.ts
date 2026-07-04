@@ -53,8 +53,8 @@ test.describe.serial('Full User Journey', () => {
     // Wishlist as guest
     await page.goto(PROD_URL);
     await page.getByRole('link', { name: 'Wishlist' }).first().click();
-    await page.waitForURL(url => url.href.includes('/login'), { timeout: 5000 }).catch(() => {});
-    expect(page.url()).toContain('/login');
+    const toastMsg = page.locator('[role="status"], .Toastify').filter({ hasText: /sign in|wishlist/i });
+    await expect(toastMsg).toBeVisible({ timeout: 5000 });
   });
 
   test('2. Register Journey (Customer)', async () => {
