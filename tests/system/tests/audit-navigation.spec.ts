@@ -11,10 +11,12 @@ function logResult(pageName: string, element: string, expected: string, actual: 
 test.describe('Navigation Audit', () => {
   test('Navbar Links', async ({ page }) => {
     await page.goto(PROD_URL);
-    const navLinks = await page.locator('nav a').elementHandles();
-    for (const link of navLinks) {
-      const href = await link.getAttribute('href');
-      const text = (await link.innerText()).trim() || href;
+    await page.waitForSelector('nav .animate-pulse', { state: 'hidden' });
+    await page.waitForTimeout(500);
+    const linksData = await page.locator('nav a').evaluateAll((links) => 
+      links.map(link => ({ href: link.getAttribute('href'), text: (link.textContent || '').trim() || link.getAttribute('href') }))
+    );
+    for (const { href, text } of linksData) {
       if (href && href !== '#') {
         const response = await page.request.get(PROD_URL + (href.startsWith('/') ? href : '/' + href));
         if (response.ok()) {
@@ -28,10 +30,12 @@ test.describe('Navigation Audit', () => {
 
   test('Footer Links', async ({ page }) => {
     await page.goto(PROD_URL);
-    const footerLinks = await page.locator('footer a').elementHandles();
-    for (const link of footerLinks) {
-      const href = await link.getAttribute('href');
-      const text = (await link.innerText()).trim() || href;
+    await page.waitForSelector('nav .animate-pulse', { state: 'hidden' });
+    await page.waitForTimeout(500);
+    const linksData = await page.locator('footer a').evaluateAll((links) => 
+      links.map(link => ({ href: link.getAttribute('href'), text: (link.textContent || '').trim() || link.getAttribute('href') }))
+    );
+    for (const { href, text } of linksData) {
       if (href === '#' || href === '') {
          logResult('Footer', `Link: ${text}`, 'Valid link', 'Dead link (href="#")', '🟡 Medium');
       } else if (href) {
