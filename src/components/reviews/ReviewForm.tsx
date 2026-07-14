@@ -46,8 +46,8 @@ export default function ReviewForm({ productId }: ReviewFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-surface/50 border border-white/5 p-6 rounded-2xl">
-      <h3 className="text-sm font-black uppercase tracking-widest text-white mb-6">Leave a Review</h3>
+    <form onSubmit={handleSubmit} className="bg-raised-lacquer border border-gold-hairline p-6 rounded-[4px] shadow-panel">
+      <h3 className="text-sm font-black uppercase tracking-widest text-champagne mb-6">Leave a Review</h3>
       
       {/* Star Selector */}
       <div className="flex items-center gap-2 mb-6">
@@ -63,13 +63,13 @@ export default function ReviewForm({ productId }: ReviewFormProps) {
             <Star 
               className={`w-6 h-6 transition-colors ${
                 star <= (hover || rating) 
-                  ? 'fill-primary-500 text-primary-500' 
-                  : 'text-white/10'
+                  ? 'fill-kinpaku-gold text-kinpaku-gold' 
+                  : 'text-text-muted/30'
               }`} 
             />
           </button>
         ))}
-        <span className="ml-2 text-xs font-bold text-textMuted uppercase tracking-widest">
+        <span className="ml-2 text-xs font-bold text-text-muted uppercase tracking-widest">
           {rating > 0 ? `${rating} / 5 Stars` : 'Select Rating'}
         </span>
       </div>
@@ -78,13 +78,13 @@ export default function ReviewForm({ productId }: ReviewFormProps) {
         value={comment}
         onChange={(e) => setComment(e.target.value)}
         placeholder="Share your experience with this gear..."
-        className="w-full bg-background border border-white/10 rounded-xl p-4 text-sm text-white placeholder:text-textMuted focus:outline-none focus:border-primary-500 transition-all min-h-[120px] mb-6"
+        className="input-field w-full min-h-[120px] mb-6 resize-y"
       />
 
       <button
         type="submit"
         disabled={addReviewMutation.isPending}
-        className="btn-primary w-full flex items-center justify-center gap-2 py-3"
+        className="ks-button ks-button-primary w-full flex items-center justify-center gap-2 py-3"
       >
         {addReviewMutation.isPending ? (
           <Loader2 className="w-4 h-4 animate-spin" />
@@ -94,7 +94,7 @@ export default function ReviewForm({ productId }: ReviewFormProps) {
         Submit Review
       </button>
 
-      <p className="mt-4 text-[10px] text-textMuted text-center font-bold uppercase tracking-widest italic">
+      <p className="mt-4 text-[10px] text-text-muted text-center font-bold uppercase tracking-widest italic">
         * Reviews can only be submitted by verified purchasers
       </p>
     </form>

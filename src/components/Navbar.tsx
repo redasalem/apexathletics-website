@@ -31,6 +31,7 @@ export default function Navbar() {
     }
     if (!user) {
       e.preventDefault();
+      toast.dismiss();
       toast.error(message);
       setTimeout(() => {
         router.push(`/login?redirect=${encodeURIComponent(destination)}`);
