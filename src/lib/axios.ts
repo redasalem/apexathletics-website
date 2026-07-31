@@ -47,13 +47,31 @@ const removePendingRequest = (config?: RequestConfigWithId) => {
     pendingControllers.delete(requestId);
   }
 };
+let isRefreshing = false;
+let failedQueue: Array<{
+  resolve: (value?: unknown) => void;
+  reject: (reason?: unknown) => void;
+}> = [];
+
+const processQueue = (error: Error | null) => {
+  failedQueue.forEach((promise) => {
+    if (error) {
+      promise.reject(error);
+    } else {
+      promise.resolve();
+    }
+  });
+  failedQueue = [];
+};
+
 api.interceptors.response.use(
   (response) => {
     removePendingRequest(response.config as RequestConfigWithId);
     return response;
   },
   async (error: AxiosError<{ message?: string }>) => {
-    removePendingRequest(error.config as RequestConfigWithId | undefined);
+    const originalRequest = error.config as RequestConfigWithId & { _retry?: boolean };
+    removePendingRequest(originalRequest);
 
     // Preserve original message, but expose a user-friendly message separately
     const extendedError = error as ExtendedAxiosError<{ message?: string }>;
@@ -66,18 +84,51 @@ api.interceptors.response.use(
       (extendedError.code === 'ECONNABORTED' ? 'The request timed out. Please check your connection and try again.' : undefined) ||
       undefined;
 
-    if (typeof window !== 'undefined' && extendedError.response?.status === 401) {
-      if (localStorage.getItem('wasLoggedIn') === 'true') {
+    const requestUrl = originalRequest?.url || '';
+    const isAuthRoute = requestUrl.includes('/auth/login') ||
+                        requestUrl.includes('/auth/register') ||
+                        requestUrl.includes('/auth/refresh');
+
+    if (typeof window !== 'undefined' && extendedError.response?.status === 401 && !isAuthRoute) {
+      if (!originalRequest._retry) {
+        if (isRefreshing) {
+          return new Promise((resolve, reject) => {
+            failedQueue.push({ resolve, reject });
+          })
+            .then(() => api(originalRequest))
+            .catch((err) => Promise.reject(err));
+        }
+
+        originalRequest._retry = true;
+        isRefreshing = true;
+
+        try {
+          await api.post('/auth/refresh');
+          processQueue(null);
+          return api(originalRequest);
+        } catch (refreshError) {
+          processQueue(refreshError as Error);
+          if (localStorage.getItem('wasLoggedIn') === 'true') {
+            localStorage.setItem('showSessionExpiredToast', 'true');
+            localStorage.removeItem('wasLoggedIn');
+          }
+          cancelPendingRequests();
+          try { window.dispatchEvent(new CustomEvent('auth:unauthorized')); } catch {
+            /* ignore */
+          }
+          window.location.href = '/login';
+          return Promise.reject(refreshError);
+        } finally {
+          isRefreshing = false;
+        }
+      }
+    }
+
+    if (typeof window !== 'undefined' && extendedError.response?.status === 401 && isAuthRoute) {
+      if (localStorage.getItem('wasLoggedIn') === 'true' && !requestUrl.includes('/auth/login')) {
         localStorage.setItem('showSessionExpiredToast', 'true');
         localStorage.removeItem('wasLoggedIn');
       }
-
-      // TODO: [SECURITY] For better UX, implement refresh-token rotation with HTTP-only cookies and Redis blacklisting in the future.
-      cancelPendingRequests();
-      try { window.dispatchEvent(new CustomEvent('auth:unauthorized')); } catch {
-        /* ignore */
-      }
-      window.location.href = '/login';
     }
 
     // Keep original error intact for logging and debugging

@@ -50,7 +50,7 @@ export const useAuth = () => {
       return false;
     },
     staleTime: 5 * 60 * 1000,
-    refetchInterval: 15 * 60 * 1000,
+    refetchInterval: 10 * 60 * 1000,
   });
 };
 
