@@ -12,7 +12,9 @@ export default function SentryExamplePage() {
         </p>
         <button
           onClick={() => {
-            throw new Error('Sentry Frontend Production Verification Test Error');
+            const err = new Error('Sentry Frontend Production Verification Test Error');
+            Sentry.captureException(err);
+            throw err;
           }}
           className="w-full px-6 py-3 bg-error text-white font-medium rounded-xl hover:bg-error/90 transition-all shadow-lg shadow-error/20"
         >
