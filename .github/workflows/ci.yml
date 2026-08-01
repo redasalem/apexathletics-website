@@ -1,0 +1,43 @@
+name: Frontend CI Workflow
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_API_URL: https://apexathletics-apis.vercel.app/api
+      NEXT_PUBLIC_SITE_URL: https://apexathletics-website.vercel.app
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Lint check
+        run: pnpm run lint
+
+      - name: TypeScript typecheck
+        run: pnpm run type-check
+
+      - name: Run Frontend Tests
+        run: pnpm run test
+
+      - name: Build Next.js app
+        run: pnpm run build
