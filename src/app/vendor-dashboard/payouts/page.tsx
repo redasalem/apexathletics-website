@@ -1,14 +1,26 @@
 'use client';
 
+import { useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useVendorPayoutStatus, useVendorOnboarding, useVendorEarnings, useVendorTransfers } from '@/hooks/useVendorConnect';
 import { CreditCard, CheckCircle2, AlertCircle, Loader2, ArrowRight, Wallet, ExternalLink } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function VendorPayoutsPage() {
-  const { data: status, isLoading: isStatusLoading } = useVendorPayoutStatus();
+  const searchParams = useSearchParams();
+  const { data: status, isLoading: isStatusLoading, refetch } = useVendorPayoutStatus();
   const { data: earnings } = useVendorEarnings();
   const { data: transfers } = useVendorTransfers();
   const onboardMutation = useVendorOnboarding();
+
+  useEffect(() => {
+    if (searchParams.get('success') === 'true') {
+      toast.success('Stripe Express account connected successfully!');
+      refetch();
+    } else if (searchParams.get('refresh') === 'true') {
+      toast.error('Onboarding incomplete. Please try again.');
+    }
+  }, [searchParams, refetch]);
 
   const handleOnboard = () => {
     onboardMutation.mutate(undefined, {
