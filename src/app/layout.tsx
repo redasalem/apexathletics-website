@@ -4,6 +4,7 @@ import './globals.css';
 import Providers from './providers';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { getSiteUrl } from '@/lib/config';
 
 const albert = Albert_Sans({ subsets: ['latin'], variable: '--font-albert' });
 const alumniPinstripe = Alumni_Sans_Pinstripe({ weight: '400', subsets: ['latin'], variable: '--font-alumni' });
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
     template: '%s | Apex Athletics',
   },
   description: 'Premium multi-vendor sports marketplace connecting athletes with the best performance gear from independent vendors.',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://apexathletics.vercel.app'),
+  metadataBase: new URL(getSiteUrl()),
   openGraph: {
     type: 'website',
     siteName: 'Apex Athletics',
@@ -38,7 +39,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <head>
         <link rel="preconnect" href="https://res.cloudinary.com" />
-        <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https:; frame-src https://checkout.stripe.com https://js.stripe.com;" />
+        <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://js.stripe.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https:; frame-src https://checkout.stripe.com https://js.stripe.com;" />
       </head>
       <body className={`${albert.variable} ${alumniPinstripe.variable} ${alumniSolid.variable} font-sans bg-lacquer-black text-champagne min-h-screen flex flex-col`}>
         <Providers>
@@ -53,8 +54,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "Apex Athletics",
-              "url": "https://apexathletics.com",
-              "logo": "https://apexathletics.com/logo.png",
+              "url": getSiteUrl(),
+              "logo": `${getSiteUrl()}/images/sports-equipment.jpg`,
               "sameAs": [
                 "https://twitter.com/apexathletics",
                 "https://instagram.com/apexathletics"

@@ -9,8 +9,9 @@ const ReviewList = dynamic(() => import('@/components/reviews/ReviewList'));
 const ReviewForm = dynamic(() => import('@/components/reviews/ReviewForm'), { ssr: false });
 import AddToCartForm from '@/components/AddToCartForm';
 import { notFound } from 'next/navigation';
+import { getServerApiUrl, getSiteUrl } from '@/lib/config';
 
-const API = () => process.env.NEXT_PUBLIC_API_URL || 'https://apexathletics-apis.vercel.app/api';
+const API = getServerApiUrl;
 
 async function getProduct(id: string) {
   try {
@@ -34,7 +35,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   const product = await getProduct(params.id);
   if (!product) return { title: 'Product Not Found' };
   
-  const url = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://apexathletics.com'}/product/${product._id}`;
+  const url = `${getSiteUrl()}/product/${product._id}`;
 
   return {
     title: `${product.title} - Impeccable Athletics`,
@@ -91,7 +92,7 @@ export default async function ProductDetailsPage({ params }: { params: { id: str
     sku: product.sku || product._id,
     offers: {
       '@type': 'Offer',
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/product/${product._id}`,
+      url: `${getSiteUrl()}/product/${product._id}`,
       priceCurrency: 'USD',
       price: product.discountPrice || product.price,
       itemCondition: 'https://schema.org/NewCondition',
@@ -118,25 +119,25 @@ export default async function ProductDetailsPage({ params }: { params: { id: str
         '@type': 'ListItem',
         'position': 1,
         'name': 'Home',
-        'item': `${process.env.NEXT_PUBLIC_SITE_URL}`
+        'item': `${getSiteUrl()}`
       },
       {
         '@type': 'ListItem',
         'position': 2,
         'name': 'Shop',
-        'item': `${process.env.NEXT_PUBLIC_SITE_URL}/shop`
+        'item': `${getSiteUrl()}/shop`
       },
       {
         '@type': 'ListItem',
         'position': 3,
         'name': product.category,
-        'item': `${process.env.NEXT_PUBLIC_SITE_URL}/shop?category=${encodeURIComponent(product.category)}`
+        'item': `${getSiteUrl()}/shop?category=${encodeURIComponent(product.category)}`
       },
       {
         '@type': 'ListItem',
         'position': 4,
         'name': product.title,
-        'item': `${process.env.NEXT_PUBLIC_SITE_URL}/product/${product._id}`
+        'item': `${getSiteUrl()}/product/${product._id}`
       }
     ]
   };

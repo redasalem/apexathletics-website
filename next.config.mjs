@@ -15,7 +15,17 @@ if (process.env.NODE_ENV === 'production') {
 import { withSentryConfig } from '@sentry/nextjs';
 
 /** @type {import('next').NextConfig} */
+const backendApiBase = (process.env.BACKEND_API_URL || 'https://apexathletics-apis.vercel.app/api').replace(/\/+$/, '');
+
 const nextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: `${backendApiBase}/:path*`,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {

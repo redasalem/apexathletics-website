@@ -4,8 +4,9 @@ import { getCategoryImage } from '@/utils/images';
 import ProductCard from '@/components/ProductCard';
 import OptimizedImage from '@/components/OptimizedImage';
 import { Product } from '@/hooks/useProducts';
+import { getServerApiUrl } from '@/lib/config';
 
-const API = () => process.env.NEXT_PUBLIC_API_URL || 'https://apexathletics-apis.vercel.app/api';
+const API = getServerApiUrl;
 
 async function getCategories() {
   try {

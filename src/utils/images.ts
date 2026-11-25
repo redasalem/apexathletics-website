@@ -43,6 +43,11 @@ export const getOptimizedImageUrl = (url: string, width?: number, quality = 80):
     return url;
   }
 
+  // Remap known dead upstream Unsplash stock URLs to reliable local assets
+  if (url.includes('photo-1526506114631-0d3663bc6403')) {
+    return '/images/sports-equipment.jpg';
+  }
+
   // External URLs (Unsplash, etc.) — return as-is
   if (url.startsWith('http') || url.startsWith('https')) {
     return url;

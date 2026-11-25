@@ -93,8 +93,10 @@ function LoginContent() {
         <div className="bg-raised-lacquer border border-gold-hairline py-10 px-6 sm:rounded-[4px] sm:px-10 shadow-panel">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <div>
-              <label className="label">Email address</label>
+              <label htmlFor="email" className="label">Email address</label>
                 <input
+                  id="email"
+                  autoComplete="email"
                   {...register('email')}
                   type="email"
                   className="input-field"
@@ -104,9 +106,11 @@ function LoginContent() {
             </div>
 
             <div>
-              <label className="label">Password</label>
+              <label htmlFor="password" className="label">Password</label>
               <div className="relative">
                 <input
+                  id="password"
+                  autoComplete="current-password"
                   {...register('password')}
                   type={showPassword ? 'text' : 'password'}
                   className="input-field pr-12"
@@ -114,6 +118,7 @@ function LoginContent() {
                 />
                 <button
                   type="button"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute inset-y-0 right-0 flex items-center pr-4 text-text-muted hover:text-champagne transition-colors"
                 >

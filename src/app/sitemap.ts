@@ -1,15 +1,15 @@
 import { MetadataRoute } from 'next';
+import { getSiteUrl, getServerApiUrl } from '@/lib/config';
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://apexathletics.vercel.app';
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://apexathletics-apis.vercel.app/api';
+const BASE_URL = getSiteUrl();
+const API_URL = getServerApiUrl();
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [
     { url: BASE_URL, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
     { url: `${BASE_URL}/shop`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
-    { url: `${BASE_URL}/login`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.3 },
-    { url: `${BASE_URL}/register`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.3 },
+    { url: `${BASE_URL}/vendors`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
   ];
 
   // Dynamic product pages

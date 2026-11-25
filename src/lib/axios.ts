@@ -85,9 +85,13 @@ api.interceptors.response.use(
       undefined;
 
     const requestUrl = originalRequest?.url || '';
+    const wasLoggedIn = typeof window !== 'undefined' && localStorage.getItem('wasLoggedIn') === 'true';
+    const isAuthMe = requestUrl.includes('/auth/me');
     const isAuthRoute = requestUrl.includes('/auth/login') ||
                         requestUrl.includes('/auth/register') ||
-                        requestUrl.includes('/auth/refresh');
+                        requestUrl.includes('/auth/refresh') ||
+                        requestUrl.includes('/auth/logout') ||
+                        (isAuthMe && !wasLoggedIn);
 
     if (typeof window !== 'undefined' && extendedError.response?.status === 401 && !isAuthRoute) {
       if (!originalRequest._retry) {
@@ -108,7 +112,7 @@ api.interceptors.response.use(
           return api(originalRequest);
         } catch (refreshError) {
           processQueue(refreshError as Error);
-          if (localStorage.getItem('wasLoggedIn') === 'true') {
+          if (wasLoggedIn) {
             localStorage.setItem('showSessionExpiredToast', 'true');
             localStorage.removeItem('wasLoggedIn');
           }
@@ -116,7 +120,10 @@ api.interceptors.response.use(
           try { window.dispatchEvent(new CustomEvent('auth:unauthorized')); } catch {
             /* ignore */
           }
-          window.location.href = '/login';
+          const currentPath = window.location.pathname;
+          if (!isAuthMe && currentPath !== '/login' && currentPath !== '/register') {
+            window.location.href = '/login';
+          }
           return Promise.reject(refreshError);
         } finally {
           isRefreshing = false;

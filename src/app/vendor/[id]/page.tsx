@@ -4,8 +4,9 @@ import { format } from 'date-fns';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { Product } from '@/hooks/useProducts';
+import { getServerApiUrl } from '@/lib/config';
 
-const API = () => process.env.NEXT_PUBLIC_API_URL || 'https://apexathletics-apis.vercel.app/api';
+const API = getServerApiUrl;
 
 async function getVendor(id: string) {
   try {
